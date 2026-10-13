@@ -13,10 +13,10 @@
 // fine for building and piloting on your own machine.
 
 window.FIREBASE_CONFIG = {
-  apiKey: "PASTE_ME",
-  authDomain: "PASTE_ME.firebaseapp.com",
-  projectId: "PASTE_ME",
-  storageBucket: "PASTE_ME.firebasestorage.app",
-  messagingSenderId: "PASTE_ME",
-  appId: "PASTE_ME",
+  apiKey: "AIzaSyDMGt4MczU8jWJR4WPoOlqJgjFLy2KLHZE",
+  authDomain: "osborne2026-replication.firebaseapp.com",
+  projectId: "osborne2026-replication",
+  storageBucket: "osborne2026-replication.firebasestorage.app",
+  messagingSenderId: "368366441120",
+  appId: "1:368366441120:web:d6911c10644cd6db02efc5"
 };

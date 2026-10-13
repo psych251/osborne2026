@@ -1,0 +1,4 @@
+- source: replication-report.qmd
+  posit-connect-cloud:
+    - id: 01a103b8-6b12-75d4-400c-5a33db4cd95a
+      url: https://connect.posit.cloud/moraleslealandrea-dot/content/01a103b8-6b12-75d4-400c-5a33db4cd95a
