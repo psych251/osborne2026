@@ -188,13 +188,12 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
     type: jsPsychInstructions,
     pages: [
       `<h2>Welcome!</h2>
-       <p>Dear participant, thank you very much for taking part in this study!</p>
+       <p>Dear participant,</p>
+       <p>Thank you very much for participating in this study</p>
        <p>The aim of this study is to understand how people respond to social media content about health. We appreciate your time and help with this study.</p>
        <p>The study will take about 10 minutes.</p>
        <p>Click Next to read the instructions.</p>`,
       `<h2>Instructions</h2>
-       <p>Dear participant,</p>
-       <p>Thank you very much for participating in this study</p>
        <p>First, you will answer a few questions about yourself.</p>
        <p>Then you will see four social media posts about menopause posted on World Menopause Day last year. All four posts will appear together on one page. Please read all of them carefully. The Continue button will unlock after 60 seconds.</p>
        <p>After the posts, you will answer some more questions. There are no right or wrong answers. Please answer based on your own reaction.</p>`,
