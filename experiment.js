@@ -195,7 +195,7 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
        <p>Click Next to read the instructions.</p>`,
       `<h2>Instructions</h2>
        <p>First, you will answer a few questions about yourself.</p>
-       <p>Then you will see four social media posts about menopause posted on World Menopause Day last year. All four posts will appear together on one page. Please read all of them carefully. The Continue button will unlock after 60 seconds.</p>
+       <p>Then you will see four social media posts about menopause posted on World Menopause Day last year. All four posts will appear together on one page. Please read all of them carefully. <strong>The Continue button will unlock after 60 seconds.</strong></p>
        <p>After the posts, you will answer some more questions. There are no right or wrong answers. Please answer based on your own reaction.</p>`,
     ],
     show_clickable_nav: true,
