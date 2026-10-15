@@ -60,3 +60,6 @@ identifiers.csv
 
 # agent worktrees
 .claude/worktrees/
+
+# local backups made while editing
+*.bak

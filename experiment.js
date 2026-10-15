@@ -25,7 +25,7 @@ window.TEMPLATE_VERSION = "0.1.0";
 const EXPERIMENT = {
   // Firestore path: experiments/<id>/participants/... Change it when you start a new study
   // so pilot data and real data never mix (e.g. "smith2016-pilot-a", "smith2016-final").
-  id: "framing-demo",
+  id: "osborne2026-pilot-a",
 
   // Trials per Firestore write. 1 = save every trial the moment it finishes (dropouts leave
   // partial data). The free tier allows 20,000 writes/day: with 200 participants x 100 trials
@@ -41,13 +41,13 @@ const EXPERIMENT = {
   prolific_completion_code: "",
 
   // Contact shown in consent and debrief.
-  contact_email: "stanfordpsych251@gmail.com",
+  contact_email: "andreaml@stanford.edu",
 
   // Does this study need a physical keyboard? The demo does (the word task uses F and J).
   // On a phone or tablet no keyboard appears, so a participant cannot answer those trials;
   // they would time out silently and the session would still look complete. When true, such
   // devices are turned away before consent. Set to false if your study is buttons/touch only.
-  requires_keyboard: true,
+  requires_keyboard: false,
 };
 
 // True on anything with a mouse, trackpad, or stylus, including laptops with touchscreens.
@@ -63,6 +63,9 @@ const URL_PARAMS = new URLSearchParams(window.location.search);
 const USE_EMULATOR = URL_PARAMS.get("emulator") === "1";
 // `?chunk_size=N` overrides the setting above; used by the test suite to exercise chunked writes.
 const CHUNK_SIZE = Number(URL_PARAMS.get("chunk_size")) || EXPERIMENT.chunk_size;
+// How long each social media post must stay on screen before Continue works (original study: 60 s).
+// Test runs (`npm test`, which use the emulator) skip the wait so the robot does not take minutes.
+const POST_WAIT_MS = USE_EMULATOR ? 0 : 60000;
 // Test-only: `?cc=CODE` sets a Prolific completion code during emulator runs, so the test
 // suite can check the screen a participant sees once you have set yours. Ignored in live runs.
 if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = URL_PARAMS.get("cc");
@@ -146,7 +149,7 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
   // Random assignment to a between-subjects condition, recorded on every trial and on the
   // participant document. (For exact counterbalancing you would need a server; random
   // assignment is fine at course sample sizes.)
-  const condition = jsPsych.randomization.sampleWithoutReplacement(["gain", "loss"], 1)[0];
+  const condition = jsPsych.randomization.sampleWithoutReplacement(["normal", "distress", "transformative"], 1)[0];
   jsPsych.data.addProperties({ condition: condition });
   saver.updateParticipant({ condition: condition });
 
@@ -184,19 +187,30 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
   const instructions = {
     type: jsPsychInstructions,
     pages: [
-      `<h2>Welcome</h2>
-       <p>This short study has three parts: a few questions about you, one decision problem,
-       and a quick word task. It takes about three minutes.</p>`,
-      `<p>Please complete the study in one sitting, in a quiet place, on a laptop or desktop
-       computer. Use the buttons or the arrow keys to move between pages.</p>`,
+      `<h2>Welcome!</h2>
+       <p>Dear participant, thank you very much for taking part in this study!</p>
+       <p>The aim of this study is to understand how people respond to social media content about health. We appreciate your time and help with this study.</p>
+       <p>The study will take about 10 minutes.</p>
+       <p>Click Next to read the instructions.</p>`,
+      `<h2>Instructions</h2>
+       <p>Dear participant,</p>
+       <p>Thank you very much for participating in this study</p>
+       <p>First, you will answer a few questions about yourself.</p>
+       <p>Then you will see four social media posts about menopause posted on World Menopause Day last year. All four posts will appear together on one page. Please read all of them carefully. The Continue button will unlock after 60 seconds.</p>
+       <p>After the posts, you will answer some more questions. There are no right or wrong answers. Please answer based on your own reaction.</p>`,
     ],
     show_clickable_nav: true,
     data: { task: "instructions" },
   };
 
   // -------------------------------------------------------------------------
-  // 3. Demographics (survey plugin: one page, several question types)
+  // 3. Screening question and demographics (survey plugin: one page, several question types)
   // -------------------------------------------------------------------------
+  // Question wording and answer options follow the original Qualtrics survey (sent by the authors).
+  // As in the original survey, these questions are required (isRequired / required: true). Only the two
+  // extra pages from the course template at the end (clarity rating and comments) stay optional.
+  // `visibleIf` shows a question only when the condition about an earlier answer is true.
+  const agree5 = ["Strongly disagree", "Somewhat disagree", "Neither agree nor disagree", "Somewhat agree", "Strongly agree"];
   const demographics = {
     type: jsPsychSurvey,
     survey_json: {
@@ -205,13 +219,43 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
       pages: [
         {
           elements: [
-            // The consent text promises participants may decline any question, so nothing here is required.
-            { type: "text", name: "age", title: "How old are you?", inputType: "number", min: 18, max: 120 },
             {
-              type: "radiogroup", name: "gender", title: "What is your gender?",
-              choices: ["Woman", "Man", "Non-binary"], showOtherItem: true, showNoneItem: true, noneText: "Prefer not to say",
+              type: "radiogroup", isRequired: true, name: "menopause_stage",
+              title: "Which of the following stages do you think best describes you?",
+              choices: [
+                { value: "peri", text: "Perimenopause - experiencing symptoms such as hot flushes, brain fog, joint pain, changes in periods" },
+                { value: "post", text: "Post menopause - not had a period for 1 year or more" },
+                { value: "not", text: "Not going through the menopause" },
+              ],
             },
-            { type: "boolean", name: "native_english", title: "Is English your first language?", labelTrue: "Yes", labelFalse: "No" },
+            { type: "text", isRequired: true, name: "age", title: "What is your age? Please enter your age in number of years.", inputType: "number", min: 18, max: 120 },
+            {
+              type: "text", isRequired: true, name: "education_years", inputType: "number", min: 0, max: 30,
+              title: "How many years of formal education have you received after turning 16? This may include attending sixth-form college, institutes of further and higher education both in the UK and abroad, and pursuing professional qualifications. Please provide the number of years as a digit.",
+            },
+            {
+              type: "radiogroup", isRequired: true, name: "knowledge", title: "How knowledgeable do you feel you are about menopause?",
+              choices: ["Not knowledgeable at all", "Slightly knowledgeable", "Moderately knowledgeable", "Very knowledgeable", "Extremely knowledgeable"],
+            },
+            {
+              type: "radiogroup", isRequired: true, name: "hrt", title: "Do you have any history of Hormone Replacement Therapy (HRT) to treat any symptoms of menopause?",
+              choices: ["Yes, I am currently taking HRT", "Yes, I have previously taken HRT, but I am not currently", "No, I have never nor am I currently taking HRT"],
+            },
+            {
+              type: "radiogroup", isRequired: true, name: "feeling_peri", visibleIf: "{menopause_stage} = 'peri'",
+              title: "How do you feel about perimenopause / menopause?",
+              choices: ["Looking forward to it", "Accepting of it", "Neutral - no strong view either way", "Dreading it", "Not sure"],
+            },
+            {
+              type: "radiogroup", isRequired: true, name: "feeling_post", visibleIf: "{menopause_stage} = 'post'",
+              title: "Now you have been through the menopause, how do you feel about it?",
+              choices: ["It was very difficult", "It was difficult", "Neutral - no strong views either way", "It was fine", "Not sure"],
+            },
+            {
+              type: "radiogroup", isRequired: true, name: "social_media_use",
+              title: "How much time do you spend on social media platforms (e.g., Facebook, Instagram, Twitter (X))?",
+              choices: ["Never", "Less than weekly", "Weekly", "Daily", "Several times per day"],
+            },
           ],
         },
       ],
@@ -220,87 +264,99 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
   };
 
   // -------------------------------------------------------------------------
-  // 4. Framing problem (between-subjects: gain vs loss frame)
+  // 4. Social media posts (between-subjects: normal vs distress vs transformative)
   // -------------------------------------------------------------------------
-  const framingText = {
-    gain: {
-      a: "If Program A is adopted, 200 people will be saved.",
-      b: "If Program B is adopted, there is a one-third probability that 600 people will be saved, and a two-thirds probability that no people will be saved.",
-    },
-    loss: {
-      a: "If Program A is adopted, 400 people will die.",
-      b: "If Program B is adopted, there is a one-third probability that nobody will die, and a two-thirds probability that 600 people will die.",
-    },
-  };
-  const framing = {
+  // The 12 original posts (4 per condition) are screenshots supplied by the authors; they are
+  // in the images/ folder as normal_1.jpg ... transformative_4.jpg. In the authors' survey the
+  // 4 posts of a condition appear together on one page, so they appear together here too.
+  // The Continue button stays disabled for POST_WAIT_MS (60 seconds), as in the original study.
+  const postImages = [1, 2, 3, 4].map((n) => `images/${condition}_${n}.jpg`);
+  const postsPage = {
     type: jsPsychHtmlButtonResponse,
-    stimulus: () => `
-      <div class="framing">
-        <p>Imagine that the country is preparing for the outbreak of an unusual disease, which is
-        expected to kill 600 people. Two alternative programs to combat the disease have been
-        proposed. Assume that the exact scientific estimates of the consequences of the programs
-        are as follows:</p>
-        <ul class="programs">
-          <li>${framingText[condition].a}</li>
-          <li>${framingText[condition].b}</li>
-        </ul>
-        <p>Which of the two programs would you favor?</p>
-      </div>`,
-    choices: ["Program A", "Program B"],
-    data: { task: "framing" },
-    on_finish: (data) => {
-      // Program A is the certain option in both frames; B is the risky gamble.
-      data.choice = data.response === 0 ? "certain" : "risky";
-    },
+    stimulus:
+      `<div class="post"><p>Please read the following social media posts that were posted on World Menopause Day last year.</p>` +
+      postImages.map((src) => `<p><img src="${src}" alt="A social media post about menopause" style="max-width:100%;height:auto;border:1px solid #ddd;"></p>`).join("") +
+      `</div>`,
+    choices: ["Continue"],
+    enable_button_after: POST_WAIT_MS,
+    data: { task: "posts", post_images: postImages.join(",") },
   };
 
   // -------------------------------------------------------------------------
-  // 5. Lexical decision (short RT block with trial-level logging)
+  // 5. Ratings (wording and scale labels follow the authors' Qualtrics survey)
   // -------------------------------------------------------------------------
-  const ldInstructions = {
-    type: jsPsychInstructions,
-    pages: [
-      `<h2>Word task</h2>
-       <p>You will see a string of letters. Press <strong>F</strong> if it is a real English word
-       and <strong>J</strong> if it is not. Respond as quickly and accurately as you can.
-       Place your fingers on F and J now.</p>`,
-    ],
-    show_clickable_nav: true,
-    data: { task: "instructions" },
+  // jsPsych's Likert plugin stores answers as 0 to 4 (add 1 in the analysis to get 1 to 5).
+  const feel5 = ["Definitely don't feel", "Probably don't feel", "Neither true nor false", "Probably feel", "Definitely feel"];
+  const likely5 = ["Extremely unlikely", "Somewhat unlikely", "Neither likely nor unlikely", "Somewhat likely", "Extremely likely"];
+  // Turns a list of [name, prompt] pairs into the question objects the Likert plugin wants.
+  const likertQuestions = (items, labels) =>
+    items.map(([name, prompt]) => ({ prompt: prompt, name: name, labels: labels, required: true }));
+
+  const ratingsAgree = {
+    type: jsPsychSurveyLikert,
+    preamble: "<p>After reading the social media posts about menopause, to what extent do you agree with the following statements:</p>",
+    questions: likertQuestions([
+      ["liked", "I liked the posts"],
+      ["credible", "I found the posts credible"],
+      ["trust", "I trust the post"],
+      ["empowered", "I feel empowered about menopause"],
+      ["knowledgeable", "I feel more knowledgeable about menopause"],
+    ], agree5),
+    data: { task: "ratings_agree" },
   };
-  const ldItems = [
-    { word: "TABLE", is_word: true }, { word: "GARDEN", is_word: true },
-    { word: "PLANET", is_word: true }, { word: "SILVER", is_word: true },
-    { word: "FLIRP", is_word: false }, { word: "MANTOR", is_word: false },
-    { word: "BRENDLE", is_word: false }, { word: "TOSKIN", is_word: false },
-  ];
-  const fixation = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: '<div class="fixation">+</div>',
-    choices: "NO_KEYS",
-    trial_duration: 500,
-    data: { task: "fixation" },
+  const ratingsFeel = {
+    type: jsPsychSurveyLikert,
+    preamble: "<p>After reading the menopause posts, to what extent do you feel the following?</p>",
+    questions: likertQuestions([
+      ["worried", "Worried"],
+      ["reassured", "Reassured"],
+      ["confused", "Confused"],
+      ["in_control", "In control"],
+      ["optimistic", "Optimistic"],
+      ["anxious", "Anxious"],
+    ], feel5),
+    data: { task: "ratings_feel" },
   };
-  const ldTrial = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: () => `<div class="stimulus">${jsPsych.evaluateTimelineVariable("word")}</div>`,
-    choices: ["f", "j"],
-    trial_duration: 3000,
-    data: {
-      task: "lexical_decision",
-      word: jsPsych.timelineVariable("word"),
-      is_word: jsPsych.timelineVariable("is_word"),
+  const ratingsAction = {
+    type: jsPsychSurveyLikert,
+    preamble: "<p>After reading the menopause posts, how likely would you be to take the following action?</p>",
+    questions: likertQuestions([
+      ["like", "'Like' the post"],
+      ["share", "Share the post"],
+      ["save", "Save / bookmark / screenshot the post"],
+      ["comment", "Comment on the post"],
+      ["search_similar", "Search for other similar posts and messages"],
+    ], likely5),
+    data: { task: "ratings_action" },
+  };
+  const ratingsDiscuss = {
+    type: jsPsychSurveyLikert,
+    preamble: "<p>How likely would you be to discuss the social media posts with the following?</p>",
+    questions: likertQuestions([
+      ["discuss_friends_family", "Friends and family"],
+      ["discuss_health_professional", "A health professional"],
+    ], likely5),
+    data: { task: "ratings_discuss" },
+  };
+  // Last questions about the posts (one page of pick-one questions).
+  const messaging = {
+    type: jsPsychSurvey,
+    survey_json: {
+      showQuestionNumbers: "off",
+      completeText: "Continue",
+      pages: [
+        {
+          elements: [
+            { type: "radiogroup", isRequired: true, name: "message_type", title: "After reading the social media posts, what kind of messaging do they convey about menopause?", choices: ["Positive", "Neutral", "Negative"] },
+            { type: "radiogroup", isRequired: true, name: "fit_own_views", title: "To what extent does this fit with your own views, attitudes, or experience of menopause?", choices: agree5 },
+            { type: "radiogroup", isRequired: true, name: "rep_social_media", title: "To what extent do you think the posts are representative of posts about menopause on social media?", choices: agree5 },
+            { type: "radiogroup", isRequired: true, name: "rep_media", title: "To what extent do you think the posts are representative of posts about menopause in the media (newspaper, television)?", choices: agree5 },
+            { type: "radiogroup", isRequired: true, name: "rep_health_professionals", title: "To what extent do you think the posts are representative of health professionals' views?", choices: agree5 },
+          ],
+        },
+      ],
     },
-    on_finish: (data) => {
-      const expected = data.is_word ? "f" : "j";
-      data.correct = data.response === expected;
-      data.timed_out = data.response === null;
-    },
-  };
-  const lexicalDecision = {
-    timeline: [fixation, ldTrial],
-    timeline_variables: ldItems,
-    randomize_order: true,
+    data: { task: "messaging" },
   };
 
   // -------------------------------------------------------------------------
@@ -329,11 +385,12 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
     type: jsPsychHtmlButtonResponse,
     stimulus: `
       <h2>Debrief</h2>
-      <p>Thank you. In this study we tested whether describing the same outcomes as lives saved or
-      as lives lost changes which program people choose. Different participants saw different
-      wordings. If you have questions about this research, contact
-      <a href="mailto:${EXPERIMENT.contact_email}">${EXPERIMENT.contact_email}</a>.
-      Press the button to save your responses and finish.</p>`,
+      <p>Thank you very much for participating in this study!</p>
+      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>
+      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>
+      <p>Your responses are anonymous.</p>
+      <p>If you have questions, please contact <a href="mailto:${EXPERIMENT.contact_email}">${EXPERIMENT.contact_email}</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>
+      <p>Press the button to save your responses and finish.</p>`,
     choices: ["Finish"],
     data: { task: "debrief" },
   };
@@ -342,9 +399,12 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
     consent,
     instructions,
     demographics,
-    framing,
-    ldInstructions,
-    lexicalDecision,
+    postsPage,
+    ratingsAgree,
+    ratingsFeel,
+    ratingsAction,
+    ratingsDiscuss,
+    messaging,
     feedback,
     comments,
     debrief,

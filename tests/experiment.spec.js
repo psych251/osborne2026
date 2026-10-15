@@ -14,38 +14,53 @@ const { test, expect, devices } = require("@playwright/test");
 
 const EMULATOR = process.env.EMULATOR === "1" || !!process.env.FIRESTORE_EMULATOR_HOST;
 const PROJECT = "demo-psych251";
-const EXPERIMENT_ID = "framing-demo";
+const EXPERIMENT_ID = "osborne2026-pilot-a";
 const FS = `http://localhost:8080/v1/projects/${PROJECT}/databases/(default)/documents`;
 
-async function runThroughExperiment(page) {
+async function runUpToDebrief(page) {
   // 1. consent
   await page.getByRole("button", { name: "I agree to participate" }).click();
   // 2. instructions (two pages)
   await page.locator("#jspsych-instructions-next").click();
   await page.locator("#jspsych-instructions-next").click();
-  // 3. demographics (SurveyJS)
-  await page.locator('input[type="number"]').fill("34");
-  await page.getByText("Woman", { exact: true }).click();
-  // SurveyJS boolean switches render "Yes" twice once toggled; scope to the question.
-  await page.locator('[data-name="native_english"]').getByText("Yes", { exact: true }).first().click();
+  // 3. demographics (SurveyJS): stage, age, education years, knowledge, HRT, feeling, social media use
+  await page.locator('[data-name="menopause_stage"]').getByText("Post menopause - not had a period", { exact: false }).click();
+  await page.locator('[data-name="age"] input').fill("34");
+  await page.locator('[data-name="education_years"] input').fill("4");
+  await page.locator('[data-name="knowledge"]').getByText("Moderately knowledgeable", { exact: true }).click();
+  await page.locator('[data-name="hrt"]').getByText("No, I have never", { exact: false }).click();
+  await page.locator('[data-name="feeling_post"]').getByText("It was fine", { exact: true }).click();
+  await page.locator('[data-name="social_media_use"]').getByText("Daily", { exact: true }).click();
   await page.locator('input[value="Continue"]').click();
-  // 4. framing
-  await page.getByRole("button", { name: "Program A" }).click();
-  // 5. lexical decision: one instructions page, then 8 trials
-  await page.locator("#jspsych-instructions-next").click();
-  for (let i = 0; i < 8; i++) {
-    const stim = page.locator(".stimulus");
-    await stim.waitFor({ state: "visible" });
-    const word = (await stim.textContent()).trim();
-    const realWords = ["TABLE", "GARDEN", "PLANET", "SILVER"];
-    await page.keyboard.press(realWords.includes(word) ? "f" : "j");
-    await stim.waitFor({ state: "detached" });
+  // 4. the 4 posts together on one page (the 60 s wait is skipped in emulator/test runs)
+  await expect(page.getByText("Please read the following social media posts")).toBeVisible();
+  await expect(page.locator(".post img")).toHaveCount(4);
+  await page.getByRole("button", { name: "Continue" }).click();
+  // 5. four rating pages (answer "4th option" on every item), then the messaging page
+  const likertPage = async (text, n) => {
+    await expect(page.getByText(text)).toBeVisible();
+    for (let q = 0; q < n; q++) await page.locator(`input[name="Q${q}"][value="3"]`).check();
+    await page.locator("#jspsych-survey-likert-next").click();
+  };
+  await likertPage("to what extent do you agree", 5);
+  await likertPage("to what extent do you feel the following", 6);
+  await likertPage("how likely would you be to take the following action", 5);
+  await likertPage("how likely would you be to discuss", 2);
+  await page.locator('[data-name="message_type"]').getByText("Positive", { exact: true }).click();
+  for (const q of ["fit_own_views", "rep_social_media", "rep_media", "rep_health_professionals"]) {
+    await page.locator(`[data-name="${q}"]`).getByText("Neither agree nor disagree", { exact: true }).click();
   }
+  await page.locator('input[value="Continue"]').click();
   // 6. feedback
+  await expect(page.getByText("How clear were the instructions?")).toBeVisible();
   await page.locator('input[name="Q0"][value="4"]').check();
   await page.locator("#jspsych-survey-likert-next").click();
   await page.locator("textarea").fill("Robot participant says hi.");
   await page.locator("#jspsych-survey-text-next").click();
+}
+
+async function runThroughExperiment(page) {
+  await runUpToDebrief(page);
   // 7. debrief
   await page.getByRole("button", { name: "Finish" }).click();
   await expect(page.getByText("All done")).toBeVisible({ timeout: 30000 });
@@ -109,7 +124,7 @@ test.describe("experiment", () => {
     expect(p.status).toBe(200);
     const pdoc = decodeFields(p.body.fields);
     expect(pdoc.completed).toBe(true);
-    expect(["gain", "loss"]).toContain(pdoc.condition);
+    expect(["normal", "distress", "transformative"]).toContain(pdoc.condition);
     expect(pdoc.prolific_pid).toBe("robot123");
     expect(pdoc.n_trials).toBeGreaterThan(10);
     expect(typeof pdoc.full_data).toBe("string");
@@ -122,12 +137,16 @@ test.describe("experiment", () => {
     const docs = (chunks.body.documents || []).map((d) => decodeFields(d.fields));
     expect(docs.length).toBe(pdoc.n_trials);
     const trials = docs.flatMap((d) => d.trials);
-    const framing = trials.find((t) => t.task === "framing");
-    expect(framing.choice).toBe("certain");
-    expect(framing.condition).toBe(pdoc.condition);
-    const ld = trials.filter((t) => t.task === "lexical_decision");
-    expect(ld.length).toBe(8);
-    expect(ld.every((t) => t.correct === true)).toBe(true);
+    const posts = trials.filter((t) => t.task === "posts");
+    expect(posts.length).toBe(1);
+    expect(posts[0].condition).toBe(pdoc.condition);
+    expect(posts[0].post_images.split(",").length).toBe(4);
+    expect(posts[0].post_images).toContain(`images/${pdoc.condition}_1.jpg`);
+    expect(trials.find((t) => t.task === "ratings_agree").response.liked).toBe(3);
+    expect(trials.find((t) => t.task === "ratings_feel").response.worried).toBe(3);
+    expect(trials.find((t) => t.task === "ratings_action").response.like).toBe(3);
+    expect(trials.find((t) => t.task === "ratings_discuss").response.discuss_friends_family).toBe(3);
+    expect(trials.find((t) => t.task === "messaging").response.message_type).toBe("Positive");
     const demo = trials.find((t) => t.task === "demographics");
     expect(demo.response.age).toBe(34);
 
@@ -164,20 +183,7 @@ test.describe("experiment", () => {
     // Run the real flow up to the last click, then cut the connection before "Finish".
     await page.goto("/?emulator=1");
     await page.waitForFunction(() => window.__saver && window.__saver.uid);
-    await page.getByRole("button", { name: "I agree to participate" }).click();
-    await page.locator("#jspsych-instructions-next").click();
-    await page.locator("#jspsych-instructions-next").click();
-    await page.locator('input[value="Continue"]').click();
-    await page.getByRole("button", { name: "Program B" }).click();
-    await page.locator("#jspsych-instructions-next").click();
-    for (let i = 0; i < 8; i++) {
-      const stim = page.locator(".stimulus");
-      await stim.waitFor({ state: "visible" });
-      await page.keyboard.press("f");
-      await stim.waitFor({ state: "detached" });
-    }
-    await page.locator("#jspsych-survey-likert-next").click();
-    await page.locator("#jspsych-survey-text-next").click();
+    await runUpToDebrief(page);
     await context.setOffline(true);
     await page.getByRole("button", { name: "Finish" }).click();
     await expect(page.locator("#data-saver-fallback")).toBeVisible({ timeout: 40000 });
@@ -235,22 +241,23 @@ test.describe("experiment", () => {
     if (EMULATOR) await expect(page.getByText("QA123CODE")).toBeVisible();
   });
 
-  test("phones and tablets are turned away before consent", async ({ browser }) => {
+  test("phones and tablets are allowed in (requires_keyboard is false for this study)", async ({ browser }) => {
+    // This study uses only buttons and typed numbers, so EXPERIMENT.requires_keyboard is false
+    // and a phone sees the consent page instead of the "Please use a computer" message.
     const context = await browser.newContext({ ...devices["iPhone 13"] });
     const page = await context.newPage();
     await page.goto("http://localhost:8017/?emulator=1");
-    await expect(page.locator("#device-unsupported")).toBeVisible({ timeout: 20000 });
-    await expect(page.getByRole("button", { name: "I agree to participate" })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "I agree to participate" })).toBeVisible({ timeout: 20000 });
+    await expect(page.locator("#device-unsupported")).toHaveCount(0);
 
     if (EMULATOR) {
-      // The turned-away visit is still recorded, so phone traffic is visible in the data.
       await page.waitForFunction(() => window.__saver && window.__saver.docId);
       const docId = await page.evaluate(() => window.__saver.docId);
       await page.evaluate(() => window.__saver._settle());
       const p = await fsGet(`experiments/${EXPERIMENT_ID}/participants/${docId}`);
       const pdoc = decodeFields(p.body.fields);
-      expect(pdoc.device_supported).toBe(false);
-      expect(pdoc.completed).toBe(false);
+      expect(pdoc.device_supported).toBe(true);
+      expect(pdoc.requires_keyboard).toBe(false);
     }
     await context.close();
   });
