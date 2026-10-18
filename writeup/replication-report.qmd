@@ -53,6 +53,16 @@ library(apaTables)   # APA-style correlation table (also used by the original au
 # Phase 2 runs under its own id, so its data never mix with Phase 1's.
 experiment_id        <- "osborne2026-pilot-a"
 experiment_id_phase2 <- "osborne2026-phase2"
+
+# PILOT SWITCH. TRUE = Pilot A: the testers did not have to be women over 40, so we only
+# require "completed" and "assigned to normal or distress", and the model is allowed to run
+# with as few as 8 people. FALSE = the real study: the full exclusion rule is applied and
+# at least 20 people are needed. Set this to FALSE before the real data collection.
+pilot_mode <- TRUE
+min_n      <- if (pilot_mode) 8 else 20
+# In pilot mode the model has no control variables (see fit_outcome), so the caption says so.
+model_note <- if (pilot_mode) "no control variables in the pilot model" else
+  "controlling for age, education, social media use and menopause stage"
 ```
 
 ```{r}
@@ -95,7 +105,7 @@ original_key <- original |> filter(outcome == "worried")
 
 # AI use statement
 
-I used ChatGPT and Claude (Sonnet 5.5) to help me with the experiment, code, tests and the calculations for the power analysis. They explained some statistical procedures to me and how to use RStudio, git, Quarto and Firebase. They gave me feedback and corrections for my writing, grammar, spelling, and tense, and gave me examples of sentences. They also helped me to add my text to the report and delete the guidance boxes.
+I used ChatGPT and Claude (Sonnet 5.5) to help me with the experiment, code, tests and the calculations for the power analysis. They explained some statistical procedures to me and how to use RStudio, git, Quarto and Firebase. They gave me feedback and corrections for my writing, grammar, spelling, and tense, and gave me examples of sentences. They also helped me to add my text to the report and delete the guidance boxes. I checked what the AI told me by searching on the internet, the course Experimentology online book, checking on my own what the code chunks meant, and double-checking everything.
 
 # Key statistics
 
@@ -171,12 +181,18 @@ read_phase <- function(id) {
   #  - they took at least 2.5 minutes (the original study's rule),
   #  - they report 20 or fewer years of education after age 16.
   # (People who did not complete the study were already removed above.)
-  keep <- dat |>
-    filter(!is.na(condition),
-           age >= 40,
-           menopause_stage %in% c("peri", "post"),
-           minutes >= 2.5,
-           education_years <= 20)
+  # In pilot mode (see the pilot switch at the top) the age, menopause, time and education
+  # rules are skipped, because Pilot A testers did not have to be eligible women.
+  # (A completed session with no worry rating, for example an old test session, cannot be
+  # analysed, so it is also dropped.)
+  keep <- dat |> filter(!is.na(condition), !is.na(worried))
+  if (!pilot_mode) {
+    keep <- keep |>
+      filter(age >= 40,
+             menopause_stage %in% c("peri", "post"),
+             minutes >= 2.5,
+             education_years <= 20)
+  }
 
   list(participants = participants, trials = trials, errors = errors,
        complete = complete, dat = dat, keep = keep,
@@ -193,10 +209,14 @@ fit_outcome <- function(dat, outcome) {
     rename(y = all_of(outcome)) |>
     drop_na() |>
     mutate(y = factor(y, ordered = TRUE), condition = droplevels(condition))
-  if (nrow(d) < 20 || nlevels(d$condition) < 2 || nlevels(d$y) < 2) return(NULL)
+  # The model: condition plus the four control variables. In pilot mode there are too few
+  # people for four extra variables (the model cannot find a solution with about 10 rows),
+  # so the pilot model uses condition only. The real study uses the full model.
+  model_formula <- if (pilot_mode) y ~ condition else
+    y ~ condition + age + education_years + social_media_use + menopause_stage
+  if (nrow(d) < min_n || nlevels(d$condition) < 2 || nlevels(d$y) < 2) return(NULL)
   m <- tryCatch(
-    MASS::polr(y ~ condition + age + education_years + social_media_use + menopause_stage,
-               data = d, Hess = TRUE),
+    MASS::polr(model_formula, data = d, Hess = TRUE),
     error = function(e) NULL)
   if (is.null(m)) return(NULL)
   broom::tidy(m) |>
@@ -277,7 +297,7 @@ bind_rows(
   fmt_row("Phase 2: extension", if (have_phase2) key_result(phase2))
 ) |>
   knitr::kable(align = "lrrrrrr",
-               caption = "Key comparison: effect of distress vs normal posts on worry (ordinal logistic regression, controlling for age, education, social media use and menopause stage).")
+               caption = paste0("Key comparison: effect of distress vs normal posts on worry (ordinal logistic regression, ", model_note, ")."))
 ```
 
 # Phase 1: Replication
@@ -286,7 +306,7 @@ bind_rows(
 
 The original study found that showing social media posts to peri- and postmenopausal women framing the menopause transition as either normal, distressful, or transformative had immediate effects on affective responses (Osborne et al., 2026). Participants who viewed distress-framed posts reported greater levels of worry and confusion, and lower levels of reassurance, optimism, and empowerment. Interestingly, the distress-framed posts increased perceived knowledge of menopause, despite participants feeling more negatively toward them. I replicated the study with only two conditions (normal vs distress) to examine the original study’s main finding, the same affective reactions, expected behavioral responses, and perceptions scales were utilized. This study was important for me because it demonstrates how narrative framing shapes affective responses and the importance of choosing the right words to share medical information, especially for a stage of life that half of the population will live through for almost 40% of their lives. Negative framing could also affect how women experience their symptoms physically. I would like to further investigate the mind-body effects of menopausal mindsets in the future.
 
-For this, I planned to use the original posts to reduce differences between studies. One challenge that I anticipated was obtaining the original materials from the authors, but they shared their original posts with me. For the statistical analysis, I used ordinal logistic regression for each ordinal outcome, comparing the distress condition with the normal condition.
+One challenge that I anticipated was obtaining the original materials from the authors, but they shared their original posts with me. For the statistical analysis, I used ordinal logistic regression for each ordinal outcome, comparing the distress condition with the normal condition.
 
 For the extension, I planned to include a brief message to reframe how menopause is presented in the posts.
 
@@ -546,12 +566,7 @@ if (nrow(keep) > 0) {
 
 #### Deviations from the preregistered plan
 
-::: {.callout-tip icon=false}
-## Guidance
-
-Any deviation from the preregistered plan above, or "None". Changes made after seeing data
-belong here even if they seem minor, together with the reason.
-:::
+Pilot A did not require participants to meet the eligibility criteria. The Pilot A model did not include control variables because the sample was small.
 
 ## Results
 
