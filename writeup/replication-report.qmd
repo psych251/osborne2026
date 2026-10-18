@@ -476,7 +476,7 @@ bind_rows(
 #| results: asis
 cat(sprintf("Of %d participants who started, %d completed the study and %d met the exclusion criteria.",
             nrow(participants), nrow(complete), nrow(keep)))
-if (n_not_menopausal > 0) {
+if (n_not_menopausal > 0 && !pilot_mode) {   # in pilot mode this rule is skipped
   cat(sprintf(" %d completed session(s) reported not going through menopause and were excluded on that basis.",
               n_not_menopausal))
 }
