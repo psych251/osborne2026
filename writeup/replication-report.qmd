@@ -44,32 +44,44 @@ exclusion rule, and the key comparison.
 ```{r}
 #| label: setup
 #| include: false
-library(tidyverse)
+library(tidyverse)   # includes ggplot2
 library(jsonlite)
+library(psych)       # descriptive statistics (also used by the original authors)
+library(apaTables)   # APA-style correlation table (also used by the original authors)
 
 # Must match EXPERIMENT.id in experiment.js, and the --experiment you passed to the export.
 # Phase 2 runs under its own id, so its data never mix with Phase 1's.
-experiment_id        <- "framing-demo"
-experiment_id_phase2 <- "framing-demo-phase2"
+experiment_id        <- "osborne2026-pilot-a"
+experiment_id_phase2 <- "osborne2026-phase2"
 ```
 
 ```{r}
 #| label: original-study
 #| include: false
 # The original study's numbers, entered once and used by the power analysis, the Key
-# statistics table, and the side-by-side figures. Replace these with your original study's
-# values, and say in a comment exactly where in the paper each one comes from.
+# statistics table, and the side-by-side figure.
+# Source: Osborne, Brown & Sillence (2026), JMIR Formative Research, 10:e85788.
 #
-# Tversky & Kahneman (1981), Problem 1 (gain frame, N = 152): 72% chose the certain program,
-# 28% the risky one. Problem 2 (loss frame, N = 155): 22% certain, 78% risky. The paper
-# reports percentages, so the counts below are reconstructed from them.
-original <- tibble(
-  condition = c("gain", "loss"),
-  n         = c(152, 155),
-  risky     = round(c(0.28 * 152, 0.78 * 155))
+# Sample: 749 people took part; 4 + 8 were excluded, so N = 737 were analysed.
+# Groups: normal = 248, distress = 241, transformative = 248.
+orig_n <- c(normal = 248, distress = 241, transformative = 248)
+
+# Ordinal logistic regression results for "distress vs normal" (the comparison group is
+# normal). beta = log-odds coefficient (the effect size), se = its standard error,
+# z = beta / se. Outcomes were rated on a 5-point scale.
+original <- tribble(
+  ~outcome,       ~beta,   ~se,    ~z,
+  "worried",       0.910,  0.170,  5.350,
+  "reassured",    -0.970,  0.167, NA,
+  "confused",      0.818,  0.170, NA,
+  "optimistic",   -0.708,  0.165, NA,
+  "anxious",       0.817,  0.168, NA,
+  "empowered",    -0.540,  0.162, NA,
+  "knowledgeable", 0.564,  0.163, NA,
+  "liked",        -0.864,  0.171, NA
 )
-original_p_gain <- original$risky[original$condition == "gain"] / original$n[original$condition == "gain"]
-original_p_loss <- original$risky[original$condition == "loss"] / original$n[original$condition == "loss"]
+# Our key analysis: worried, distress vs normal.
+original_key <- original |> filter(outcome == "worried")
 ```
 
 ::: {.callout-note appearance="simple" icon=false}
@@ -77,32 +89,13 @@ original_p_loss <- original$risky[original$condition == "loss"] / original$n[ori
 
 - **Original paper:** Osborne, A. K., Brown, R. D., & Sillence, E. (2026). Effects of Social Media Narratives on Affective and Behavioral Responses to Menopause Content: Randomized Online Experimental Study. *JMIR Formative Research, 10*, e85788. <https://doi.org/10.2196/85788>
 - **Preregistration:** [OSF registration](https://osf.io/XXXXX) *(registered YYYY-MM-DD, before final data collection)*
-- **Live experiment:** <https://psych251.github.io/your-repo/> (take the study exactly as participants did)
+- **Live experiment:** <https://psych251.github.io/osborne2026/> (take the study exactly as participants did)
 - **Repository:** <https://github.com/psych251/osborne2026> (experiment code, data, and this report)
 :::
 
 # AI use statement
 
-::: {.callout-tip icon=false}
-
-**Course policy: you write all of the text in this report yourself.** AI tools may help with
-code, and may comment on drafts you have written, but they may not write, rewrite or paraphrase
-any of the report's text. That includes "polishing" a paragraph.
-
-List every AI tool you used on this project, what you used it for, and how you checked what it
-produced. Include coding assistants (for example Claude Code, Codex, Copilot) and chat
-assistants. Name the model and version where you know it. "How you checked" is the important
-column: say what you verified yourself, not that the output "looked right". If you used no AI
-tools, replace the table with a sentence saying so.
-:::
-
-| Tool and model | What it was used for | How you checked the output |
-|---|---|---|
-| *ChatGpt* | *Has helped me understand the instructions, understand the commands and to navigate through github, and check some grammar mistakes* | *I double checked the instructions, what to do next and reviewed and learned each command individually* |
-
-I wrote all of the text in this report myself. AI tools were not used to write, rewrite or
-paraphrase it, and were not used to generate, alter, or impute any participant data. I take full
-responsibility for the content of this report, including any errors introduced by AI tools.
+I used ChatGPT and Claude (Sonnet 5.5) to help me with the experiment, code, tests and the calculations for the power analysis. They explained some statistical procedures to me and how to use RStudio, git, Quarto and Firebase. They gave me feedback and corrections for my writing, grammar, spelling, and tense, and gave me examples of sentences. They also helped me to add my text to the report and delete the guidance boxes.
 
 # Key statistics
 
@@ -118,6 +111,23 @@ adapt its code and say so in the caption.
 #| label: analysis-functions
 #| code-summary: "Show the analysis code (shared by Phase 1 and Phase 2)"
 
+# ---- shared analysis code (goes in the analysis-functions chunk) ----
+
+# Turn one survey page's answers into columns. jsPsych saves each page's answers as one JSON
+# string, for example {"worried":2,"reassured":1,...}. This unpacks that string for one task.
+parse_task <- function(trials, task_name) {
+  one <- trials |> filter(task == task_name)
+  if (nrow(one) == 0) return(tibble(participant_id = character()))
+  one |>
+    mutate(resp = map(response, ~ fromJSON(.x))) |>
+    select(participant_id, resp) |>
+    unnest_wider(resp)
+}
+
+# The 5 answer choices of the social media use question, in order (Never = 1 ... Several times
+# per day = 5). Used to turn the answer into a number for the model.
+social_levels <- c("Never", "Less than weekly", "Weekly", "Daily", "Several times per day")
+
 # Load one phase's exported data and apply the exclusion rule. Returns NULL if that phase
 # has not been exported yet, which is how every section below knows to skip itself.
 read_phase <- function(id) {
@@ -128,68 +138,112 @@ read_phase <- function(id) {
   errors_path  <- file.path(dir, "errors.csv")
   errors <- if (file.exists(errors_path)) read_csv(errors_path, show_col_types = FALSE) else tibble()
 
-  complete <- participants |> filter(completed)
+  # Keep only people who finished the study, and compute how many minutes they took
+  # (end time minus start time; the times are saved as text like 2026-10-15T22:29:55Z).
+  complete <- participants |>
+    filter(completed) |>
+    mutate(minutes = as.numeric(difftime(lubridate::ymd_hms(ended_at),
+                                         lubridate::ymd_hms(started_at), units = "mins")))
 
-  # Exclusion rule: replace with the rule you preregistered. Here: at least 6 of 8
-  # lexical-decision trials correct, and at least one speeded response at all (a session in
-  # which every speeded trial timed out is what a device without a keyboard produces).
-  ld <- trials |>
-    filter(task == "lexical_decision") |>
-    group_by(participant_id) |>
-    summarise(ld_acc           = mean(as.logical(correct), na.rm = TRUE),
-              ld_all_timed_out = all(as.logical(timed_out)),
-              .groups = "drop")
-  checked <- complete |> left_join(ld, by = "participant_id")
-  keep <- checked |> filter(!is.na(ld_acc), !ld_all_timed_out, ld_acc >= 0.75)
+  # One row per completed participant: condition, demographics, and every rating.
+  # jsPsych saves the 5-point answers as 0-4, so 1 is added to put them back on 1-5.
+  tr <- trials |> filter(participant_id %in% complete$participant_id)
+  rating_cols <- c("liked", "credible", "trust", "empowered", "knowledgeable",
+                   "worried", "reassured", "confused", "in_control", "optimistic", "anxious")
+  dat <- complete |>
+    select(participant_id, condition, minutes) |>
+    left_join(parse_task(tr, "demographics"), by = "participant_id") |>
+    left_join(parse_task(tr, "ratings_agree"), by = "participant_id") |>
+    left_join(parse_task(tr, "ratings_feel"), by = "participant_id") |>
+    mutate(
+      across(any_of(rating_cols), ~ as.numeric(.x) + 1),
+      age                 = as.numeric(age),
+      education_years     = as.numeric(education_years),
+      social_media_use    = match(social_media_use, social_levels),
+      condition           = factor(condition, levels = c("normal", "distress"))
+    )
+
+  # Exclusion rule (the same one written in the Analysis plan). We KEEP a person only if:
+  #  - they were assigned to normal or distress (the pilot also had a third group, which is
+  #    now NA and is dropped),
+  #  - they are 40 or older,
+  #  - they said they are in perimenopause or postmenopause,
+  #  - they took at least 2.5 minutes (the original study's rule),
+  #  - they report 20 or fewer years of education after age 16.
+  # (People who did not complete the study were already removed above.)
+  keep <- dat |>
+    filter(!is.na(condition),
+           age >= 40,
+           menopause_stage %in% c("peri", "post"),
+           minutes >= 2.5,
+           education_years <= 20)
 
   list(participants = participants, trials = trials, errors = errors,
-       complete = complete, keep = keep,
-       n_no_response = sum(checked$ld_all_timed_out %in% TRUE))
+       complete = complete, dat = dat, keep = keep,
+       n_not_menopausal = sum(dat$menopause_stage %in% "not"))
 }
 
-# The key comparison's raw counts: how many analysed participants chose the risky program
-# in each frame.
-risky_counts <- function(d) {
-  d$trials |>
-    filter(task == "framing", participant_id %in% d$keep$participant_id) |>
-    group_by(condition) |>
-    summarise(risky = sum(choice == "risky"), n = n(), .groups = "drop")
+# Fit the ordinal logistic regression for ONE outcome (for example "worried"): the rating
+# predicted by condition (normal is the comparison group) plus the four control variables.
+# Returns one row per non-normal condition, or NULL if the model cannot be fitted yet
+# (for example while there are only a few pilot participants).
+fit_outcome <- function(dat, outcome) {
+  d <- dat |>
+    select(all_of(outcome), condition, age, education_years, social_media_use, menopause_stage) |>
+    rename(y = all_of(outcome)) |>
+    drop_na() |>
+    mutate(y = factor(y, ordered = TRUE), condition = droplevels(condition))
+  if (nrow(d) < 20 || nlevels(d$condition) < 2 || nlevels(d$y) < 2) return(NULL)
+  m <- tryCatch(
+    MASS::polr(y ~ condition + age + education_years + social_media_use + menopause_stage,
+               data = d, Hess = TRUE),
+    error = function(e) NULL)
+  if (is.null(m)) return(NULL)
+  broom::tidy(m) |>
+    filter(coef.type == "coefficient", startsWith(term, "condition")) |>
+    transmute(outcome = outcome,
+              contrast = sub("^condition", "", term),
+              N = nrow(d),
+              beta = estimate, se = std.error, z = statistic,
+              p = 2 * pnorm(-abs(statistic)),
+              ci_low = beta - 1.96 * se, ci_high = beta + 1.96 * se)
 }
 
-# The key statistic: difference in the proportion choosing the risky program (loss minus
-# gain) with a 95% CI, and the uncorrected chi-square, which is the same test. NULL until
-# both frames have at least one analysed participant.
-diff_ci <- function(counts) {
-  loss <- counts[counts$condition == "loss", ]
-  gain <- counts[counts$condition == "gain", ]
-  if (nrow(loss) == 0 || nrow(gain) == 0) return(NULL)
-  pt <- prop.test(c(loss$risky, gain$risky), c(loss$n, gain$n), correct = FALSE)
-  tibble(N = loss$n + gain$n,
-         estimate = unname(pt$estimate[1] - pt$estimate[2]),
-         ci_low = pt$conf.int[1], ci_high = pt$conf.int[2],
-         statistic = unname(pt$statistic), p = pt$p.value)
+# The key statistic: worried, distress vs normal. NULL until the model can be fitted.
+key_result <- function(d) {
+  r <- fit_outcome(d$keep, "worried")
+  if (is.null(r)) return(NULL)
+  r |> filter(contrast == "distress")
 }
 
-# Side-by-side figure: any number of studies on the same axes, in the order given.
-prop_ci <- function(x, n) {
-  ci <- prop.test(x, n, correct = FALSE)$conf.int
-  tibble(p = x / n, low = ci[1], high = ci[2])
+# All the secondary outcomes with the same model, distress vs normal.
+outcomes <- c("worried", "reassured", "confused", "optimistic", "anxious",
+              "empowered", "knowledgeable", "liked")
+all_results <- function(d) {
+  res <- map_dfr(outcomes, function(o) {
+    r <- fit_outcome(d$keep, o)
+    if (is.null(r)) tibble() else r
+  })
+  if (nrow(res) == 0) return(NULL)
+  res |> filter(contrast == "distress")
 }
+
+# Side-by-side figure: the effect (beta, distress vs normal) with its 95% interval for each
+# outcome, original and replication on the same axes. Positive = distress group rated higher.
 comparison_plot <- function(...) {
   studies <- list(...)
   studies <- studies[!map_lgl(studies, ~ is.null(.x) || nrow(.x) == 0)]
   df <- imap_dfr(studies, ~ mutate(.x, Study = .y)) |>
-    rowwise() |> mutate(prop_ci(risky, n)) |> ungroup() |>
-    mutate(Study = factor(Study, levels = names(studies)), label = sprintf("n = %d", n))
+    mutate(ci_low = beta - 1.96 * se, ci_high = beta + 1.96 * se,
+           Study = factor(Study, levels = names(studies)),
+           outcome = factor(outcome, levels = rev(outcomes)))
   fills <- setNames(c("grey55", "#1E6E76", "#B8792A")[seq_along(studies)], names(studies))
-  dodge <- position_dodge(width = 0.8)
-  ggplot(df, aes(x = condition, y = p, fill = Study)) +
-    geom_col(position = dodge, width = 0.75) +
-    geom_errorbar(aes(ymin = low, ymax = high), position = dodge, width = 0.2) +
-    geom_text(aes(y = 0.02, label = label), position = dodge, vjust = 0, size = 3, colour = "white") +
-    scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
-    scale_fill_manual(values = fills) +
-    labs(x = "Frame", y = "Chose the risky program", fill = NULL) +
+  ggplot(df, aes(x = outcome, y = beta, colour = Study)) +
+    geom_hline(yintercept = 0, linetype = "dashed", colour = "grey60") +
+    geom_pointrange(aes(ymin = ci_low, ymax = ci_high), position = position_dodge(width = 0.6)) +
+    coord_flip() +
+    scale_colour_manual(values = fills) +
+    labs(x = NULL, y = "Effect of distress vs normal (ordinal logistic β, 95% CI)", colour = NULL) +
     theme_minimal(base_size = 12) +
     theme(legend.position = "top")
 }
@@ -205,144 +259,136 @@ have_phase2 <- !is.null(phase2)
 #| echo: false
 fmt_row <- function(study, r) {
   if (is.null(r)) {
-    return(tibble(Study = study, N = "", `Effect (loss − gain)` = "not yet collected",
-                  `95% CI` = "", `χ²(1)` = "", p = ""))
+    return(tibble(Study = study, N = "", `β` = "not yet collected", SE = "",
+                  `95% CI` = "", z = "", p = ""))
   }
   tibble(Study = study, N = as.character(r$N),
-         `Effect (loss − gain)` = sprintf("%.0f points", 100 * r$estimate),
-         `95% CI` = sprintf("[%.0f, %.0f]", 100 * r$ci_low, 100 * r$ci_high),
-         `χ²(1)` = sprintf("%.2f", r$statistic),
+         `β` = sprintf("%.3f", r$beta), SE = sprintf("%.3f", r$se),
+         `95% CI` = sprintf("[%.2f, %.2f]", r$ci_low, r$ci_high),
+         z = sprintf("%.2f", r$z),
          p = format.pval(r$p, digits = 2, eps = 0.001))
 }
+original_row <- original_key |>
+  transmute(N = sum(orig_n), beta, se, z, p = 2 * pnorm(-abs(z)),
+            ci_low = beta - 1.96 * se, ci_high = beta + 1.96 * se)
 bind_rows(
-  fmt_row("Original", diff_ci(original)),
-  fmt_row("Phase 1: replication", if (have_data) diff_ci(risky_counts(phase1))),
-  fmt_row("Phase 2: extension", if (have_phase2) diff_ci(risky_counts(phase2)))
+  fmt_row("Original", original_row),
+  fmt_row("Phase 1: replication", if (have_data) key_result(phase1)),
+  fmt_row("Phase 2: extension", if (have_phase2) key_result(phase2))
 ) |>
-  knitr::kable(align = "lrlllr",
-               caption = "Key comparison: difference in the percentage of analysed participants choosing the risky program, loss frame minus gain frame.")
+  knitr::kable(align = "lrrrrrr",
+               caption = "Key comparison: effect of distress vs normal posts on worry (ordinal logistic regression, controlling for age, education, social media use and menopause stage).")
 ```
 
 # Phase 1: Replication
 
 ## Introduction
 
-The original study found that showing social media posts to perimenopausal and menopausal women framing the menopause transition as either normal, distressful, or transformative has immediate effects on affective responses. Participants who viewed distress-framed posts reported greater levels of worry, confusion, and lower levels of reassurance, optimism, and empowerment. Interestingly, the distress framing posts increased perceived knowledge of menopause. Despite participants feeling more negatively toward them. I replicated the study and its findings utilizing the same affective reactions, expected behavioral responses, and perceptions scales. This study was important for me because it demonstrates how narrative framing shapes affective responses and the importance of choosing the right words while sharing medical information, especially for a stage of life that half of the population will live for almost 40% of their lives. The effect of negative framing with affective responses has been consistently reported in studies to have an association, but they could also affect how women experience their symptoms physically. I will like to further investigate the mind-body effects of menopausal mindsets in the future.
+The original study found that showing social media posts to peri- and postmenopausal women framing the menopause transition as either normal, distressful, or transformative had immediate effects on affective responses (Osborne et al., 2026). Participants who viewed distress-framed posts reported greater levels of worry and confusion, and lower levels of reassurance, optimism, and empowerment. Interestingly, the distress-framed posts increased perceived knowledge of menopause, despite participants feeling more negatively toward them. I replicated the study with only two conditions (normal vs distress) to examine the original study’s main finding, the same affective reactions, expected behavioral responses, and perceptions scales were utilized. This study was important for me because it demonstrates how narrative framing shapes affective responses and the importance of choosing the right words to share medical information, especially for a stage of life that half of the population will live through for almost 40% of their lives. Negative framing could also affect how women experience their symptoms physically. I would like to further investigate the mind-body effects of menopausal mindsets in the future.
 
-For this, I planned to use the original posts  to reduce differences between studies. The participants were randomly assigned to a condition (normal/distress/transformative posts), they answered questions about their sociodemographic and relevant medical history data. Next, they saw the 4 posts specific to the condition they were assigned to and completed the measures. One challenge that I anticipated was obtaining the original materials from the authors; otherwise, I planned to recreate their content and format as closely as possible. For the statistical analysis, I used ordinal logistic regression for each ordinal outcome, comparing the distress and transformative conditions with the normal condition. For the extension, I used  validated scales to measure attitudes towards menopause and subjective symptoms  and examined whether a brief intervention could change their scores.
+For this, I planned to use the original posts to reduce differences between studies. One challenge that I anticipated was obtaining the original materials from the authors, but they shared their original posts with me. For the statistical analysis, I used ordinal logistic regression for each ordinal outcome, comparing the distress condition with the normal condition.
+
+For the extension, I planned to include a brief message to reframe how menopause is presented in the posts.
 
 ## Methods
 
 ### Power analysis
 
-::: {.callout-tip icon=false}
-## Guidance
-
-Report the original effect size, the sample needed for 80%, 90% and 95% power to detect it,
-and the sample you chose and why. The table below is computed from the original study's
-numbers entered at the top of this file.
-
-Original effects are usually overestimates, so powering to the original effect tends to
-produce an underpowered replication. One widely used alternative is to collect 2.5 times the
-original sample, which gives 80% power to detect an effect the original study had only 33%
-power to detect (Simonsohn, 2015; Experimentology §10.4). Say which approach you used, and
-what the course's participant budget allowed.
-:::
-
 ```{r}
 #| label: power
+# The original effect (beta) is on the "log-odds" scale. A logistic distribution has a
+# standard deviation of pi / sqrt(3), so beta divided by that number gives an approximate
+# Cohen's d, which the usual t-test power calculation can use. This is an approximation:
+# it ignores the control variables.
+d_orig <- original_key$beta / (pi / sqrt(3))
+
+# The original study used p < .01, so power is calculated for alpha = .01.
 power_rows <- map_dfr(c(0.80, 0.90, 0.95), function(pw) {
-  n <- power.prop.test(p1 = original_p_gain, p2 = original_p_loss,
-                       power = pw, sig.level = 0.05)$n
+  n <- power.t.test(delta = d_orig, sd = 1, sig.level = 0.01, power = pw)$n
   tibble(power = scales::percent(pw), n_per_group = ceiling(n), n_total = 2 * ceiling(n))
 })
 
-original_effect <- original_p_loss - original_p_gain
-two_and_half <- ceiling(2.5 * original$n)
+# 2.5 times the original sample in the two groups of the key test (normal and distress).
+two_and_half <- ceiling(2.5 * orig_n[c("normal", "distress")])
 
-knitr::kable(power_rows, col.names = c("Power", "N per frame", "N total"),
+knitr::kable(power_rows, col.names = c("Power", "N per condition", "N total"),
              caption = sprintf(
-               "Sample needed to detect the original effect (risky choice: %.0f%% gain vs %.0f%% loss, a difference of %.0f points), two-sided alpha = .05.",
-               100 * original_p_gain, 100 * original_p_loss, 100 * original_effect))
+               "Sample needed to detect the original effect on worry (beta = %.3f, about d = %.2f), two-sided alpha = .01, two conditions (normal vs distress).",
+               original_key$beta, d_orig))
 ```
 
-For comparison, 2.5 times the original sample would be `r two_and_half[1]` in the gain frame
-and `r two_and_half[2]` in the loss frame (`r sum(two_and_half)` in total).
+```{r}
+#| label: power-proposed
+# How much power does the sample I plan to collect have? The first row uses the original
+# effect. The other rows ask "what if the true effect is smaller than the original?",
+# because original effects are often overestimates.
+proposed_per_group <- 130   # my planned N per condition (change this if the plan changes)
+
+power_check <- tibble(
+  effect = c("Original effect", "75% of the original", "Half of the original"),
+  d      = d_orig * c(1, 0.75, 0.5)
+) |>
+  mutate(
+    # power.t.test() with n filled in (and power left out) returns the power
+    power = map_dbl(d, ~ power.t.test(n = proposed_per_group, delta = .x,
+                                      sd = 1, sig.level = 0.01)$power),
+    d     = round(d, 2),
+    power = scales::percent(power, accuracy = 1)
+  )
+
+knitr::kable(power_check,
+             col.names = c("True effect", "Cohen's d", "Power"),
+             caption = sprintf("Power of %d participants per condition (alpha = .01) if the true effect is as large as, or smaller than, the original.",
+                               proposed_per_group))
+```
+
+The original effect for the worry question comparing the distress and normal conditions was β = .910, which was converted to a Cohen’s d of about 0.50 using the template’s code.
+
+For an alpha of .01, a minimum of 120 participants per condition was needed for 90% power to detect the original effect.
+
+I chose 130 participants per group because of resource constraints, which gave around 93% power to detect the original effect. However, the true effect could be smaller than the effect found in the original study.
 
 ### Planned sample
 
-::: {.callout-tip icon=false}
-## Guidance
+A sample of 260 women 40 years or older who are perimenopausal or postmenopausal was recruited through Prolific.
 
-Planned sample size and stopping rule, sampling frame (for example, "US residents on Prolific,
-fluent in English, 18 or older"), known demographics, and any preselection or screening. The
-stopping rule should be data-independent: "collect until N participants pass the exclusion
-criteria below" rather than "until the result is clear".
-:::
+Recruitment stopped when data from 260 people who passed the inclusion/exclusion criteria had been collected.
 
 ### Materials
 
-::: {.callout-tip icon=false}
-## Guidance
+The original study used 12 social media posts, with four posts for each narrative: normal, distress, and transformative. This replication study used only the original posts from the normal and distress conditions. Each participant saw four posts from their assigned condition. The study included basic sociodemographic questions and questions about menopause stage, HRT experience, perceived menopause knowledge, and social media use. After viewing the posts, participants answered the original questions about their affective responses, expected behavioral responses, and perceptions of the posts.
 
-All materials. You can quote the original article directly: put the text in quotation marks
-and note that it was followed precisely, or quote it and point out the exceptions. Link to the
-live experiment above rather than pasting screenshots of every screen.
-:::
+Materials available at the following link: https://psych251.github.io/osborne2026/
 
 ### Procedure
 
-::: {.callout-tip icon=false}
-## Guidance
-
-As for Materials: quote the original where you can and point out the exceptions. Describe the
-sequence a participant experiences, from consent to debrief, and how long it takes.
-:::
+Participants recruited through Prolific were directed to a consent page to participate in the study and then answered basic sociodemographic and clinical questions about their menopause. After that, they were randomly assigned to one of two conditions (normal/distress), in which they were instructed to view four posts framing menopause as either a distressing or a "normal" experience. The social media posts from the original study were shared by the authors to use in this replication study. The posts were anonymized, standardized, and copied from public X, Instagram, and Facebook posts. The participants answered questions about the message of the posts, how the posts made them feel (worried, reassured, confused, optimistic), their behavioral intentions (like, share, save, comment, search, discuss), and their perceptions of the posts (likability, credibility, trustworthiness, representativeness). The original question sequence was followed, but only with the two groups (normal and distress posts) instead of three, because of resource constraints. The transformative posts were not included. The experiment was run on a jsPsych website instead of Qualtrics.
 
 ### Analysis plan
 
-::: {.callout-tip icon=false}
-## Guidance
+As in the original study, statistical analyses were done using R. The packages apaTables, ggplot2, psych, and tidyverse were used for data processing, analysis, and visualization.
 
-The analysis strategy, as close to the original as possible: data cleaning rules, exclusion
-rules, covariates, and the model or test. Original papers often do not spell this out; say
-where you had to make a choice and what you chose.
+Participant characteristics, HRT experience, perceived menopause knowledge, and social media engagement were described using descriptive statistics. Categorical variables were presented as counts and percentages. Continuous variables were presented as means, SDs, and ranges. Ordinal logistic regression was used because the outcomes were measured on ordered 5-point Likert-type scales. The models examined the impact of experimental condition on affective, behavioral, and perceptual responses to the posts, using the normal narrative condition as the reference category. Models controlled for age, years of education after age 16, menopause stage, and frequency of social media use. Following the original authors, P < .01 was used as the significance threshold because several outcomes were tested.
 
-**State the key analysis of interest explicitly.** That is the single test your replication
-stands or falls on, and it must match your preregistration. You can pre-specify additional
-analyses here too.
-:::
+**Key analysis of interest.** My key analysis of interest was to compare worry ratings between the distress and normal conditions using ordinal logistic regression. In the original study, compared to participants who viewed posts portraying menopause as normal, those who viewed distress posts reported to be more worried about menopause (β = .910; SE = .170; Wald z = 5.350; P < .001; Osborne et al., 2026).
 
-**Key analysis of interest.** The proportion of participants choosing the risky program is
-higher in the loss frame than in the gain frame, tested with a chi-square test of independence
-on the 2 × 2 table of frame by choice. The effect size is the difference in the proportion
-choosing the risky program (loss minus gain), with a 95% confidence interval.
+The test was an ordinal logistic regression of the worry likert question on condition. The effect size was β (log-odds) for distress vs normal, with a 95% confidence interval.
 
-**Exclusions.** Participants are excluded if they did not complete the study, if they answered
-no speeded trial at all (every lexical-decision trial timed out, the signature of a device
-without a keyboard), or if they answered fewer than 6 of the 8 lexical-decision trials
-correctly.
+**Secondary outcomes.** Feeling reassured, confused, optimistic, anxious, empowered, and knowledgeable, and how much participants liked the posts, were also examined using the same ordinal logistic regression model and covariates.
+
+**Exclusions.** Participants were excluded if they did not complete the study, completed the survey in less than 2.5 minutes, or reported more than 20 years of education after age 16. The original research team considered less than 2.5 minutes insufficient time to read and process the survey content.
+
+Participants were also excluded if they were not perimenopausal or postmenopausal women. Participants younger than 40 years old were also excluded.
 
 ### Differences from the original study
 
-::: {.callout-tip icon=false}
-## Guidance
-
-Every known difference in sample, setting, procedure, materials, and analysis, one per row.
-Minimizing differences is the goal, but some always remain. For each one, say whether it is
-expected to matter, based on claims in the original article or later research on when the
-effect does and does not appear. The rows below are the demo's real differences and show the
-level of detail expected; replace them with yours.
-:::
-
 | Aspect | Original study | This replication | Expected to matter? |
 |---|---|---|---|
-| Sample | University students in Stanford and British Columbia classrooms | Adults recruited on Prolific | Possibly. Framing effects have been found in both student and general samples, but their size varies across populations. |
-| Setting | Paper questionnaire in class | Online, unsupervised, on the participant's own computer | Unlikely for a single vignette, though attention may be lower online. |
-| Wording | "an unusual Asian disease" | "an unusual disease" | Unlikely. The ethnonym is incidental to the manipulation and dated. |
-| Design | Between subjects: each participant saw one frame | Between subjects, randomly assigned | No. |
-| Response | Circle a program on paper | Click a button | Unlikely. |
-| Other tasks | Problems presented alongside other questionnaire items | Followed by a short lexical-decision task used as an attention check | Unlikely: the check comes after the choice. |
+| Number of groups | 3 (normal, distress, transformative) | 2 (normal, distress) | No, because the primary outcome of the replication study is the distress vs normal posts. |
+| Platform | Qualtrics | jsPsych website | Not probable. The questions, posts, and their sequence are the same. |
+| Sample size | 737 participants were analyzed, about 245 per group. | About 260 (130 per group) | Not probable. The estimated power for my sample was approximately 93% to detect the study’s original effect (d = .50). |
+| Sample and pay | Prolific, UK women 40+, peri or postmenopausal, paid £1.50 | Prolific, same type of women; it is not guaranteed that they will be from the UK. Paid about $8 per hour. | Not probable, as long as they meet the inclusion criteria. |
+| 60-second wait | A timer stopped people from moving on | The Continue button is locked for 60 seconds, with a bold instruction sentence, because in the pilot people missed the instruction and thought it was a website problem. | Not probable, it avoids the problem of the participants thinking the website is broken, it's not supposed to influence their responses. |
 
 ### Methods addendum (post data collection)
 
@@ -377,12 +423,13 @@ if (!have_data) {
 #| eval: !expr have_data
 # Loaded and excluded by read_phase(), under Key statistics, so Phase 1 and Phase 2 share one
 # exclusion rule.
-participants  <- phase1$participants
-trials        <- phase1$trials
-errors        <- phase1$errors
-complete      <- phase1$complete
-keep          <- phase1$keep
-n_no_response <- phase1$n_no_response
+participants     <- phase1$participants
+trials           <- phase1$trials
+errors           <- phase1$errors
+complete         <- phase1$complete
+dat              <- phase1$dat
+keep             <- phase1$keep
+n_not_menopausal <- phase1$n_not_menopausal
 ```
 
 ```{r}
@@ -409,9 +456,9 @@ bind_rows(
 #| results: asis
 cat(sprintf("Of %d participants who started, %d completed the study and %d met the exclusion criteria.",
             nrow(participants), nrow(complete), nrow(keep)))
-if (n_no_response > 0) {
-  cat(sprintf(" %d completed session(s) contained no response to any speeded trial and were excluded on that basis.",
-              n_no_response))
+if (n_not_menopausal > 0) {
+  cat(sprintf(" %d completed session(s) reported not going through menopause and were excluded on that basis.",
+              n_not_menopausal))
 }
 if (nrow(keep) == 0) cat(" No participants remain for analysis yet, so the results below are empty.")
 cat("\n")
@@ -420,21 +467,80 @@ cat("\n")
 ```{r}
 #| label: demographics
 #| eval: !expr have_data
-demo <- trials |>
-  filter(task == "demographics", participant_id %in% keep$participant_id) |>
-  mutate(resp = map(response, ~ fromJSON(.x))) |>
-  transmute(
-    participant_id,
-    age    = map_dbl(resp, ~ as.numeric(.x$age %||% NA)),
-    gender = map_chr(resp, ~ as.character(.x$gender %||% NA))
-  )
-
-if (nrow(demo) > 0) {
-  demo |>
-    summarise(N = n(), `Mean age` = round(mean(age, na.rm = TRUE), 1),
+if (nrow(keep) > 0) {
+  keep |>
+    summarise(N = n(),
+              `Mean age` = round(mean(age, na.rm = TRUE), 1),
               `SD age` = round(sd(age, na.rm = TRUE), 1),
-              `Age not given` = sum(is.na(age))) |>
-    knitr::kable(caption = "Age of the analysed sample.")
+              Perimenopause = sum(menopause_stage == "peri"),
+              Postmenopause = sum(menopause_stage == "post")) |>
+    knitr::kable(caption = "The analysed sample. The original study: mean age 52.99 (SD 8.34), 385 perimenopausal, 352 postmenopausal.")
+}
+```
+
+```{r}
+#| label: descriptives
+#| eval: !expr have_data
+# Descriptive statistics for the analysed sample, with the same packages the original authors
+# named: psych (summary table) and apaTables (APA-style correlation table).
+if (nrow(keep) > 2) {
+  vars <- keep |> select(age, education_years, social_media_use, worried) |>
+    mutate(across(everything(), as.numeric))
+
+  # psych::describe() gives n, mean, SD, min and max for every column in one line.
+  psych::describe(vars)[, c("n", "mean", "sd", "min", "max")] |>
+    round(2) |>
+    knitr::kable(caption = "Descriptive statistics of the analysed sample.")
+
+  # apaTables::apa.cor.table() builds the correlation table; filename = NA means "do not
+  # save a Word file, just give me the table". tryCatch keeps the report from stopping if
+  # the pilot is too small to compute correlations.
+  tryCatch(
+    knitr::kable(apaTables::apa.cor.table(vars, filename = NA)$table.body,
+                 caption = "Means, SDs and correlations (APA style)."),
+    error = function(e) cat("Correlation table not available yet (too few participants).\n"))
+}
+```
+
+```{r}
+#| label: categorical-descriptives
+#| eval: !expr have_data
+# Counts and percentages for the categorical variables (the Analysis plan says categorical
+# variables are reported this way). A small helper does the same job for each variable.
+count_pct <- function(d, var) {
+  d |>
+    count(Level = .data[[var]]) |>                      # how many people gave each answer
+    mutate(Percent = round(100 * n / sum(n), 1),        # n divided by the total, times 100
+           Variable = var, .before = 1)
+}
+if (nrow(keep) > 0) {
+  bind_rows(count_pct(keep, "menopause_stage"),
+            count_pct(keep, "hrt"),
+            count_pct(keep, "knowledge"),
+            count_pct(keep, "condition")) |>
+    rename(N = n) |>
+    knitr::kable(caption = "Counts and percentages for the categorical variables (analysed sample).")
+}
+```
+
+```{r}
+#| label: pilot-worry-plot
+#| eval: !expr have_data
+#| fig-height: 3.5
+# Pilot-only figure: average worry in each condition, with a 95% interval. This is a quick
+# look at the pilot data; the side-by-side figure with the original is in the Results.
+if (nrow(keep) > 0) {
+  keep |>
+    group_by(condition) |>
+    summarise(n = n(), mean = mean(worried, na.rm = TRUE),
+              se = sd(worried, na.rm = TRUE) / sqrt(n)) |>   # standard error = SD / sqrt(n)
+    ggplot(aes(x = condition, y = mean)) +
+    geom_col(fill = "#1E6E76", width = 0.5) +
+    geom_errorbar(aes(ymin = mean - 1.96 * se, ymax = mean + 1.96 * se), width = 0.15) +
+    coord_cartesian(ylim = c(1, 5)) +                        # the scale goes from 1 to 5
+    labs(x = NULL, y = "Mean worry (1-5), 95% CI",
+         title = "Pilot A: worry by condition") +
+    theme_minimal(base_size = 12)
 }
 ```
 
@@ -464,21 +570,28 @@ the data beyond that.
 ```{r}
 #| label: confirmatory
 #| eval: !expr have_data
-framing <- trials |>
-  filter(task == "framing", participant_id %in% keep$participant_id) |>
-  select(participant_id, condition, choice)
-risky <- risky_counts(phase1)
-tab <- table(Frame = framing$condition, Choice = framing$choice)
-
-if (all(dim(tab) == c(2, 2))) {
-  # No continuity correction, so this test and the effect-size interval below agree: the
-  # uncorrected 2 x 2 chi-square is the same test as the two-proportion comparison.
-  print(tab)
-  print(chisq.test(tab, correct = FALSE))
+# The confirmatory test: worried, distress vs normal.
+res_key <- key_result(phase1)
+if (!is.null(res_key)) {
+  res_key |>
+    transmute(N, Beta = round(beta, 3), SE = round(se, 3), z = round(z, 2),
+              `95% CI` = sprintf("[%.2f, %.2f]", ci_low, ci_high),
+              p = format.pval(p, digits = 2, eps = 0.001)) |>
+    knitr::kable(caption = "Ordinal logistic regression: effect of distress vs normal posts on worry.")
 } else {
-  message("Chi-square not run: the frame-by-choice table is ", paste(dim(tab), collapse = " x "),
-          ". It needs both frames and both choices; with ", nrow(framing),
-          " participant(s) in the analysis set this is expected.")
+  message("The model was not fitted: it needs at least 20 analysed participants, in at least two conditions.")
+}
+
+# The other outcomes, with the same model (secondary analyses), next to the original.
+res_all <- all_results(phase1)
+if (!is.null(res_all)) {
+  res_all |>
+    left_join(original |> select(outcome, orig_beta = beta, orig_se = se), by = "outcome") |>
+    transmute(Outcome = outcome,
+              `Original beta (SE)` = sprintf("%.3f (%.3f)", orig_beta, orig_se),
+              `Replication beta (SE)` = sprintf("%.3f (%.3f)", beta, se),
+              p = format.pval(p, digits = 2, eps = 0.001)) |>
+    knitr::kable(caption = "Secondary outcomes: distress vs normal, same model as the key test.")
 }
 ```
 
@@ -497,18 +610,18 @@ informative and should be reported as such (Experimentology §3.2).
 ```{r}
 #| label: comparison
 #| eval: !expr have_data
-orig <- diff_ci(original)
-rep  <- diff_ci(risky)
+orig <- original_row
+rep  <- key_result(phase1)
 
 if (!is.null(rep)) {
   bind_rows(orig |> mutate(Study = "Original"), rep |> mutate(Study = "Phase 1: replication")) |>
     transmute(Study, N,
-              `Difference (loss − gain)` = sprintf("%.0f points", 100 * estimate),
-              `95% CI` = sprintf("[%.0f, %.0f]", 100 * ci_low, 100 * ci_high),
+              `Effect (beta)` = sprintf("%.3f", beta),
+              `95% CI` = sprintf("[%.2f, %.2f]", ci_low, ci_high),
               p = format.pval(p, digits = 2, eps = 0.001)) |>
-    knitr::kable(caption = "Effect size: difference in the percentage choosing the risky program.")
+    knitr::kable(caption = "Effect size: effect of distress vs normal posts on worry (ordinal logistic beta).")
 } else {
-  message("Replication effect size not computed yet: need at least one analysed participant in each frame.")
+  message("Replication effect size not computed yet: the model needs at least 20 analysed participants in at least two conditions.")
 }
 ```
 
@@ -519,12 +632,12 @@ if (!is.null(rep)) {
 #| results: asis
 if (!is.null(rep)) {
   excludes_zero <- rep$ci_low > 0 | rep$ci_high < 0
-  includes_orig <- orig$estimate >= rep$ci_low & orig$estimate <= rep$ci_high
+  includes_orig <- orig$beta >= rep$ci_low & orig$beta <= rep$ci_high
   cat(sprintf(
-    "The replication's 95%% interval %s zero and %s the original estimate of %.0f points. ",
+    "The replication's 95%% interval %s zero and %s the original estimate of %.3f. ",
     if (excludes_zero) "excludes" else "includes",
     if (includes_orig) "includes" else "does not include",
-    100 * orig$estimate))
+    orig$beta))
   cat("These two facts are the starting point for the summary in the Discussion, not the conclusion.\n")
 }
 ```
@@ -564,10 +677,10 @@ caption. If the original reported no variability, say so rather than leaving it 
 ```{r}
 #| label: fig-comparison
 #| eval: !expr have_data
-#| fig-cap: "Percentage choosing the risky program in each frame, original study and Phase 1 replication. Error bars are 95% confidence intervals."
+#| fig-cap: "Effect of distress vs normal posts on each outcome, original study and Phase 1 replication (ordinal logistic beta). Bars are 95% confidence intervals. Positive means the distress group rated higher."
 #| fig-width: 7
 #| fig-height: 4
-comparison_plot(Original = original, `Phase 1: replication` = risky)
+comparison_plot(Original = original, `Phase 1: replication` = all_results(phase1))
 ```
 
 ### Exploratory analyses
@@ -582,18 +695,16 @@ they generate hypotheses rather than test them.
 ```{r}
 #| label: exploratory-rt
 #| eval: !expr have_data
-ld <- trials |>
-  filter(task == "lexical_decision", participant_id %in% keep$participant_id) |>
-  mutate(correct = as.logical(correct), is_word = as.logical(is_word), rt = as.numeric(rt)) |>
-  filter(correct, !is.na(rt))
-
-if (nrow(ld) > 0) {
-  ld |>
-    group_by(`Real word` = is_word) |>
-    summarise(`Mean RT (ms)` = round(mean(rt)), `SD (ms)` = round(sd(rt)), Trials = n(), .groups = "drop") |>
-    knitr::kable(caption = "Exploratory: lexical-decision response times, correct trials only.")
+# Exploratory: what message did people say the posts conveyed (positive, neutral, negative)?
+msg <- parse_task(trials, "messaging")
+if ("message_type" %in% names(msg)) {
+  keep |>
+    left_join(msg |> select(participant_id, message_type), by = "participant_id") |>
+    count(condition, message_type) |>
+    pivot_wider(names_from = message_type, values_from = n, values_fill = 0) |>
+    knitr::kable(caption = "Exploratory: the kind of messaging participants said the posts conveyed, by condition.")
 } else {
-  message("No correct lexical-decision trials with a response time yet.")
+  message("No messaging answers yet.")
 }
 ```
 
@@ -703,6 +814,7 @@ have it and the original's otherwise.
 
 ```{r}
 #| label: phase2-power
+#| eval: false
 phase2_n_per_group <- 150   # planned analysed participants per condition in Phase 2
 
 p1_counts <- if (have_data) risky_counts(phase1)
@@ -776,7 +888,7 @@ if (!have_phase2) {
 
 ```{r}
 #| label: phase2-results
-#| eval: !expr have_phase2
+#| eval: false
 p2_counts <- risky_counts(phase2)
 p2_stats  <- diff_ci(p2_counts)
 cat(sprintf("Phase 2: %d started, %d completed, %d analysed.\n",
@@ -791,7 +903,7 @@ if (!is.null(p2_stats)) {
 
 ```{r}
 #| label: fig-phase2
-#| eval: !expr have_phase2
+#| eval: false
 #| fig-cap: "Percentage choosing the risky program in each frame: original study, Phase 1 replication, and Phase 2 extension. Error bars are 95% confidence intervals."
 #| fig-width: 8
 #| fig-height: 4
@@ -821,7 +933,7 @@ should be public; if something cannot be shared, say what and why.
 :::
 
 The experiment code, the anonymized data, and the code that produces every number in this
-report are available at <https://github.com/psych251/your-repo>. The experiment itself can be
-taken at <https://psych251.github.io/your-repo/>. The data contain no names, email addresses,
+report are available at <https://github.com/psych251/osborne2026>. The experiment itself can be
+taken at <https://psych251.github.io/osborne2026/>. The data contain no names, email addresses,
 IP addresses, or Prolific IDs; the file linking participants to their Prolific IDs is kept
 privately for payment and is not shared.

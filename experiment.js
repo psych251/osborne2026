@@ -149,7 +149,7 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
   // Random assignment to a between-subjects condition, recorded on every trial and on the
   // participant document. (For exact counterbalancing you would need a server; random
   // assignment is fine at course sample sizes.)
-  const condition = jsPsych.randomization.sampleWithoutReplacement(["normal", "distress", "transformative"], 1)[0];
+  const condition = jsPsych.randomization.sampleWithoutReplacement(["normal", "distress"], 1)[0];
   jsPsych.data.addProperties({ condition: condition });
   saver.updateParticipant({ condition: condition });
 
@@ -263,7 +263,7 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
   };
 
   // -------------------------------------------------------------------------
-  // 4. Social media posts (between-subjects: normal vs distress vs transformative)
+  // 4. Social media posts (between-subjects: normal vs distress; the TAs asked for two groups only)
   // -------------------------------------------------------------------------
   // The 12 original posts (4 per condition) are screenshots supplied by the authors; they are
   // in the images/ folder as normal_1.jpg ... transformative_4.jpg. In the authors' survey the
@@ -337,8 +337,9 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
     ], likely5),
     data: { task: "ratings_discuss" },
   };
-  // Last questions about the posts (one page of pick-one questions).
-  const messaging = {
+  // Message-type question: in the paper it comes right after the posts (and the 60 s timer),
+  // before all the rating questions, so it has its own page placed right after the posts.
+  const messageType = {
     type: jsPsychSurvey,
     survey_json: {
       showQuestionNumbers: "off",
@@ -347,6 +348,22 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
         {
           elements: [
             { type: "radiogroup", isRequired: true, name: "message_type", title: "After reading the social media posts, what kind of messaging do they convey about menopause?", choices: ["Positive", "Neutral", "Negative"] },
+          ],
+        },
+      ],
+    },
+    data: { task: "messaging" },
+  };
+
+  // Last questions about the posts (views and representativeness), asked after the ratings.
+  const messaging = {
+    type: jsPsychSurvey,
+    survey_json: {
+      showQuestionNumbers: "off",
+      completeText: "Continue",
+      pages: [
+        {
+          elements: [
             { type: "radiogroup", isRequired: true, name: "fit_own_views", title: "To what extent does this fit with your own views, attitudes, or experience of menopause?", choices: agree5 },
             { type: "radiogroup", isRequired: true, name: "rep_social_media", title: "To what extent do you think the posts are representative of posts about menopause on social media?", choices: agree5 },
             { type: "radiogroup", isRequired: true, name: "rep_media", title: "To what extent do you think the posts are representative of posts about menopause in the media (newspaper, television)?", choices: agree5 },
@@ -355,7 +372,7 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
         },
       ],
     },
-    data: { task: "messaging" },
+    data: { task: "messaging_views" },
   };
 
   // -------------------------------------------------------------------------
@@ -399,6 +416,7 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
     instructions,
     demographics,
     postsPage,
+    messageType,
     ratingsAgree,
     ratingsFeel,
     ratingsAction,

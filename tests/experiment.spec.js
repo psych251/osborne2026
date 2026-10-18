@@ -36,7 +36,10 @@ async function runUpToDebrief(page) {
   await expect(page.getByText("Please read the following social media posts")).toBeVisible();
   await expect(page.locator(".post img")).toHaveCount(4);
   await page.getByRole("button", { name: "Continue" }).click();
-  // 5. four rating pages (answer "4th option" on every item), then the messaging page
+  // 4b. the message-type question comes right after the posts, before the ratings
+  await page.locator('[data-name="message_type"]').getByText("Positive", { exact: true }).click();
+  await page.locator('input[value="Continue"]').click();
+  // 5. four rating pages (answer "4th option" on every item), then the views page
   const likertPage = async (text, n) => {
     await expect(page.getByText(text)).toBeVisible();
     for (let q = 0; q < n; q++) await page.locator(`input[name="Q${q}"][value="3"]`).check();
@@ -46,7 +49,6 @@ async function runUpToDebrief(page) {
   await likertPage("to what extent do you feel the following", 6);
   await likertPage("how likely would you be to take the following action", 5);
   await likertPage("how likely would you be to discuss", 2);
-  await page.locator('[data-name="message_type"]').getByText("Positive", { exact: true }).click();
   for (const q of ["fit_own_views", "rep_social_media", "rep_media", "rep_health_professionals"]) {
     await page.locator(`[data-name="${q}"]`).getByText("Neither agree nor disagree", { exact: true }).click();
   }
@@ -124,7 +126,7 @@ test.describe("experiment", () => {
     expect(p.status).toBe(200);
     const pdoc = decodeFields(p.body.fields);
     expect(pdoc.completed).toBe(true);
-    expect(["normal", "distress", "transformative"]).toContain(pdoc.condition);
+    expect(["normal", "distress"]).toContain(pdoc.condition);
     expect(pdoc.prolific_pid).toBe("robot123");
     expect(pdoc.n_trials).toBeGreaterThan(10);
     expect(typeof pdoc.full_data).toBe("string");

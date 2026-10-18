@@ -1,0 +1,358 @@
+participant_id,trial_index,task,condition,trial_type,rt,response,time_elapsed,stimulus,plugin_version,experiment_id,consented,view_history,post_images,question_order,post_number,post_text
+8MgYVkFG23gcMSVBQhpgk7opBjI3-1b8651f7,0,consent,transformative,html-button-response,1065,0,1068,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-1b8651f7,1,instructions,transformative,instructions,4282,,5351,,2.1.0,osborne2026-pilot-a,,"[{""page_index"":0,""viewing_time"":914},{""page_index"":1,""viewing_time"":3367}]",,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-1f62ed9a,0,consent,distress,html-button-response,1673,0,1677,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-29ecaa1d,0,consent,transformative,html-button-response,966,0,968,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-29ecaa1d,1,instructions,transformative,instructions,23561,,24531,,2.1.0,osborne2026-pilot-a,,"[{""page_index"":0,""viewing_time"":930},{""page_index"":1,""viewing_time"":22632}]",,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-34023992,0,consent,normal,html-button-response,1419,0,1424,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-50325644,0,consent,distress,html-button-response,1118,1,1124,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,false,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-504fbbd9,0,consent,normal,html-button-response,1588,0,1592,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-5c9f475a,0,consent,transformative,html-button-response,1234,1,1242,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,false,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-9ac34bff,0,consent,distress,html-button-response,892,1,895,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,false,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-9c98ea47,0,consent,transformative,html-button-response,1962,0,1967,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-c17f7be8,0,consent,transformative,html-button-response,2320,0,2322,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-def9e379,0,consent,distress,html-button-response,1308,0,1311,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-e559d03c,0,consent,transformative,html-button-response,1531,0,1534,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-e559d03c,1,instructions,transformative,instructions,84863,,86398,,2.1.0,osborne2026-pilot-a,,"[{""page_index"":0,""viewing_time"":880},{""page_index"":1,""viewing_time"":83982}]",,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-e559d03c,2,demographics,transformative,survey,36775,"{""menopause_stage"":""peri"",""age"":45,""education_years"":8,""knowledge"":""Not knowledgeable at all"",""hrt"":""Yes, I have previously taken HRT, but I am not currently"",""feeling_peri"":""Dreading it"",""social_media_use"":""Weekly"",""feeling_post"":null}",123228,,4.0.0,osborne2026-pilot-a,,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-e559d03c,3,posts,transformative,html-button-response,65267,0,188497,"<div class=""post""><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=""images/transformative_1.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/transformative_2.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/transformative_3.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/transformative_4.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p></div>",2.1.0,osborne2026-pilot-a,,,"images/transformative_1.jpg,images/transformative_2.jpg,images/transformative_3.jpg,images/transformative_4.jpg",,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-e559d03c,4,ratings_agree,transformative,survey-likert,6495,"{""liked"":2,""credible"":2,""trust"":2,""empowered"":2,""knowledgeable"":2}",194997,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4]",,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-e559d03c,5,ratings_feel,transformative,survey-likert,7978,"{""worried"":2,""reassured"":2,""confused"":2,""in_control"":2,""optimistic"":2,""anxious"":2}",202979,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4,5]",,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-e559d03c,6,ratings_action,transformative,survey-likert,6063,"{""like"":2,""share"":2,""save"":2,""comment"":2,""search_similar"":2}",209046,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4]",,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-e559d03c,7,ratings_discuss,transformative,survey-likert,3279,"{""discuss_friends_family"":2,""discuss_health_professional"":2}",212328,,2.2.0,osborne2026-pilot-a,,,,"[0,1]",,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-e559d03c,8,messaging,transformative,survey,8176,"{""message_type"":""Negative"",""fit_own_views"":""Strongly disagree"",""rep_social_media"":""Neither agree nor disagree"",""rep_media"":""Neither agree nor disagree"",""rep_health_professionals"":""Somewhat agree""}",220534,,4.0.0,osborne2026-pilot-a,,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-e559d03c,9,feedback_likert,transformative,survey-likert,1524,"{""instructions_clear"":1}",222061,,2.2.0,osborne2026-pilot-a,,,,[0],,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-e559d03c,10,feedback_text,transformative,survey-text,1426,"{""comments"":""a""}",223512,,2.1.1,osborne2026-pilot-a,,,,,,
+8MgYVkFG23gcMSVBQhpgk7opBjI3-e559d03c,11,debrief,transformative,html-button-response,5280,0,228796,"
+      <h2>Debrief</h2>
+      <p>Thank you very much for participating in this study!</p>
+      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>
+      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>
+      <p>Your responses are anonymous.</p>
+      <p>If you have questions, please contact <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>
+      <p>Press the button to save your responses and finish.</p>",2.1.0,osborne2026-pilot-a,,,,,,
+BRqFitg6BhdqJGYBLfDgIFy72WB2-48df6823,0,consent,normal,html-button-response,1396,0,1416,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+BRqFitg6BhdqJGYBLfDgIFy72WB2-48df6823,1,instructions,normal,instructions,4996,,6416,,2.1.0,osborne2026-pilot-a,,"[{""page_index"":0,""viewing_time"":2031},{""page_index"":1,""viewing_time"":2965}]",,,,
+BRqFitg6BhdqJGYBLfDgIFy72WB2-48df6823,2,demographics,normal,survey,164090,"{""menopause_stage"":""not"",""age"":20,""education_years"":3,""knowledge"":""Moderately knowledgeable"",""hrt"":""No, I have never nor am I currently taking HRT"",""social_media_use"":""Several times per day"",""feeling_peri"":null,""feeling_post"":null}",170613,,4.0.0,osborne2026-pilot-a,,,,,,
+BRqFitg6BhdqJGYBLfDgIFy72WB2-48df6823,3,posts,normal,html-button-response,75570,0,246189,"<div class=""post""><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=""images/normal_1.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/normal_2.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/normal_3.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/normal_4.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p></div>",2.1.0,osborne2026-pilot-a,,,"images/normal_1.jpg,images/normal_2.jpg,images/normal_3.jpg,images/normal_4.jpg",,,
+BRqFitg6BhdqJGYBLfDgIFy72WB2-48df6823,4,ratings_agree,normal,survey-likert,14335,"{""liked"":2,""credible"":2,""trust"":2,""empowered"":2,""knowledgeable"":3}",260535,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4]",,
+BRqFitg6BhdqJGYBLfDgIFy72WB2-48df6823,5,ratings_feel,normal,survey-likert,11317,"{""worried"":2,""reassured"":2,""confused"":3,""in_control"":2,""optimistic"":2,""anxious"":2}",271858,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4,5]",,
+BRqFitg6BhdqJGYBLfDgIFy72WB2-48df6823,6,ratings_action,normal,survey-likert,11560,"{""like"":0,""share"":0,""save"":0,""comment"":0,""search_similar"":0}",283425,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4]",,
+BRqFitg6BhdqJGYBLfDgIFy72WB2-48df6823,7,ratings_discuss,normal,survey-likert,11096,"{""discuss_friends_family"":1,""discuss_health_professional"":2}",294529,,2.2.0,osborne2026-pilot-a,,,,"[0,1]",,
+BRqFitg6BhdqJGYBLfDgIFy72WB2-48df6823,8,messaging,normal,survey,21976,"{""message_type"":""Positive"",""fit_own_views"":""Neither agree nor disagree"",""rep_social_media"":""Neither agree nor disagree"",""rep_media"":""Neither agree nor disagree"",""rep_health_professionals"":""Neither agree nor disagree""}",316559,,4.0.0,osborne2026-pilot-a,,,,,,
+BRqFitg6BhdqJGYBLfDgIFy72WB2-48df6823,9,feedback_likert,normal,survey-likert,3896,"{""instructions_clear"":3}",320457,,2.2.0,osborne2026-pilot-a,,,,[0],,
+BRqFitg6BhdqJGYBLfDgIFy72WB2-48df6823,10,feedback_text,normal,survey-text,42788,"{""comments"":""I don’t care about this actually but i guess im part of the data lol.""}",363256,,2.1.1,osborne2026-pilot-a,,,,,,
+BRqFitg6BhdqJGYBLfDgIFy72WB2-48df6823,11,debrief,normal,html-button-response,3822,0,367079,"
+      <h2>Debrief</h2>
+      <p>Thank you very much for participating in this study!</p>
+      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>
+      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>
+      <p>Your responses are anonymous.</p>
+      <p>If you have questions, please contact <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>
+      <p>Press the button to save your responses and finish.</p>",2.1.0,osborne2026-pilot-a,,,,,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-938f9120,0,consent,normal,html-button-response,6030,0,6052,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-938f9120,1,instructions,normal,instructions,16475,,22531,,2.1.0,osborne2026-pilot-a,,"[{""page_index"":0,""viewing_time"":7400},{""page_index"":1,""viewing_time"":9074}]",,,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-938f9120,2,demographics,normal,survey,50712,"{""menopause_stage"":""not"",""age"":26,""education_years"":8,""knowledge"":""Slightly knowledgeable"",""hrt"":""No, I have never nor am I currently taking HRT"",""social_media_use"":""Several times per day"",""feeling_peri"":null,""feeling_post"":null}",73326,,4.0.0,osborne2026-pilot-a,,,,,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-9eb307c3,0,consent,normal,html-button-response,3925,0,3928,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-9eb307c3,1,instructions,normal,instructions,1761,,5692,,2.1.0,osborne2026-pilot-a,,"[{""page_index"":0,""viewing_time"":1096},{""page_index"":1,""viewing_time"":665}]",,,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-9eb307c3,2,demographics,normal,survey,15656,"{""menopause_stage"":""not"",""age"":26,""knowledge"":""Slightly knowledgeable"",""hrt"":""No, I have never nor am I currently taking HRT"",""social_media_use"":""Several times per day"",""education_years"":8,""feeling_peri"":null,""feeling_post"":null}",21403,,4.0.0,osborne2026-pilot-a,,,,,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-9eb307c3,3,posts,normal,html-button-response,116720,0,138129,"<div class=""post""><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=""images/normal_1.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/normal_2.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/normal_3.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/normal_4.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p></div>",2.1.0,osborne2026-pilot-a,,,"images/normal_1.jpg,images/normal_2.jpg,images/normal_3.jpg,images/normal_4.jpg",,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-ad36cea0,0,consent,normal,html-button-response,6460,0,6466,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-ad36cea0,1,instructions,normal,instructions,57427,,63899,,2.1.0,osborne2026-pilot-a,,"[{""page_index"":0,""viewing_time"":4056},{""page_index"":1,""viewing_time"":53371}]",,,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-ad36cea0,2,demographics,normal,survey,15261,"{""menopause_stage"":""not"",""age"":26,""education_years"":8,""knowledge"":""Slightly knowledgeable"",""hrt"":""No, I have never nor am I currently taking HRT"",""social_media_use"":""Several times per day"",""feeling_peri"":null,""feeling_post"":null}",79268,,4.0.0,osborne2026-pilot-a,,,,,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-ad36cea0,3,posts,normal,html-button-response,63481,0,142757,"<div class=""post""><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=""images/normal_1.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/normal_2.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/normal_3.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/normal_4.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p></div>",2.1.0,osborne2026-pilot-a,,,"images/normal_1.jpg,images/normal_2.jpg,images/normal_3.jpg,images/normal_4.jpg",,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-ad36cea0,4,ratings_agree,normal,survey-likert,26082,"{""liked"":1,""credible"":4,""trust"":3,""empowered"":4,""knowledgeable"":0}",168849,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4]",,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-ad36cea0,5,ratings_feel,normal,survey-likert,14542,"{""worried"":0,""reassured"":4,""confused"":0,""in_control"":4,""optimistic"":4,""anxious"":0}",183399,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4,5]",,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-ad36cea0,6,ratings_action,normal,survey-likert,10381,"{""like"":0,""share"":0,""save"":0,""comment"":0,""search_similar"":0}",193790,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4]",,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-ad36cea0,7,ratings_discuss,normal,survey-likert,10427,"{""discuss_friends_family"":1,""discuss_health_professional"":0}",204227,,2.2.0,osborne2026-pilot-a,,,,"[0,1]",,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-ad36cea0,8,messaging,normal,survey,29880,"{""message_type"":""Positive"",""fit_own_views"":""Strongly agree"",""rep_social_media"":""Somewhat agree"",""rep_media"":""Somewhat disagree"",""rep_health_professionals"":""Strongly agree""}",234173,,4.0.0,osborne2026-pilot-a,,,,,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-ad36cea0,9,feedback_likert,normal,survey-likert,5091,"{""instructions_clear"":2}",239266,,2.2.0,osborne2026-pilot-a,,,,[0],,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-ad36cea0,10,feedback_text,normal,survey-text,11587,"{""comments"":""Better text to screen ratio ""}",250876,,2.1.1,osborne2026-pilot-a,,,,,,
+bqR2mznwTDNVkL0iemgfr3P2kCz1-ad36cea0,11,debrief,normal,html-button-response,2033,0,252912,"
+      <h2>Debrief</h2>
+      <p>Thank you very much for participating in this study!</p>
+      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>
+      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>
+      <p>Your responses are anonymous.</p>
+      <p>If you have questions, please contact <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>
+      <p>Press the button to save your responses and finish.</p>",2.1.0,osborne2026-pilot-a,,,,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-805e5a6a,0,consent,distress,html-button-response,2706,0,2714,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:stanfordpsych251@gmail.com"">stanfordpsych251@gmail.com</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-805e5a6a,1,instructions,distress,instructions,6713,,9431,,2.1.0,osborne2026-pilot-a,,"[{""page_index"":0,""viewing_time"":5230},{""page_index"":1,""viewing_time"":1483}]",,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-805e5a6a,2,demographics,distress,survey,2979,"{""age"":null,""education_years"":null,""menopause_stage"":null,""social_media_use"":null}",12459,,4.0.0,osborne2026-pilot-a,,,,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-805e5a6a,3,post,distress,html-button-response,63651,0,76115,"<div class=""post""><p><strong>Post 1 of 4</strong></p><p>We need to stop labelling the menopause as a natural process where women endure symptoms... instead we should be calling it what it actually is: a long term hormone deficiency, which with the right support, treatments and lifestyle changes can be managed.</p></div>",2.1.0,osborne2026-pilot-a,,,,,1,"We need to stop labelling the menopause as a natural process where women endure symptoms... instead we should be calling it what it actually is: a long term hormone deficiency, which with the right support, treatments and lifestyle changes can be managed."
+jltelFWwwYYrOVOFAj9OLfE2iav1-805e5a6a,4,post,distress,html-button-response,68529,0,144652,"<div class=""post""><p><strong>Post 2 of 4</strong></p><p>Menopause symptoms should not be brushed aside as simply getting older. Falling hormone levels can disrupt sleep and daily life, and women need their difficulties to be taken seriously and their options for support discussed.</p></div>",2.1.0,osborne2026-pilot-a,,,,,2,"Menopause symptoms should not be brushed aside as simply getting older. Falling hormone levels can disrupt sleep and daily life, and women need their difficulties to be taken seriously and their options for support discussed."
+jltelFWwwYYrOVOFAj9OLfE2iav1-805e5a6a,5,post,distress,html-button-response,907824,0,1052485,"<div class=""post""><p><strong>Post 3 of 4</strong></p><p>We need more honest conversations about the burden of menopause. Hot flushes, disturbed sleep and other symptoms can make everyday routines difficult, and women should not be left to struggle without information and appropriate care.</p></div>",2.1.0,osborne2026-pilot-a,,,,,3,"We need more honest conversations about the burden of menopause. Hot flushes, disturbed sleep and other symptoms can make everyday routines difficult, and women should not be left to struggle without information and appropriate care."
+jltelFWwwYYrOVOFAj9OLfE2iav1-805e5a6a,6,post,distress,html-button-response,5586319,0,44596030,"<div class=""post""><p><strong>Post 4 of 4</strong></p><p>Calling menopause a normal stage of life does not capture how challenging its symptoms can be. Hormonal changes can affect women's wellbeing, and those experiencing difficulties deserve support and a discussion of ways to manage them.</p></div>",2.1.0,osborne2026-pilot-a,,,,,4,"Calling menopause a normal stage of life does not capture how challenging its symptoms can be. Hormonal changes can affect women's wellbeing, and those experiencing difficulties deserve support and a discussion of ways to manage them."
+jltelFWwwYYrOVOFAj9OLfE2iav1-805e5a6a,7,ratings_affect,distress,survey-likert,4151,"{""worried"":"""",""reassured"":"""",""confused"":2,""optimistic"":"""",""anxious"":"""",""empowered"":"""",""knowledgeable"":""""}",44600194,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4,5,6]",,
+jltelFWwwYYrOVOFAj9OLfE2iav1-805e5a6a,8,ratings_behavior,distress,survey-likert,1724,"{""like"":"""",""share"":"""",""save"":"""",""comment"":"""",""search_similar"":"""",""discuss_friends_family"":"""",""discuss_health_professional"":""""}",44601924,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4,5,6]",,
+jltelFWwwYYrOVOFAj9OLfE2iav1-805e5a6a,9,feedback_likert,distress,survey-likert,2298,"{""instructions_clear"":""""}",44604225,,2.2.0,osborne2026-pilot-a,,,,[0],,
+jltelFWwwYYrOVOFAj9OLfE2iav1-805e5a6a,10,feedback_text,distress,survey-text,1393,"{""comments"":""""}",44605651,,2.1.1,osborne2026-pilot-a,,,,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-805e5a6a,11,debrief,distress,html-button-response,73769,0,44679425,"
+      <h2>Debrief</h2>
+      <p>[PLACEHOLDER: write your debrief here. Thank participants, explain the goal of the study
+      in simple words, say that different participants saw different kinds of posts, and say how
+      to ask questions.] Contact:
+      <a href=""mailto:stanfordpsych251@gmail.com"">stanfordpsych251@gmail.com</a>.
+      Press the button to save your responses and finish.</p>",2.1.0,osborne2026-pilot-a,,,,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-91499042,0,consent,transformative,html-button-response,2319,0,2325,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-91499042,1,instructions,transformative,instructions,5646,,7974,,2.1.0,osborne2026-pilot-a,,"[{""page_index"":0,""viewing_time"":2079},{""page_index"":1,""viewing_time"":3567}]",,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-91499042,2,demographics,transformative,survey,20185,"{""menopause_stage"":""not"",""education_years"":0,""hrt"":""No, I have never nor am I currently taking HRT"",""social_media_use"":""Less than weekly"",""knowledge"":""Slightly knowledgeable"",""age"":23,""feeling_peri"":null,""feeling_post"":null}",28215,,4.0.0,osborne2026-pilot-a,,,,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-dd8c7213,0,consent,distress,html-button-response,66357,0,66367,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-dd8c7213,1,instructions,distress,instructions,57395,,123763,,2.1.0,osborne2026-pilot-a,,"[{""page_index"":0,""viewing_time"":11545},{""page_index"":1,""viewing_time"":17748},{""page_index"":0,""viewing_time"":25501},{""page_index"":1,""viewing_time"":2602}]",,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-dd8c7213,2,demographics,distress,survey,17228,"{""menopause_stage"":""peri"",""age"":18,""education_years"":0,""knowledge"":""Slightly knowledgeable"",""hrt"":""Yes, I have previously taken HRT, but I am not currently"",""feeling_peri"":""Neutral - no strong view either way"",""social_media_use"":""Less than weekly"",""feeling_post"":null}",141058,,4.0.0,osborne2026-pilot-a,,,,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-dd8c7213,3,posts,distress,html-button-response,62550,0,203610,"<div class=""post""><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=""images/distress_1.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/distress_2.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/distress_3.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/distress_4.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p></div>",2.1.0,osborne2026-pilot-a,,,"images/distress_1.jpg,images/distress_2.jpg,images/distress_3.jpg,images/distress_4.jpg",,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-dd8c7213,4,ratings_agree,distress,survey-likert,7229,"{""liked"":1,""credible"":2,""trust"":2,""empowered"":2,""knowledgeable"":2}",210843,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4]",,
+jltelFWwwYYrOVOFAj9OLfE2iav1-dd8c7213,5,ratings_feel,distress,survey-likert,12212,"{""worried"":2,""reassured"":2,""confused"":2,""in_control"":2,""optimistic"":2,""anxious"":2}",223060,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4,5]",,
+jltelFWwwYYrOVOFAj9OLfE2iav1-dd8c7213,6,ratings_action,distress,survey-likert,7479,"{""like"":2,""share"":2,""save"":2,""comment"":2,""search_similar"":2}",230543,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4]",,
+jltelFWwwYYrOVOFAj9OLfE2iav1-dd8c7213,7,ratings_discuss,distress,survey-likert,3379,"{""discuss_friends_family"":2,""discuss_health_professional"":2}",233926,,2.2.0,osborne2026-pilot-a,,,,"[0,1]",,
+jltelFWwwYYrOVOFAj9OLfE2iav1-dd8c7213,8,messaging,distress,survey,7780,"{""fit_own_views"":""Strongly disagree"",""message_type"":""Negative"",""rep_social_media"":""Strongly disagree"",""rep_media"":""Strongly disagree"",""rep_health_professionals"":""Strongly agree""}",241732,,4.0.0,osborne2026-pilot-a,,,,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-dd8c7213,9,feedback_likert,distress,survey-likert,2941,"{""instructions_clear"":2}",244675,,2.2.0,osborne2026-pilot-a,,,,[0],,
+jltelFWwwYYrOVOFAj9OLfE2iav1-dd8c7213,10,feedback_text,distress,survey-text,2385,"{""comments"":""s""}",247083,,2.1.1,osborne2026-pilot-a,,,,,,
+jltelFWwwYYrOVOFAj9OLfE2iav1-dd8c7213,11,debrief,distress,html-button-response,24656,0,271741,"
+      <h2>Debrief</h2>
+      <p>Thank you very much for participating in this study!</p>
+      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>
+      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>
+      <p>Your responses are anonymous.</p>
+      <p>If you have questions, please contact <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>
+      <p>Please do not share details of the study with others who might participate.</p>
+      <p>Press the button to save your responses and finish.</p>",2.1.0,osborne2026-pilot-a,,,,,,
+t5F3ublFbzfvcQiVPIsPU6F9pVq2-c40a19b5,0,consent,normal,html-button-response,12248,0,12257,"
+      <div class=""consent"">
+        <h2>Consent</h2>
+        <p>By answering the following questions, you are participating in a study being performed by
+        cognitive scientists in the Stanford Department of Psychology. If you have questions about
+        this research, please contact us at <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>.
+        You must be at least 18 years old to participate. Your participation in this research is
+        voluntary. You may decline to answer any or all of the following questions. You may decline
+        further participation, at any time, without adverse consequences. Your anonymity is assured;
+        the researchers who have requested your participation will not receive any personal
+        information about you.</p>
+      </div>",2.1.0,osborne2026-pilot-a,true,,,,,
+t5F3ublFbzfvcQiVPIsPU6F9pVq2-c40a19b5,1,instructions,normal,instructions,43325,,55584,,2.1.0,osborne2026-pilot-a,,"[{""page_index"":0,""viewing_time"":3701},{""page_index"":1,""viewing_time"":39624}]",,,,
+t5F3ublFbzfvcQiVPIsPU6F9pVq2-c40a19b5,2,demographics,normal,survey,38828,"{""menopause_stage"":""not"",""age"":24,""education_years"":8,""knowledge"":""Slightly knowledgeable"",""hrt"":""No, I have never nor am I currently taking HRT"",""social_media_use"":""Daily"",""feeling_peri"":null,""feeling_post"":null}",94482,,4.0.0,osborne2026-pilot-a,,,,,,
+t5F3ublFbzfvcQiVPIsPU6F9pVq2-c40a19b5,3,posts,normal,html-button-response,68420,0,162903,"<div class=""post""><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=""images/normal_1.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/normal_2.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/normal_3.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p><p><img src=""images/normal_4.jpg"" alt=""A social media post about menopause"" style=""max-width:100%;height:auto;border:1px solid #ddd;""></p></div>",2.1.0,osborne2026-pilot-a,,,"images/normal_1.jpg,images/normal_2.jpg,images/normal_3.jpg,images/normal_4.jpg",,,
+t5F3ublFbzfvcQiVPIsPU6F9pVq2-c40a19b5,4,ratings_agree,normal,survey-likert,18566,"{""liked"":3,""credible"":4,""trust"":4,""empowered"":3,""knowledgeable"":1}",181471,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4]",,
+t5F3ublFbzfvcQiVPIsPU6F9pVq2-c40a19b5,5,ratings_feel,normal,survey-likert,30558,"{""worried"":1,""reassured"":3,""confused"":2,""in_control"":2,""optimistic"":1,""anxious"":1}",212031,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4,5]",,
+t5F3ublFbzfvcQiVPIsPU6F9pVq2-c40a19b5,6,ratings_action,normal,survey-likert,40118,"{""like"":2,""share"":1,""save"":3,""comment"":1,""search_similar"":2}",252151,,2.2.0,osborne2026-pilot-a,,,,"[0,1,2,3,4]",,
+t5F3ublFbzfvcQiVPIsPU6F9pVq2-c40a19b5,7,ratings_discuss,normal,survey-likert,9047,"{""discuss_friends_family"":3,""discuss_health_professional"":1}",261200,,2.2.0,osborne2026-pilot-a,,,,"[0,1]",,
+t5F3ublFbzfvcQiVPIsPU6F9pVq2-c40a19b5,8,messaging,normal,survey,27133,"{""message_type"":""Positive"",""fit_own_views"":""Somewhat agree"",""rep_social_media"":""Somewhat disagree"",""rep_media"":""Somewhat disagree"",""rep_health_professionals"":""Somewhat agree""}",288356,,4.0.0,osborne2026-pilot-a,,,,,,
+t5F3ublFbzfvcQiVPIsPU6F9pVq2-c40a19b5,9,feedback_likert,normal,survey-likert,7834,"{""instructions_clear"":2}",296191,,2.2.0,osborne2026-pilot-a,,,,[0],,
+t5F3ublFbzfvcQiVPIsPU6F9pVq2-c40a19b5,10,feedback_text,normal,survey-text,10036,"{""comments"":""Debbie test""}",306231,,2.1.1,osborne2026-pilot-a,,,,,,
+t5F3ublFbzfvcQiVPIsPU6F9pVq2-c40a19b5,11,debrief,normal,html-button-response,14519,0,320752,"
+      <h2>Debrief</h2>
+      <p>Thank you very much for participating in this study!</p>
+      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>
+      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>
+      <p>Your responses are anonymous.</p>
+      <p>If you have questions, please contact <a href=""mailto:andreaml@stanford.edu"">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>
+      <p>Press the button to save your responses and finish.</p>",2.1.0,osborne2026-pilot-a,,,,,,
