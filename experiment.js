@@ -437,6 +437,7 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
       <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>
       <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>
       <p>Your responses are anonymous.</p>
+      <p>Please don't share the contents of this study with others.</p>
       <p>If you have questions, please contact <a href="mailto:${EXPERIMENT.contact_email}">${EXPERIMENT.contact_email}</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>
       <p>Press the button to save your responses and finish.</p>`,
     choices: ["Finish"],
