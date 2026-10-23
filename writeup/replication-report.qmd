@@ -200,7 +200,7 @@ read_phase <- function(id) {
 }
 
 # Fit the ordinal logistic regression for ONE outcome (for example "worried"): the rating
-# predicted by condition (normal is the comparison group) plus the four control variables.
+# predicted by condition (normal is the comparison group) plus the three control variables (age, education, social media use).
 # Returns one row per non-normal condition, or NULL if the model cannot be fitted yet
 # (for example while there are only a few pilot participants).
 fit_outcome <- function(dat, outcome) {
@@ -209,11 +209,13 @@ fit_outcome <- function(dat, outcome) {
     rename(y = all_of(outcome)) |>
     drop_na() |>
     mutate(y = factor(y, ordered = TRUE), condition = droplevels(condition))
-  # The model: condition plus the four control variables. In pilot mode there are too few
+  # The model: condition plus three control variables (age, education, social media use), the
+  # same model as the original authors' script (their code scales each control with scale()).
+  # Menopause stage is not a control: it was a screening criterion in the original. In pilot mode there are too few
   # people for four extra variables (the model cannot find a solution with about 10 rows),
   # so the pilot model uses condition only. The real study uses the full model.
   model_formula <- if (pilot_mode) y ~ condition else
-    y ~ condition + age + education_years + social_media_use + menopause_stage
+    y ~ condition + scale(age) + scale(education_years) + scale(social_media_use)
   if (nrow(d) < min_n || nlevels(d$condition) < 2 || nlevels(d$y) < 2) return(NULL)
   m <- tryCatch(
     MASS::polr(model_formula, data = d, Hess = TRUE),

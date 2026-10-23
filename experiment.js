@@ -40,6 +40,11 @@ const EXPERIMENT = {
   // Leave empty for local testing or non-Prolific samples.
   prolific_completion_code: "",
 
+  // Prolific: completion code of the "screened out" completion path (Prolific study page,
+  // Data collection -> custom screening). People who are not eligible are sent there and paid
+  // the small fixed screen-out reward. Leave empty for local testing.
+  prolific_screenout_code: "",
+
   // Contact shown in consent and debrief.
   contact_email: "andreaml@stanford.edu",
 
@@ -102,6 +107,9 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
     return;
   }
 
+  // Set to true by the demographics page when someone is not eligible (see `demographics`).
+  let screenedOut = false;
+
   const jsPsych = initJsPsych({
     show_progress_bar: true,
     auto_update_progress_bar: true,
@@ -112,6 +120,20 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
       // finish() flushes remaining trials, marks the participant complete, and (only if
       // saving failed) appends a download-fallback box to the display element.
       const result = await saver.finish(jsPsych);
+      if (screenedOut) {
+        // finish() marks everyone as completed; a screened-out person did not complete the study.
+        await saver.updateParticipant({ completed: false, screened_out: true });
+        const msg = document.getElementById("finish-message");
+        if (EXPERIMENT.prolific_screenout_code && !USE_EMULATOR) {
+          msg.innerHTML = "<p class='thanks'>Thank you. Returning you to Prolific…</p>";
+          window.location.href =
+            "https://app.prolific.com/submissions/complete?cc=" + EXPERIMENT.prolific_screenout_code;
+        } else {
+          msg.innerHTML = "<h2 class='thanks'>Thank you</h2><p class='thanks'>Based on your answers, you are " +
+            "not eligible for this study. Thank you for your time. You may close this window.</p>";
+        }
+        return;
+      }
       const consentRow = jsPsych.data.get().filter({ task: "consent" }).values()[0];
       const consented = !consentRow || consentRow.consented !== false;
       const msg = document.getElementById("finish-message");
@@ -260,6 +282,16 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
       ],
     },
     data: { task: "demographics" },
+    // Eligibility check, as in the original study: women aged 40+ who describe themselves as
+    // perimenopausal or postmenopausal. Anyone else is screened out here, before the posts.
+    on_finish: (data) => {
+      const r = data.response || {};
+      if (r.menopause_stage === "not" || Number(r.age) < 40) {
+        screenedOut = true;
+        data.screened_out = true;
+        jsPsych.abortExperiment();
+      }
+    },
   };
 
   // -------------------------------------------------------------------------

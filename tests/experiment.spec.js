@@ -25,7 +25,7 @@ async function runUpToDebrief(page) {
   await page.locator("#jspsych-instructions-next").click();
   // 3. demographics (SurveyJS): stage, age, education years, knowledge, HRT, feeling, social media use
   await page.locator('[data-name="menopause_stage"]').getByText("Post menopause - not had a period", { exact: false }).click();
-  await page.locator('[data-name="age"] input').fill("34");
+  await page.locator('[data-name="age"] input').fill("45");
   await page.locator('[data-name="education_years"] input').fill("4");
   await page.locator('[data-name="knowledge"]').getByText("Moderately knowledgeable", { exact: true }).click();
   await page.locator('[data-name="hrt"]').getByText("No, I have never", { exact: false }).click();
@@ -150,7 +150,7 @@ test.describe("experiment", () => {
     expect(trials.find((t) => t.task === "ratings_discuss").response.discuss_friends_family).toBe(3);
     expect(trials.find((t) => t.task === "messaging").response.message_type).toBe("Positive");
     const demo = trials.find((t) => t.task === "demographics");
-    expect(demo.response.age).toBe(34);
+    expect(demo.response.age).toBe(45);
 
     // Every trial row must carry the same participant id as its participant document,
     // otherwise trials.csv and participants.csv cannot be joined in the analysis.
@@ -178,6 +178,39 @@ test.describe("experiment", () => {
     await expect(page.getByText("You chose not to participate")).toBeVisible({ timeout: 15000 });
     await expect(page.getByText("Your responses were saved")).toHaveCount(0);
   });
+
+  // Eligibility screening: women 40+ in peri/postmenopause only. Anyone else is ended at the
+  // demographics page, is not counted as completed, and never sees the posts.
+  for (const [label, stage, age] of [
+    ["is not going through the menopause", "Not going through the menopause", "50"],
+    ["is under 40", "Post menopause - not had a period", "39"],
+  ]) {
+    test(`a participant who ${label} is screened out before the posts`, async ({ page }) => {
+      await page.goto(EMULATOR ? "/?emulator=1" : "/");
+      await page.waitForFunction(() => window.__saver && window.__saver.uid);
+      await page.getByRole("button", { name: "I agree to participate" }).click();
+      await page.locator("#jspsych-instructions-next").click();
+      await page.locator("#jspsych-instructions-next").click();
+      await page.locator('[data-name="menopause_stage"]').getByText(stage, { exact: false }).click();
+      await page.locator('[data-name="age"] input').fill(age);
+      await page.locator('[data-name="education_years"] input').fill("4");
+      await page.locator('[data-name="knowledge"]').getByText("Moderately knowledgeable", { exact: true }).click();
+      await page.locator('[data-name="hrt"]').getByText("No, I have never", { exact: false }).click();
+      // The "how do you feel" question is required and only appears for peri/post answers.
+      if (stage.startsWith("Post")) await page.locator('[data-name="feeling_post"]').getByText("It was fine", { exact: true }).click();
+      await page.locator('[data-name="social_media_use"]').getByText("Daily", { exact: true }).click();
+      await page.locator('input[value="Continue"]').click();
+      await expect(page.getByText("not eligible for this study")).toBeVisible({ timeout: 30000 });
+      await expect(page.locator(".post img")).toHaveCount(0);
+      if (EMULATOR) {
+        const uid = await page.evaluate(() => window.__saver.docId);
+        const p = await fsGet(`experiments/${EXPERIMENT_ID}/participants/${uid}`);
+        const pdoc = decodeFields(p.body.fields);
+        expect(pdoc.completed).toBe(false);
+        expect(pdoc.screened_out).toBe(true);
+      }
+    });
+  }
 
   test("losing the connection at the end offers the download fallback instead of hanging", async ({ page, context }) => {
     test.skip(!EMULATOR, "needs the Firestore emulator");
