@@ -1,7 +1,7 @@
 ---
 title: "Replication of Osborne et al. (2026, *JMIR Formative Research*)"
 author: "Andrea Morales Leal andreaml@stanford.edu"
-date: October 3, 2026
+date: October 23, 2026
 date-format: long
 format:
   html:
@@ -76,6 +76,15 @@ model_note <- if (pilot_mode) "no control variables in the pilot model" else
 # Groups: normal = 248, distress = 241, transformative = 248.
 orig_n <- c(normal = 248, distress = 241, transformative = 248)
 
+# Worry ratings (1-5) in the two conditions of the key test, calculated from the original
+# authors' shared data on OSF (https://osf.io/gnb2e) after their exclusions. Used below to
+# get Cohen's d directly from means and SDs.
+orig_worry <- tribble(
+  ~condition, ~n,  ~mean,    ~sd,
+  "normal",   248, 2.532258, 1.033335,
+  "distress", 241, 2.991701, 1.064549
+)
+
 # Ordinal logistic regression results for "distress vs normal" (the comparison group is
 # normal). beta = log-odds coefficient (the effect size), se = its standard error,
 # z = beta / se. Outcomes were rated on a 5-point scale.
@@ -106,6 +115,8 @@ original_key <- original |> filter(outcome == "worried")
 # AI use statement
 
 I used ChatGPT and Claude (Sonnet 5.5) to help me with the experiment, code, tests and the calculations for the power analysis. They explained some statistical procedures to me and how to use RStudio, git, Quarto and Firebase. They gave me feedback and corrections for my writing, grammar, spelling, and tense, and gave me examples of sentences. They also helped me to add my text to the report and delete the guidance boxes. I checked what the AI told me by searching on the internet, the course Experimentology online book, checking on my own what the code chunks meant, and double-checking everything.
+
+I used Claude to help me read and understand the authors’ analysis code and make my model formula the same as theirs. I used their data to calculate the descriptive statistics and check the main result. Claude also helped me add a filter in the experiment code using the age and menopause questions that were already there. With this filter, participants who did not meet the criteria could not continue the study.
 
 # Key statistics
 
@@ -308,7 +319,7 @@ bind_rows(
 
 The original study found that showing social media posts to peri- and postmenopausal women framing the menopause transition as either normal, distressful, or transformative had immediate effects on affective responses (Osborne et al., 2026). Participants who viewed distress-framed posts reported greater levels of worry and confusion, and lower levels of reassurance, optimism, and empowerment. Interestingly, the distress-framed posts increased perceived knowledge of menopause, despite participants feeling more negatively toward them. I replicated the study with only two conditions (normal vs distress) to examine the original study’s main finding, the same affective reactions, expected behavioral responses, and perceptions scales were utilized. This study was important for me because it demonstrates how narrative framing shapes affective responses and the importance of choosing the right words to share medical information, especially for a stage of life that half of the population will live through for almost 40% of their lives. Negative framing could also affect how women experience their symptoms physically. I would like to further investigate the mind-body effects of menopausal mindsets in the future.
 
-One challenge that I anticipated was obtaining the original materials from the authors, but they shared their original posts with me. For the statistical analysis, I used ordinal logistic regression for each ordinal outcome, comparing the distress condition with the normal condition.
+One challenge that I anticipated was getting the original materials from the authors, but they shared their original posts with me. They also shared their data and analysis code on OSF. This helped me understand their analysis and prepare my replication. For the statistical analysis, I used ordinal logistic regression.
 
 For the extension, I planned to include a brief message to reframe how menopause is presented in the posts.
 
@@ -318,11 +329,12 @@ For the extension, I planned to include a brief message to reframe how menopause
 
 ```{r}
 #| label: power
-# The original effect (beta) is on the "log-odds" scale. A logistic distribution has a
-# standard deviation of pi / sqrt(3), so beta divided by that number gives an approximate
-# Cohen's d, which the usual t-test power calculation can use. This is an approximation:
-# it ignores the control variables.
-d_orig <- original_key$beta / (pi / sqrt(3))
+# Cohen's d for worry (distress vs normal) from the original data: the difference in means
+# divided by the pooled standard deviation. The course template instead converts the
+# log-odds beta with beta / (pi / sqrt(3)), which gives about 0.50 (an approximation that
+# ignores the control variables). The direct calculation from the means is used here.
+pooled_sd <- with(orig_worry, sqrt(sum((n - 1) * sd^2) / (sum(n) - 2)))
+d_orig <- diff(orig_worry$mean) / pooled_sd
 
 # The original study used p < .01, so power is calculated for alpha = .01.
 power_rows <- map_dfr(c(0.80, 0.90, 0.95), function(pw) {
@@ -364,15 +376,13 @@ knitr::kable(power_check,
                                proposed_per_group))
 ```
 
-The original effect for the worry question comparing the distress and normal conditions was β = .910, which was converted to a Cohen’s d of about 0.50 using the template’s code.
+The original effect for the worry question comparing the distress and normal conditions was β = .910. Cohen’s d was calculated using the means and standard deviations of the two groups in the original data. This gave a d of about 0.44.
 
-For an alpha of .01, a minimum of 120 participants per condition was needed for 90% power to detect the original effect.
-
-I chose 130 participants per group because of resource constraints, which gave around 93% power to detect the original effect. However, the true effect could be smaller than the effect found in the original study.
+With an alpha of .01, about 157 participants per group would be needed to have 90% power to detect this effect. I chose 130 participants per group because of resource constraints. With this sample, the power is about 82% to detect an effect of d = 0.44. However, the true effect could be smaller than the one found in the original study.
 
 ### Planned sample
 
-A sample of 260 women 40 years or older who are perimenopausal or postmenopausal was recruited through Prolific.
+I plan to recruit women aged 40 or older from the UK through Prolific who are perimenopausal or postmenopausal. The planned sample is 260 participants, with 130 in each condition. Participants who do not pass the eligibility check will not count toward the 260.
 
 Recruitment stopped when data from 260 people who passed the inclusion/exclusion criteria had been collected.
 
@@ -384,17 +394,17 @@ Materials available at the following link: https://psych251.github.io/osborne202
 
 ### Procedure
 
-Participants recruited through Prolific were directed to a consent page to participate in the study and then answered basic sociodemographic and clinical questions about their menopause. After that, they were randomly assigned to one of two conditions (normal/distress), in which they were instructed to view four posts framing menopause as either a distressing or a "normal" experience. The social media posts from the original study were shared by the authors to use in this replication study. The posts were anonymized, standardized, and copied from public X, Instagram, and Facebook posts. The participants answered questions about the message of the posts, how the posts made them feel (worried, reassured, confused, optimistic), their behavioral intentions (like, share, save, comment, search, discuss), and their perceptions of the posts (likability, credibility, trustworthiness, representativeness). The original question sequence was followed, but only with the two groups (normal and distress posts) instead of three, because of resource constraints. The transformative posts were not included. The experiment was run on a jsPsych website instead of Qualtrics.
+Participants recruited through Prolific first saw a consent page and then answered basic sociodemographic and clinical questions about their menopause. After the demographics page, their age and answer to the original menopause question were used to check if they could participate. Participants under 40 or who were not perimenopausal or postmenopausal could not continue and were sent back to Prolific. The condition was randomly assigned when they started the study, before the demographic questions. Eligible participants then saw four posts presenting menopause as either a distressing or a “normal” experience, depending on their condition. The authors shared their original posts to use in this replication. The posts were anonymized, standardized, and copied from public X, Instagram, and Facebook posts. Participants answered questions about the message of the posts, how the posts made them feel (worried, reassured, confused, optimistic), their behavioral intentions (like, share, save, comment, search, discuss), and their perceptions of the posts (likability, credibility, trustworthiness, representativeness). As far as I could tell from the original data, the questions followed the same order. I included only two groups, normal and distress, instead of three because of resource constraints. The transformative posts were not included. I used a jsPsych website instead of Qualtrics to run the experiment.
 
 ### Analysis plan
 
 As in the original study, statistical analyses were done using R. The packages apaTables, ggplot2, psych, and tidyverse were used for data processing, analysis, and visualization.
 
-Participant characteristics, HRT experience, perceived menopause knowledge, and social media engagement were described using descriptive statistics. Categorical variables were presented as counts and percentages. Continuous variables were presented as means, SDs, and ranges. Ordinal logistic regression was used because the outcomes were measured on ordered 5-point Likert-type scales. The models examined the impact of experimental condition on affective, behavioral, and perceptual responses to the posts, using the normal narrative condition as the reference category. Models controlled for age, years of education after age 16, menopause stage, and frequency of social media use. Following the original authors, P < .01 was used as the significance threshold because several outcomes were tested.
+Participant characteristics, HRT experience, perceived menopause knowledge, and social media engagement were described using descriptive statistics. Categorical variables were presented as counts and percentages. Continuous variables were presented as means, SDs, and ranges. Ordinal logistic regression was used because the outcomes were measured on ordered 5-point Likert-type scales. The models examined the impact of experimental condition on affective, behavioral, and perceptual responses to the posts, using the normal narrative condition as the reference category. Models controlled for age, years of education after age 16, and frequency of social media use. Following the original authors, I used P < .01 as the significance threshold.
 
 **Key analysis of interest.** My key analysis of interest was to compare worry ratings between the distress and normal conditions using ordinal logistic regression. In the original study, compared to participants who viewed posts portraying menopause as normal, those who viewed distress posts reported to be more worried about menopause (β = .910; SE = .170; Wald z = 5.350; P < .001; Osborne et al., 2026).
 
-The test was an ordinal logistic regression of the worry likert question on condition. The effect size was β (log-odds) for distress vs normal, with a 95% confidence interval.
+The key test was an ordinal logistic regression of the worry question on condition, with the same three controls. The normal condition was the reference group. The effect size was β (log-odds) for distress vs normal, with a 95% confidence interval.
 
 **Secondary outcomes.** Feeling reassured, confused, optimistic, anxious, empowered, and knowledgeable, and how much participants liked the posts, were also examined using the same ordinal logistic regression model and covariates.
 
@@ -404,13 +414,13 @@ Participants were also excluded if they were not perimenopausal or postmenopausa
 
 ### Differences from the original study
 
-| Aspect | Original study | This replication | Expected to matter? |
+| Feature | Original study | Replication study | Could this influence the results? |
 |---|---|---|---|
-| Number of groups | 3 (normal, distress, transformative) | 2 (normal, distress) | No, because the primary outcome of the replication study is the distress vs normal posts. |
-| Platform | Qualtrics | jsPsych website | Not probable. The questions, posts, and their sequence are the same. |
-| Sample size | 737 participants were analyzed, about 245 per group. | About 260 (130 per group) | Not probable. The estimated power for my sample was approximately 93% to detect the study’s original effect (d = .50). |
-| Sample and pay | Prolific, UK women 40+, peri or postmenopausal, paid £1.50 | Prolific, same type of women; it is not guaranteed that they will be from the UK. Paid about $8 per hour. | Not probable, as long as they meet the inclusion criteria. |
-| 60-second wait | A timer stopped people from moving on | The Continue button is locked for 60 seconds, with a bold instruction sentence, because in the pilot people missed the instruction and thought it was a website problem. | Not probable, it avoids the problem of the participants thinking the website is broken, it's not supposed to influence their responses. |
+| Number of groups | 3 (normal, distress, transformative) | 2 (normal, distress) | I do not expect this to affect the main comparison because my study focuses on distress versus normal posts. |
+| Platform | Qualtrics | jsPsych website | Probably not. The questions and posts are the same. As far as I could tell from the available materials, their order is also the same. |
+| Sample size | 737 participants were analyzed, about 245 per group. | 260 participants, 130 per group. | The smaller sample gives less precise estimates. My sample has about 82% power to detect an effect of d = 0.44 with an alpha of .01. |
+| Sample and pay | Prolific, UK women 40+, perimenopausal or postmenopausal, paid £1.50. | Prolific, UK women meeting the same age and menopause criteria. Paid about $8 per hour. | Possibly. Payment differences could affect who participates. |
+| 60-second wait | The data show that participants in the normal and transformative groups stayed on the posts page for at least 60 seconds. However, about half of the distress group spent less than 60 seconds. I do not know why. | The Continue button is locked for 60 seconds. I added a bold instruction because some pilot participants missed it and thought the website was not working. | Possibly. Participants in my distress condition may spend more time looking at the posts than participants in the original study. |
 
 ### Methods addendum (post data collection)
 
