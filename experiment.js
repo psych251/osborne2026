@@ -38,12 +38,12 @@ const EXPERIMENT = {
 
   // Prolific: if set, participants are redirected to Prolific when they finish.
   // Leave empty for local testing or non-Prolific samples.
-  prolific_completion_code: "",
+  prolific_completion_code: "C13R54JU",
 
   // Prolific: completion code of the "screened out" completion path (Prolific study page,
   // Data collection -> custom screening). People who are not eligible are sent there and paid
   // the small fixed screen-out reward. Leave empty for local testing.
-  prolific_screenout_code: "",
+  prolific_screenout_code: "CJ5FQ26S",
 
   // Contact shown in consent and debrief.
   contact_email: "andreaml@stanford.edu",
