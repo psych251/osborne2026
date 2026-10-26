@@ -51,8 +51,12 @@ library(apaTables)   # APA-style correlation table (also used by the original au
 
 # Must match EXPERIMENT.id in experiment.js, and the --experiment you passed to the export.
 # Phase 2 runs under its own id, so its data never mix with Phase 1's.
-experiment_id        <- "osborne2026-pilot-a"
+experiment_id        <- "osborne2026-pilot-b"
 experiment_id_phase2 <- "osborne2026-phase2"
+# Sessions I ran myself while testing the study (my own laptop, incl. the Prolific preview).
+# They are dropped when the data are loaded, so they never count as participants.
+test_ids <- c("8MgYVkFG23gcMSVBQhpgk7opBjI3-1b8eaae1", "8MgYVkFG23gcMSVBQhpgk7opBjI3-b297f50d",
+              "8MgYVkFG23gcMSVBQhpgk7opBjI3-baa54dcb", "8MgYVkFG23gcMSVBQhpgk7opBjI3-eae8b701")
 
 # PILOT SWITCH. TRUE = Pilot A: the testers did not have to be women over 40, so we only
 # require "completed" and "assigned to normal or distress", and the model is allowed to run
@@ -156,6 +160,9 @@ read_phase <- function(id) {
   if (!all(file.exists(file.path(dir, c("participants.csv", "trials.csv"))))) return(NULL)
   participants <- read_csv(file.path(dir, "participants.csv"), show_col_types = FALSE)
   trials       <- read_csv(file.path(dir, "trials.csv"), show_col_types = FALSE)
+  # Drop my own test sessions (see test_ids at the top).
+  participants <- participants |> filter(!participant_id %in% test_ids)
+  trials       <- trials       |> filter(!participant_id %in% test_ids)
   errors_path  <- file.path(dir, "errors.csv")
   errors <- if (file.exists(errors_path)) read_csv(errors_path, show_col_types = FALSE) else tibble()
 
@@ -482,6 +489,40 @@ bind_rows(
 ```
 
 ```{r}
+#| label: pilot-checks
+#| eval: !expr have_data
+# Pilot checks: how many people dropped out, were screened out, and how long the study took.
+# Each number is computed from the exported participants table (one row per person who
+# opened the study). "completed" is TRUE only for people who reached the end.
+n_started <- nrow(participants)
+n_done    <- nrow(complete)
+# The "screened_out" column is saved for people the in-study screening sent away. If the
+# export has no such column, we count them as 0 and say so in the table note.
+n_screened <- if ("screened_out" %in% names(participants)) sum(participants$screened_out %in% TRUE) else 0
+# Dropouts = started, but neither finished nor screened out.
+n_dropped <- n_started - n_done - n_screened
+
+# Instruction clarity (1-5), answered by people who finished. jsPsych saves 0-4, so add 1.
+clarity <- parse_task(trials |> filter(participant_id %in% complete$participant_id),
+                      "feedback_likert")
+clarity_mean <- if ("instructions_clear" %in% names(clarity))
+  mean(as.numeric(clarity$instructions_clear) + 1, na.rm = TRUE) else NA
+
+tibble(
+  Measure = c("Started", "Screened out (not eligible)", "Dropped out", "Completed",
+              "Dropout among eligible starters (%)",
+              "Median minutes (completers)", "Fastest / slowest (minutes)",
+              "Mean instruction clarity (1-5)", "Browser error reports"),
+  Value = c(n_started, n_screened, n_dropped, n_done,
+            round(100 * n_dropped / max(n_started - n_screened, 1), 1),
+            round(median(complete$minutes), 1),
+            paste(round(min(complete$minutes), 1), "/", round(max(complete$minutes), 1)),
+            round(clarity_mean, 2), nrow(errors))
+) |>
+  knitr::kable(caption = "Pilot checks (my own test sessions are removed). Each page load counts as one start, so someone who reloads the page appears more than once.")
+```
+
+```{r}
 #| label: sample-text
 #| eval: !expr have_data
 #| echo: false
@@ -571,14 +612,16 @@ if (nrow(keep) > 0) {
     geom_errorbar(aes(ymin = mean - 1.96 * se, ymax = mean + 1.96 * se), width = 0.15) +
     coord_cartesian(ylim = c(1, 5)) +                        # the scale goes from 1 to 5
     labs(x = NULL, y = "Mean worry (1-5), 95% CI",
-         title = "Pilot A: worry by condition") +
+         title = "Pilot B: worry by condition") +
     theme_minimal(base_size = 12)
 }
 ```
 
 #### Deviations from the preregistered plan
 
-Pilot A did not require participants to meet the eligibility criteria. The Pilot A model did not include control variables because the sample was small.
+In Pilot A, there was no check for eligibility.
+
+In Pilot B, Prolific two filters were used 1) women aged 40-100 and 2) UK as current country of residence. Two people did not pass the eligibility question. All 9 people who finished were included in the analysis. The tables and figure show Pilot B results.
 
 ## Results
 
@@ -952,15 +995,10 @@ with what the two phases together say about the original finding.
 
 # Data and code availability
 
-::: {.callout-tip icon=false}
-## Guidance
-
-Edit the statement below to match what you are actually sharing. Anonymized data and all code
-should be public; if something cannot be shared, say what and why.
-:::
-
 The experiment code, the anonymized data, and the code that produces every number in this
 report are available at <https://github.com/psych251/osborne2026>. The experiment itself can be
 taken at <https://psych251.github.io/osborne2026/>. The data contain no names, email addresses,
 IP addresses, or Prolific IDs; the file linking participants to their Prolific IDs is kept
 privately for payment and is not shared.
+
+Before uploading the Pilot B data, I removed two comments with personal health information from trials.csv and export.json, following the course guidelines. I put a short note instead "[removed: personal details]".

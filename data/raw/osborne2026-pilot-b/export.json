@@ -1,0 +1,3144 @@
+{
+  "experiment_id": "osborne2026-pilot-b",
+  "exported_at": "2026-10-26T00:00:04.215Z",
+  "participants": [
+    {
+      "participant_id": "1pR79w9UCRhYxqySWNEpkYQPaI72-b8aec5e9",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "b8aec5e9",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "1pR79w9UCRhYxqySWNEpkYQPaI72-b8aec5e9",
+        "client_started_at": "2026-10-25T22:39:14.041Z",
+        "screen": {
+          "width": 1536,
+          "height": 864
+        },
+        "language": "en-GB",
+        "uid": "1pR79w9UCRhYxqySWNEpkYQPaI72",
+        "viewport": {
+          "width": 1536,
+          "height": 730
+        },
+        "started_at": "2026-10-25T22:39:16.735Z",
+        "user_agent": "Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal",
+        "n_trials": 13,
+        "n_chunks": 13,
+        "client_ended_at": "2026-10-25T23:01:23.506Z",
+        "completed": true,
+        "ended_at": "2026-10-25T23:01:24.346Z"
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 11162,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 11178,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 5112
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 8896
+            }
+          ],
+          "rt": 14008,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 25189,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "demographics",
+          "rt": 51222,
+          "response": {
+            "menopause_stage": "post",
+            "age": 54,
+            "education_years": 9,
+            "knowledge": "Very knowledgeable",
+            "hrt": "Yes, I am currently taking HRT",
+            "feeling_post": "It was difficult",
+            "social_media_use": "Never",
+            "feeling_peri": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 76523,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "posts",
+          "post_images": "images/normal_1.jpg,images/normal_2.jpg,images/normal_3.jpg,images/normal_4.jpg",
+          "rt": 85075,
+          "stimulus": "<div class=\"post\"><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=\"images/normal_1.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_2.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_3.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_4.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p></div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 3,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 161601,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "messaging",
+          "rt": 4812,
+          "response": {
+            "message_type": "Positive"
+          },
+          "trial_type": "survey",
+          "trial_index": 4,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 166440,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_agree",
+          "rt": 20928,
+          "response": {
+            "liked": 2,
+            "credible": 2,
+            "trust": 1,
+            "empowered": 1,
+            "knowledgeable": 0
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 5,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 187375,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_feel",
+          "rt": 34217,
+          "response": {
+            "worried": 1,
+            "reassured": 0,
+            "confused": 2,
+            "in_control": 0,
+            "optimistic": 0,
+            "anxious": 0
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 6,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 221599,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_action",
+          "rt": 20214,
+          "response": {
+            "like": 0,
+            "share": 0,
+            "save": 0,
+            "comment": 3,
+            "search_similar": 0
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 7,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 241819,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_discuss",
+          "rt": 11203,
+          "response": {
+            "discuss_friends_family": 3,
+            "discuss_health_professional": 0
+          },
+          "question_order": [
+            0,
+            1
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 8,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 253027,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "messaging_views",
+          "rt": 21055,
+          "response": {
+            "fit_own_views": "Somewhat disagree",
+            "rep_social_media": "Neither agree nor disagree",
+            "rep_media": "Neither agree nor disagree",
+            "rep_health_professionals": "Neither agree nor disagree"
+          },
+          "trial_type": "survey",
+          "trial_index": 9,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 274129,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "feedback_likert",
+          "rt": 5544,
+          "response": {
+            "instructions_clear": 4
+          },
+          "question_order": [
+            0
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 10,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 279676,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "feedback_text",
+          "rt": 1028571,
+          "response": {
+            "comments": "[removed: personal details]"
+          },
+          "trial_type": "survey-text",
+          "trial_index": 11,
+          "plugin_version": "2.1.1",
+          "time_elapsed": 1308261,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "debrief",
+          "rt": 19035,
+          "stimulus": "\n      <h2>Debrief</h2>\n      <p>Thank you very much for participating in this study!</p>\n      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>\n      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>\n      <p>Your responses are anonymous.</p>\n      <p>Please don't share the contents of this study with others.</p>\n      <p>If you have questions, please contact <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>\n      <p>Press the button to save your responses and finish.</p>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 12,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 1327303,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        }
+      ],
+      "n_chunks": 13
+    },
+    {
+      "participant_id": "3rNIqtlT6MUPq1nVSKSbIRW4MAG2-3d4c6c95",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "3d4c6c95",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "3rNIqtlT6MUPq1nVSKSbIRW4MAG2-3d4c6c95",
+        "client_started_at": "2026-10-25T23:08:08.363Z",
+        "screen": {
+          "width": 1920,
+          "height": 1080
+        },
+        "language": "en-US",
+        "uid": "3rNIqtlT6MUPq1nVSKSbIRW4MAG2",
+        "viewport": {
+          "width": 1920,
+          "height": 945
+        },
+        "started_at": "2026-10-25T23:08:09.985Z",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal",
+        "n_trials": 13,
+        "n_chunks": 13,
+        "client_ended_at": "2026-10-25T23:13:42.620Z",
+        "completed": true,
+        "ended_at": "2026-10-25T23:13:42.440Z"
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 19878,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 19883,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 18589
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 6501
+            }
+          ],
+          "rt": 25090,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 44978,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "demographics",
+          "rt": 81225,
+          "response": {
+            "menopause_stage": "peri",
+            "age": 49,
+            "education_years": 8,
+            "knowledge": "Very knowledgeable",
+            "hrt": "Yes, I am currently taking HRT",
+            "feeling_peri": "Accepting of it",
+            "social_media_use": "Several times per day",
+            "feeling_post": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 126276,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "posts",
+          "post_images": "images/normal_1.jpg,images/normal_2.jpg,images/normal_3.jpg,images/normal_4.jpg",
+          "rt": 72367,
+          "stimulus": "<div class=\"post\"><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=\"images/normal_1.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_2.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_3.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_4.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p></div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 3,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 198649,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "messaging",
+          "rt": 6565,
+          "response": {
+            "message_type": "Neutral"
+          },
+          "trial_type": "survey",
+          "trial_index": 4,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 205241,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_agree",
+          "rt": 15734,
+          "response": {
+            "liked": 4,
+            "credible": 4,
+            "trust": 4,
+            "empowered": 2,
+            "knowledgeable": 3
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 5,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 220981,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_feel",
+          "rt": 25877,
+          "response": {
+            "worried": 2,
+            "reassured": 3,
+            "confused": 1,
+            "in_control": 1,
+            "optimistic": 2,
+            "anxious": 3
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 6,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 246865,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_action",
+          "rt": 24011,
+          "response": {
+            "like": 4,
+            "share": 0,
+            "save": 3,
+            "comment": 3,
+            "search_similar": 4
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 7,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 270881,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_discuss",
+          "rt": 7008,
+          "response": {
+            "discuss_friends_family": 3,
+            "discuss_health_professional": 3
+          },
+          "question_order": [
+            0,
+            1
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 8,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 277895,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "messaging_views",
+          "rt": 25026,
+          "response": {
+            "fit_own_views": "Strongly agree",
+            "rep_social_media": "Strongly agree",
+            "rep_media": "Neither agree nor disagree",
+            "rep_health_professionals": "Strongly agree"
+          },
+          "trial_type": "survey",
+          "trial_index": 9,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 302957,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "feedback_likert",
+          "rt": 5386,
+          "response": {
+            "instructions_clear": 4
+          },
+          "question_order": [
+            0
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 10,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 308347,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "feedback_text",
+          "rt": 8919,
+          "response": {
+            "comments": "great study"
+          },
+          "trial_type": "survey-text",
+          "trial_index": 11,
+          "plugin_version": "2.1.1",
+          "time_elapsed": 317280,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "debrief",
+          "rt": 14594,
+          "stimulus": "\n      <h2>Debrief</h2>\n      <p>Thank you very much for participating in this study!</p>\n      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>\n      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>\n      <p>Your responses are anonymous.</p>\n      <p>Please don't share the contents of this study with others.</p>\n      <p>If you have questions, please contact <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>\n      <p>Press the button to save your responses and finish.</p>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 12,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 331878,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        }
+      ],
+      "n_chunks": 13
+    },
+    {
+      "participant_id": "531bQ8yGrtgyt9E1tJUrtVrNQDq2-59c43552",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "59c43552",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "531bQ8yGrtgyt9E1tJUrtVrNQDq2-59c43552",
+        "client_started_at": "2026-10-25T23:19:44.425Z",
+        "screen": {
+          "width": 1536,
+          "height": 864
+        },
+        "language": "en-GB",
+        "uid": "531bQ8yGrtgyt9E1tJUrtVrNQDq2",
+        "viewport": {
+          "width": 1536,
+          "height": 647
+        },
+        "started_at": "2026-10-25T23:19:44.324Z",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal",
+        "n_trials": 13,
+        "n_chunks": 13,
+        "client_ended_at": "2026-10-25T23:25:39.147Z",
+        "completed": true,
+        "ended_at": "2026-10-25T23:25:38.533Z"
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 5389,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 5408,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 6444
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 12280
+            }
+          ],
+          "rt": 18724,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 24135,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "demographics",
+          "rt": 44237,
+          "response": {
+            "menopause_stage": "post",
+            "age": 62,
+            "education_years": 0,
+            "knowledge": "Very knowledgeable",
+            "hrt": "Yes, I have previously taken HRT, but I am not currently",
+            "feeling_post": "It was very difficult",
+            "social_media_use": "Weekly",
+            "feeling_peri": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 68462,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "posts",
+          "post_images": "images/normal_1.jpg,images/normal_2.jpg,images/normal_3.jpg,images/normal_4.jpg",
+          "rt": 67983,
+          "stimulus": "<div class=\"post\"><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=\"images/normal_1.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_2.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_3.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_4.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p></div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 3,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 136446,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "messaging",
+          "rt": 6289,
+          "response": {
+            "message_type": "Positive"
+          },
+          "trial_type": "survey",
+          "trial_index": 4,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 142754,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_agree",
+          "rt": 25458,
+          "response": {
+            "liked": 4,
+            "credible": 4,
+            "trust": 4,
+            "empowered": 2,
+            "knowledgeable": 2
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 5,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 168215,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_feel",
+          "rt": 28852,
+          "response": {
+            "worried": 2,
+            "reassured": 3,
+            "confused": 0,
+            "in_control": 3,
+            "optimistic": 1,
+            "anxious": 3
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 6,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 197071,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_action",
+          "rt": 22589,
+          "response": {
+            "like": 1,
+            "share": 1,
+            "save": 1,
+            "comment": 1,
+            "search_similar": 1
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 7,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 219663,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_discuss",
+          "rt": 10797,
+          "response": {
+            "discuss_friends_family": 2,
+            "discuss_health_professional": 2
+          },
+          "question_order": [
+            0,
+            1
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 8,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 230462,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "messaging_views",
+          "rt": 30242,
+          "response": {
+            "fit_own_views": "Somewhat agree",
+            "rep_social_media": "Neither agree nor disagree",
+            "rep_media": "Neither agree nor disagree",
+            "rep_health_professionals": "Somewhat agree"
+          },
+          "trial_type": "survey",
+          "trial_index": 9,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 260749,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "feedback_likert",
+          "rt": 4455,
+          "response": {
+            "instructions_clear": 4
+          },
+          "question_order": [
+            0
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 10,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 265206,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "feedback_text",
+          "rt": 82480,
+          "response": {
+            "comments": "thank you for the opportunity to anticipate in your important research. Menopause has to be normalized and not seen as shameful"
+          },
+          "trial_type": "survey-text",
+          "trial_index": 11,
+          "plugin_version": "2.1.1",
+          "time_elapsed": 347695,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "debrief",
+          "rt": 6205,
+          "stimulus": "\n      <h2>Debrief</h2>\n      <p>Thank you very much for participating in this study!</p>\n      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>\n      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>\n      <p>Your responses are anonymous.</p>\n      <p>Please don't share the contents of this study with others.</p>\n      <p>If you have questions, please contact <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>\n      <p>Press the button to save your responses and finish.</p>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 12,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 353902,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        }
+      ],
+      "n_chunks": 13
+    },
+    {
+      "participant_id": "5F1paeXwGUYDOIgjH6KC7ZQalOC3-7f257e8a",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "7f257e8a",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "5F1paeXwGUYDOIgjH6KC7ZQalOC3-7f257e8a",
+        "client_started_at": "2026-10-25T22:43:31.335Z",
+        "screen": {
+          "width": 1366,
+          "height": 768
+        },
+        "language": "en-GB",
+        "uid": "5F1paeXwGUYDOIgjH6KC7ZQalOC3",
+        "viewport": {
+          "width": 1366,
+          "height": 599
+        },
+        "started_at": "2026-10-25T22:43:33.937Z",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal",
+        "n_trials": 13,
+        "n_chunks": 13,
+        "client_ended_at": "2026-10-25T22:48:33.770Z",
+        "completed": true,
+        "ended_at": "2026-10-25T22:48:35.347Z"
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 11848,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 11859,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 5909
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 10425
+            }
+          ],
+          "rt": 16333,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 28194,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "demographics",
+          "rt": 43192,
+          "response": {
+            "menopause_stage": "post",
+            "age": 57,
+            "education_years": 1,
+            "knowledge": "Slightly knowledgeable",
+            "hrt": "No, I have never nor am I currently taking HRT",
+            "feeling_post": "It was fine",
+            "social_media_use": "Several times per day",
+            "feeling_peri": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 71486,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "posts",
+          "post_images": "images/normal_1.jpg,images/normal_2.jpg,images/normal_3.jpg,images/normal_4.jpg",
+          "rt": 68538,
+          "stimulus": "<div class=\"post\"><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=\"images/normal_1.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_2.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_3.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_4.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p></div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 3,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 140025,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "messaging",
+          "rt": 4222,
+          "response": {
+            "message_type": "Positive"
+          },
+          "trial_type": "survey",
+          "trial_index": 4,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 144262,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_agree",
+          "rt": 62583,
+          "response": {
+            "liked": 4,
+            "credible": 4,
+            "trust": 4,
+            "empowered": 3,
+            "knowledgeable": 3
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 5,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 206848,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_feel",
+          "rt": 17686,
+          "response": {
+            "worried": 0,
+            "reassured": 4,
+            "confused": 0,
+            "in_control": 4,
+            "optimistic": 4,
+            "anxious": 0
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 6,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 224538,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_action",
+          "rt": 16444,
+          "response": {
+            "like": 4,
+            "share": 4,
+            "save": 0,
+            "comment": 3,
+            "search_similar": 1
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 7,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 240986,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_discuss",
+          "rt": 11126,
+          "response": {
+            "discuss_friends_family": 3,
+            "discuss_health_professional": 0
+          },
+          "question_order": [
+            0,
+            1
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 8,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 252114,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "messaging_views",
+          "rt": 17137,
+          "response": {
+            "fit_own_views": "Strongly agree",
+            "rep_social_media": "Strongly agree",
+            "rep_media": "Strongly agree",
+            "rep_health_professionals": "Strongly agree"
+          },
+          "trial_type": "survey",
+          "trial_index": 9,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 269282,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "feedback_likert",
+          "rt": 3693,
+          "response": {
+            "instructions_clear": 4
+          },
+          "question_order": [
+            0
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 10,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 272977,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "feedback_text",
+          "rt": 21311,
+          "response": {
+            "comments": "Easy to respond to questions."
+          },
+          "trial_type": "survey-text",
+          "trial_index": 11,
+          "plugin_version": "2.1.1",
+          "time_elapsed": 294298,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "debrief",
+          "rt": 6845,
+          "stimulus": "\n      <h2>Debrief</h2>\n      <p>Thank you very much for participating in this study!</p>\n      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>\n      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>\n      <p>Your responses are anonymous.</p>\n      <p>Please don't share the contents of this study with others.</p>\n      <p>If you have questions, please contact <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>\n      <p>Press the button to save your responses and finish.</p>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 12,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 301144,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        }
+      ],
+      "n_chunks": 13
+    },
+    {
+      "participant_id": "5F1paeXwGUYDOIgjH6KC7ZQalOC3-f3a1262e",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "f3a1262e",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "5F1paeXwGUYDOIgjH6KC7ZQalOC3-f3a1262e",
+        "client_started_at": "2026-10-25T23:00:14.762Z",
+        "screen": {
+          "width": 1366,
+          "height": 768
+        },
+        "language": "en-GB",
+        "completed": false,
+        "uid": "5F1paeXwGUYDOIgjH6KC7ZQalOC3",
+        "viewport": {
+          "width": 1366,
+          "height": 599
+        },
+        "started_at": "2026-10-25T23:00:16.006Z",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal"
+      },
+      "trials": [],
+      "n_chunks": 0
+    },
+    {
+      "participant_id": "8BbUhVHXq1aKKMSdluIG8vQXLib2-2c526e4c",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "2c526e4c",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "8BbUhVHXq1aKKMSdluIG8vQXLib2-2c526e4c",
+        "client_started_at": "2026-10-25T23:26:41.828Z",
+        "screen": {
+          "width": 1536,
+          "height": 864
+        },
+        "language": "en-GB",
+        "uid": "8BbUhVHXq1aKKMSdluIG8vQXLib2",
+        "viewport": {
+          "width": 1536,
+          "height": 730
+        },
+        "started_at": "2026-10-25T23:26:43.812Z",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "distress",
+        "n_trials": 13,
+        "n_chunks": 13,
+        "client_ended_at": "2026-10-25T23:30:51.998Z",
+        "completed": true,
+        "ended_at": "2026-10-25T23:30:52.401Z"
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 6415,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 6422,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 6293
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 11118
+            }
+          ],
+          "rt": 17411,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 23835,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "demographics",
+          "rt": 42214,
+          "response": {
+            "menopause_stage": "post",
+            "age": 62,
+            "education_years": 8,
+            "knowledge": "Moderately knowledgeable",
+            "hrt": "Yes, I am currently taking HRT",
+            "feeling_post": "Neutral - no strong views either way",
+            "social_media_use": "Several times per day",
+            "feeling_peri": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 66137,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "posts",
+          "post_images": "images/distress_1.jpg,images/distress_2.jpg,images/distress_3.jpg,images/distress_4.jpg",
+          "rt": 64948,
+          "stimulus": "<div class=\"post\"><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=\"images/distress_1.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/distress_2.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/distress_3.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/distress_4.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p></div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 3,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 131092,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "messaging",
+          "rt": 11947,
+          "response": {
+            "message_type": "Positive"
+          },
+          "trial_type": "survey",
+          "trial_index": 4,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 143054,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_agree",
+          "rt": 12127,
+          "response": {
+            "liked": 3,
+            "credible": 3,
+            "trust": 3,
+            "empowered": 3,
+            "knowledgeable": 3
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 5,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 155184,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_feel",
+          "rt": 27707,
+          "response": {
+            "worried": 2,
+            "reassured": 3,
+            "confused": 2,
+            "in_control": 2,
+            "optimistic": 3,
+            "anxious": 2
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 6,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 182900,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_action",
+          "rt": 18967,
+          "response": {
+            "like": 3,
+            "share": 0,
+            "save": 3,
+            "comment": 2,
+            "search_similar": 2
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 7,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 201870,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_discuss",
+          "rt": 8553,
+          "response": {
+            "discuss_friends_family": 3,
+            "discuss_health_professional": 3
+          },
+          "question_order": [
+            0,
+            1
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 8,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 210425,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "messaging_views",
+          "rt": 19495,
+          "response": {
+            "fit_own_views": "Somewhat agree",
+            "rep_social_media": "Somewhat agree",
+            "rep_media": "Somewhat agree",
+            "rep_health_professionals": "Neither agree nor disagree"
+          },
+          "trial_type": "survey",
+          "trial_index": 9,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 229952,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "feedback_likert",
+          "rt": 3005,
+          "response": {
+            "instructions_clear": 4
+          },
+          "question_order": [
+            0
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 10,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 232958,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "feedback_text",
+          "rt": 1567,
+          "response": {
+            "comments": ""
+          },
+          "trial_type": "survey-text",
+          "trial_index": 11,
+          "plugin_version": "2.1.1",
+          "time_elapsed": 234531,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "debrief",
+          "rt": 13740,
+          "stimulus": "\n      <h2>Debrief</h2>\n      <p>Thank you very much for participating in this study!</p>\n      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>\n      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>\n      <p>Your responses are anonymous.</p>\n      <p>Please don't share the contents of this study with others.</p>\n      <p>If you have questions, please contact <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>\n      <p>Press the button to save your responses and finish.</p>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 12,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 248273,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        }
+      ],
+      "n_chunks": 13
+    },
+    {
+      "participant_id": "8MgYVkFG23gcMSVBQhpgk7opBjI3-1b8eaae1",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "1b8eaae1",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "8MgYVkFG23gcMSVBQhpgk7opBjI3-1b8eaae1",
+        "client_started_at": "2026-10-25T22:16:31.745Z",
+        "screen": {
+          "width": 1710,
+          "height": 1107
+        },
+        "language": "es-419",
+        "completed": false,
+        "uid": "8MgYVkFG23gcMSVBQhpgk7opBjI3",
+        "viewport": {
+          "width": 1572,
+          "height": 878
+        },
+        "started_at": "2026-10-25T22:16:31.952Z",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal"
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 1474,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 1487,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 1561
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 750
+            }
+          ],
+          "rt": 2310,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 3800,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        }
+      ],
+      "n_chunks": 2
+    },
+    {
+      "participant_id": "8MgYVkFG23gcMSVBQhpgk7opBjI3-b297f50d",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "b297f50d",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "8MgYVkFG23gcMSVBQhpgk7opBjI3-b297f50d",
+        "client_started_at": "2026-10-25T22:01:01.841Z",
+        "screen": {
+          "width": 1710,
+          "height": 1107
+        },
+        "language": "es-419",
+        "completed": false,
+        "uid": "8MgYVkFG23gcMSVBQhpgk7opBjI3",
+        "viewport": {
+          "width": 1571,
+          "height": 912
+        },
+        "started_at": "2026-10-25T22:01:02.194Z",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal"
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 7206,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 7211,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 22195
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 3216
+            }
+          ],
+          "rt": 25412,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 32626,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        }
+      ],
+      "n_chunks": 2
+    },
+    {
+      "participant_id": "8MgYVkFG23gcMSVBQhpgk7opBjI3-baa54dcb",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "baa54dcb",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "8MgYVkFG23gcMSVBQhpgk7opBjI3-baa54dcb",
+        "client_started_at": "2026-10-25T22:17:56.225Z",
+        "screen": {
+          "width": 1710,
+          "height": 1107
+        },
+        "language": "es-419",
+        "uid": "8MgYVkFG23gcMSVBQhpgk7opBjI3",
+        "viewport": {
+          "width": 1572,
+          "height": 912
+        },
+        "started_at": "2026-10-25T22:17:56.516Z",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal",
+        "n_trials": 13,
+        "n_chunks": 13,
+        "client_ended_at": "2026-10-25T22:24:41.714Z",
+        "completed": true,
+        "ended_at": "2026-10-25T22:24:41.795Z"
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 1721,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 1733,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 996
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 708
+            }
+          ],
+          "rt": 1704,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 3439,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "demographics",
+          "rt": 35280,
+          "response": {
+            "menopause_stage": "post",
+            "age": 45,
+            "education_years": 4,
+            "knowledge": "Slightly knowledgeable",
+            "hrt": "Yes, I am currently taking HRT",
+            "feeling_post": "Neutral - no strong views either way",
+            "social_media_use": "Weekly",
+            "feeling_peri": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 38758,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "posts",
+          "post_images": "images/normal_1.jpg,images/normal_2.jpg,images/normal_3.jpg,images/normal_4.jpg",
+          "rt": 301720,
+          "stimulus": "<div class=\"post\"><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=\"images/normal_1.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_2.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_3.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_4.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p></div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 3,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 340484,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "messaging",
+          "rt": 2301,
+          "response": {
+            "message_type": "Neutral"
+          },
+          "trial_type": "survey",
+          "trial_index": 4,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 342911,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_agree",
+          "rt": 5628,
+          "response": {
+            "liked": 1,
+            "credible": 0,
+            "trust": 2,
+            "empowered": 2,
+            "knowledgeable": 1
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 5,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 348543,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_feel",
+          "rt": 13871,
+          "response": {
+            "worried": 2,
+            "reassured": 2,
+            "confused": 1,
+            "in_control": 1,
+            "optimistic": 0,
+            "anxious": 2
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 6,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 362423,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_action",
+          "rt": 15114,
+          "response": {
+            "like": 2,
+            "share": 2,
+            "save": 3,
+            "comment": 2,
+            "search_similar": 1
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 7,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 377540,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_discuss",
+          "rt": 6780,
+          "response": {
+            "discuss_friends_family": 2,
+            "discuss_health_professional": 2
+          },
+          "question_order": [
+            0,
+            1
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 8,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 384324,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "messaging_views",
+          "rt": 6485,
+          "response": {
+            "fit_own_views": "Somewhat disagree",
+            "rep_social_media": "Somewhat disagree",
+            "rep_media": "Strongly disagree",
+            "rep_health_professionals": "Somewhat disagree"
+          },
+          "trial_type": "survey",
+          "trial_index": 9,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 390827,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "feedback_likert",
+          "rt": 4911,
+          "response": {
+            "instructions_clear": 0
+          },
+          "question_order": [
+            0
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 10,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 395739,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "feedback_text",
+          "rt": 2332,
+          "response": {
+            "comments": "H"
+          },
+          "trial_type": "survey-text",
+          "trial_index": 11,
+          "plugin_version": "2.1.1",
+          "time_elapsed": 398092,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "debrief",
+          "rt": 6995,
+          "stimulus": "\n      <h2>Debrief</h2>\n      <p>Thank you very much for participating in this study!</p>\n      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>\n      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>\n      <p>Your responses are anonymous.</p>\n      <p>Please don't share the contents of this study with others.</p>\n      <p>If you have questions, please contact <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>\n      <p>Press the button to save your responses and finish.</p>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 12,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 405091,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        }
+      ],
+      "n_chunks": 13
+    },
+    {
+      "participant_id": "8MgYVkFG23gcMSVBQhpgk7opBjI3-eae8b701",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "eae8b701",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "8MgYVkFG23gcMSVBQhpgk7opBjI3-eae8b701",
+        "client_started_at": "2026-10-25T22:24:55.957Z",
+        "screen": {
+          "width": 1710,
+          "height": 1107
+        },
+        "language": "es-419",
+        "uid": "8MgYVkFG23gcMSVBQhpgk7opBjI3",
+        "viewport": {
+          "width": 1572,
+          "height": 912
+        },
+        "started_at": "2026-10-25T22:24:56.300Z",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal",
+        "n_trials": 3,
+        "n_chunks": 3,
+        "client_ended_at": "2026-10-25T22:25:19.905Z",
+        "ended_at": "2026-10-25T22:25:19.971Z",
+        "screened_out": true,
+        "completed": false
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 7045,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 7051,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 1345
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 1267
+            },
+            {
+              "page_index": 0,
+              "viewing_time": 1283
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 1433
+            }
+          ],
+          "rt": 5328,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 12382,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "demographics",
+          "rt": 11122,
+          "response": {
+            "age": 23,
+            "menopause_stage": "post",
+            "education_years": 7,
+            "knowledge": "Not knowledgeable at all",
+            "hrt": "Yes, I have previously taken HRT, but I am not currently",
+            "feeling_post": "Neutral - no strong views either way",
+            "social_media_use": "Weekly",
+            "feeling_peri": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 23542,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "screened_out": true
+        }
+      ],
+      "n_chunks": 3
+    },
+    {
+      "participant_id": "GOPxDu0BM5duRQth9mTwWk60SXv1-c8084bf1",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "c8084bf1",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "GOPxDu0BM5duRQth9mTwWk60SXv1-c8084bf1",
+        "client_started_at": "2026-10-25T22:58:20.083Z",
+        "screen": {
+          "width": 1280,
+          "height": 720
+        },
+        "language": "en-GB",
+        "uid": "GOPxDu0BM5duRQth9mTwWk60SXv1",
+        "viewport": {
+          "width": 1280,
+          "height": 585
+        },
+        "started_at": "2026-10-25T22:58:23.436Z",
+        "user_agent": "Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal",
+        "n_trials": 13,
+        "n_chunks": 13,
+        "client_ended_at": "2026-10-25T23:03:47.197Z",
+        "completed": true,
+        "ended_at": "2026-10-25T23:03:48.617Z"
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 3120,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 3133,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 7298
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 14123
+            }
+          ],
+          "rt": 21421,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 24557,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "demographics",
+          "rt": 85050,
+          "response": {
+            "menopause_stage": "peri",
+            "age": 57,
+            "education_years": 10,
+            "knowledge": "Very knowledgeable",
+            "hrt": "No, I have never nor am I currently taking HRT",
+            "feeling_peri": "Dreading it",
+            "social_media_use": "Daily",
+            "feeling_post": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 109721,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "posts",
+          "post_images": "images/normal_1.jpg,images/normal_2.jpg,images/normal_3.jpg,images/normal_4.jpg",
+          "rt": 61864,
+          "stimulus": "<div class=\"post\"><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=\"images/normal_1.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_2.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_3.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/normal_4.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p></div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 3,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 171587,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "messaging",
+          "rt": 5951,
+          "response": {
+            "message_type": "Positive"
+          },
+          "trial_type": "survey",
+          "trial_index": 4,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 177573,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_agree",
+          "rt": 33910,
+          "response": {
+            "liked": 3,
+            "credible": 3,
+            "trust": 2,
+            "empowered": 2,
+            "knowledgeable": 2
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 5,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 211489,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_feel",
+          "rt": 33775,
+          "response": {
+            "worried": 3,
+            "reassured": 2,
+            "confused": 1,
+            "in_control": 1,
+            "optimistic": 1,
+            "anxious": 4
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 6,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 245268,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_action",
+          "rt": 22296,
+          "response": {
+            "like": 2,
+            "share": 2,
+            "save": 1,
+            "comment": 1,
+            "search_similar": 4
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 7,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 267573,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "ratings_discuss",
+          "rt": 12960,
+          "response": {
+            "discuss_friends_family": 2,
+            "discuss_health_professional": 2
+          },
+          "question_order": [
+            0,
+            1
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 8,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 280540,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "messaging_views",
+          "rt": 31308,
+          "response": {
+            "fit_own_views": "Somewhat disagree",
+            "rep_social_media": "Somewhat agree",
+            "rep_media": "Somewhat agree",
+            "rep_health_professionals": "Neither agree nor disagree"
+          },
+          "trial_type": "survey",
+          "trial_index": 9,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 311897,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "feedback_likert",
+          "rt": 5060,
+          "response": {
+            "instructions_clear": 4
+          },
+          "question_order": [
+            0
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 10,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 316960,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "feedback_text",
+          "rt": 3171,
+          "response": {
+            "comments": ""
+          },
+          "trial_type": "survey-text",
+          "trial_index": 11,
+          "plugin_version": "2.1.1",
+          "time_elapsed": 320140,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "debrief",
+          "rt": 4690,
+          "stimulus": "\n      <h2>Debrief</h2>\n      <p>Thank you very much for participating in this study!</p>\n      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>\n      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>\n      <p>Your responses are anonymous.</p>\n      <p>Please don't share the contents of this study with others.</p>\n      <p>If you have questions, please contact <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>\n      <p>Press the button to save your responses and finish.</p>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 12,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 324834,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        }
+      ],
+      "n_chunks": 13
+    },
+    {
+      "participant_id": "H7fGpANloRU7wjWVEaOpKpwx76O2-c50653d4",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "c50653d4",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "H7fGpANloRU7wjWVEaOpKpwx76O2-c50653d4",
+        "client_started_at": "2026-10-25T23:00:25.498Z",
+        "screen": {
+          "width": 1920,
+          "height": 1080
+        },
+        "language": "en-GB",
+        "completed": false,
+        "uid": "H7fGpANloRU7wjWVEaOpKpwx76O2",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "started_at": "2026-10-25T23:00:29.356Z",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "distress"
+      },
+      "trials": [],
+      "n_chunks": 0
+    },
+    {
+      "participant_id": "VbtJPwd050Vr8FKv8ysQSWeBiMh1-8993a253",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "8993a253",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "VbtJPwd050Vr8FKv8ysQSWeBiMh1-8993a253",
+        "client_started_at": "2026-10-25T23:04:52.515Z",
+        "screen": {
+          "width": 1920,
+          "height": 1200
+        },
+        "language": "en-GB",
+        "uid": "VbtJPwd050Vr8FKv8ysQSWeBiMh1",
+        "viewport": {
+          "width": 1920,
+          "height": 1031
+        },
+        "started_at": "2026-10-25T23:04:51.862Z",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal",
+        "n_trials": 3,
+        "n_chunks": 3,
+        "client_ended_at": "2026-10-25T23:05:39.398Z",
+        "ended_at": "2026-10-25T23:05:41.089Z",
+        "screened_out": true,
+        "completed": false
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 2472,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 2478,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 1605
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 3552
+            }
+          ],
+          "rt": 5157,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 7637,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "demographics",
+          "rt": 37415,
+          "response": {
+            "menopause_stage": "not",
+            "age": 40,
+            "education_years": 0,
+            "knowledge": "Slightly knowledgeable",
+            "hrt": "No, I have never nor am I currently taking HRT",
+            "social_media_use": "Daily",
+            "feeling_peri": null,
+            "feeling_post": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 45141,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "screened_out": true
+        }
+      ],
+      "n_chunks": 3
+    },
+    {
+      "participant_id": "XGUS5I0n2AeuxuaoFDkA1ACAKD92-77ca97b8",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "77ca97b8",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "XGUS5I0n2AeuxuaoFDkA1ACAKD92-77ca97b8",
+        "client_started_at": "2026-10-25T23:07:48.140Z",
+        "screen": {
+          "width": 1920,
+          "height": 1080
+        },
+        "language": "en-GB",
+        "completed": false,
+        "uid": "XGUS5I0n2AeuxuaoFDkA1ACAKD92",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "started_at": "2026-10-25T23:07:52.176Z",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "distress"
+      },
+      "trials": [],
+      "n_chunks": 0
+    },
+    {
+      "participant_id": "Y1uWABBI6xeUYeTuzloSoZ2fE0A2-2688ac4f",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "2688ac4f",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "Y1uWABBI6xeUYeTuzloSoZ2fE0A2-2688ac4f",
+        "client_started_at": "2026-10-25T23:07:41.098Z",
+        "screen": {
+          "width": 1536,
+          "height": 864
+        },
+        "language": "en-US",
+        "uid": "Y1uWABBI6xeUYeTuzloSoZ2fE0A2",
+        "viewport": {
+          "width": 1536,
+          "height": 695
+        },
+        "started_at": "2026-10-25T23:07:42.037Z",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal",
+        "n_trials": 3,
+        "n_chunks": 3,
+        "client_ended_at": "2026-10-25T23:08:47.350Z",
+        "ended_at": "2026-10-25T23:08:47.330Z",
+        "screened_out": true,
+        "completed": false
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 4759,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 4765,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 4734
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 10579
+            }
+          ],
+          "rt": 15313,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 20080,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal"
+        },
+        {
+          "task": "demographics",
+          "rt": 44737,
+          "response": {
+            "menopause_stage": "post",
+            "age": 25,
+            "education_years": 0,
+            "knowledge": "Very knowledgeable",
+            "hrt": "No, I have never nor am I currently taking HRT",
+            "feeling_post": "It was fine",
+            "social_media_use": "Never",
+            "feeling_peri": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 64859,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "normal",
+          "screened_out": true
+        }
+      ],
+      "n_chunks": 3
+    },
+    {
+      "participant_id": "nsSFxa8rY1blJeLK3LeRe0XJ9Ho2-80419071",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "80419071",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "nsSFxa8rY1blJeLK3LeRe0XJ9Ho2-80419071",
+        "client_started_at": "2026-10-25T22:34:59.958Z",
+        "screen": {
+          "width": 1637,
+          "height": 1024
+        },
+        "language": "en-GB",
+        "uid": "nsSFxa8rY1blJeLK3LeRe0XJ9Ho2",
+        "viewport": {
+          "width": 1637,
+          "height": 936
+        },
+        "started_at": "2026-10-25T22:35:01.856Z",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "distress",
+        "n_trials": 13,
+        "n_chunks": 13,
+        "client_ended_at": "2026-10-25T22:43:14.555Z",
+        "completed": true,
+        "ended_at": "2026-10-25T22:43:14.734Z"
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 222756,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 222763,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 3979
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 11603
+            }
+          ],
+          "rt": 15582,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 238348,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "demographics",
+          "rt": 70560,
+          "response": {
+            "age": 61,
+            "education_years": 0,
+            "knowledge": "Moderately knowledgeable",
+            "hrt": "Yes, I have previously taken HRT, but I am not currently",
+            "social_media_use": "Several times per day",
+            "menopause_stage": "post",
+            "feeling_post": "It was difficult",
+            "feeling_peri": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 308964,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "posts",
+          "post_images": "images/distress_1.jpg,images/distress_2.jpg,images/distress_3.jpg,images/distress_4.jpg",
+          "rt": 69640,
+          "stimulus": "<div class=\"post\"><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=\"images/distress_1.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/distress_2.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/distress_3.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/distress_4.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p></div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 3,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 378605,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "messaging",
+          "rt": 5271,
+          "response": {
+            "message_type": "Negative"
+          },
+          "trial_type": "survey",
+          "trial_index": 4,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 383895,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_agree",
+          "rt": 16817,
+          "response": {
+            "liked": 2,
+            "credible": 3,
+            "trust": 3,
+            "empowered": 2,
+            "knowledgeable": 1
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 5,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 400715,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_feel",
+          "rt": 17215,
+          "response": {
+            "worried": 3,
+            "reassured": 1,
+            "confused": 2,
+            "in_control": 2,
+            "optimistic": 2,
+            "anxious": 1
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 6,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 417934,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_action",
+          "rt": 14283,
+          "response": {
+            "like": 1,
+            "share": 0,
+            "save": 0,
+            "comment": 0,
+            "search_similar": 3
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 7,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 432220,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_discuss",
+          "rt": 11282,
+          "response": {
+            "discuss_friends_family": 1,
+            "discuss_health_professional": 2
+          },
+          "question_order": [
+            0,
+            1
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 8,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 443506,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "messaging_views",
+          "rt": 31040,
+          "response": {
+            "fit_own_views": "Neither agree nor disagree",
+            "rep_social_media": "Somewhat agree",
+            "rep_media": "Somewhat agree",
+            "rep_health_professionals": "Somewhat disagree"
+          },
+          "trial_type": "survey",
+          "trial_index": 9,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 474572,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "feedback_likert",
+          "rt": 3859,
+          "response": {
+            "instructions_clear": 4
+          },
+          "question_order": [
+            0
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 10,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 478433,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "feedback_text",
+          "rt": 1488,
+          "response": {
+            "comments": ""
+          },
+          "trial_type": "survey-text",
+          "trial_index": 11,
+          "plugin_version": "2.1.1",
+          "time_elapsed": 479934,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "debrief",
+          "rt": 12651,
+          "stimulus": "\n      <h2>Debrief</h2>\n      <p>Thank you very much for participating in this study!</p>\n      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>\n      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>\n      <p>Your responses are anonymous.</p>\n      <p>Please don't share the contents of this study with others.</p>\n      <p>If you have questions, please contact <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>\n      <p>Press the button to save your responses and finish.</p>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 12,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 492587,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        }
+      ],
+      "n_chunks": 13
+    },
+    {
+      "participant_id": "wMpAJumcoghEC2YS3w9o7HHTpEm1-fb98fb72",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "fb98fb72",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "wMpAJumcoghEC2YS3w9o7HHTpEm1-fb98fb72",
+        "client_started_at": "2026-10-25T22:34:28.288Z",
+        "screen": {
+          "width": 1280,
+          "height": 800
+        },
+        "language": "en-GB",
+        "uid": "wMpAJumcoghEC2YS3w9o7HHTpEm1",
+        "viewport": {
+          "width": 1280,
+          "height": 665
+        },
+        "started_at": "2026-10-25T22:34:29.877Z",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "distress",
+        "n_trials": 13,
+        "n_chunks": 13,
+        "client_ended_at": "2026-10-25T22:41:31.625Z",
+        "completed": true,
+        "ended_at": "2026-10-25T22:41:32.655Z"
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 17999,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 18012,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 5688
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 15377
+            }
+          ],
+          "rt": 21065,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 39082,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "demographics",
+          "rt": 67044,
+          "response": {
+            "menopause_stage": "peri",
+            "age": 51,
+            "education_years": 15,
+            "knowledge": "Very knowledgeable",
+            "hrt": "Yes, I am currently taking HRT",
+            "feeling_peri": "Neutral - no strong view either way",
+            "social_media_use": "Several times per day",
+            "feeling_post": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 106226,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "posts",
+          "post_images": "images/distress_1.jpg,images/distress_2.jpg,images/distress_3.jpg,images/distress_4.jpg",
+          "rt": 71672,
+          "stimulus": "<div class=\"post\"><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=\"images/distress_1.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/distress_2.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/distress_3.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/distress_4.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p></div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 3,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 177903,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "messaging",
+          "rt": 14801,
+          "response": {
+            "message_type": "Neutral"
+          },
+          "trial_type": "survey",
+          "trial_index": 4,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 192771,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_agree",
+          "rt": 22706,
+          "response": {
+            "liked": 2,
+            "credible": 2,
+            "trust": 2,
+            "empowered": 1,
+            "knowledgeable": 0
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 5,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 215483,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_feel",
+          "rt": 25142,
+          "response": {
+            "worried": 4,
+            "reassured": 1,
+            "confused": 1,
+            "in_control": 1,
+            "optimistic": 1,
+            "anxious": 4
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 6,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 240631,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_action",
+          "rt": 18664,
+          "response": {
+            "like": 0,
+            "share": 0,
+            "save": 0,
+            "comment": 3,
+            "search_similar": 0
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 7,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 259299,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_discuss",
+          "rt": 7386,
+          "response": {
+            "discuss_friends_family": 0,
+            "discuss_health_professional": 0
+          },
+          "question_order": [
+            0,
+            1
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 8,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 266690,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "messaging_views",
+          "rt": 33742,
+          "response": {
+            "fit_own_views": "Somewhat disagree",
+            "rep_social_media": "Neither agree nor disagree",
+            "rep_media": "Neither agree nor disagree",
+            "rep_health_professionals": "Strongly disagree"
+          },
+          "trial_type": "survey",
+          "trial_index": 9,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 300474,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "feedback_likert",
+          "rt": 3663,
+          "response": {
+            "instructions_clear": 3
+          },
+          "question_order": [
+            0
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 10,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 304141,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "feedback_text",
+          "rt": 111259,
+          "response": {
+            "comments": "[removed: personal details]"
+          },
+          "trial_type": "survey-text",
+          "trial_index": 11,
+          "plugin_version": "2.1.1",
+          "time_elapsed": 415419,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "debrief",
+          "rt": 7006,
+          "stimulus": "\n      <h2>Debrief</h2>\n      <p>Thank you very much for participating in this study!</p>\n      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>\n      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>\n      <p>Your responses are anonymous.</p>\n      <p>Please don't share the contents of this study with others.</p>\n      <p>If you have questions, please contact <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>\n      <p>Press the button to save your responses and finish.</p>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 12,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 422428,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        }
+      ],
+      "n_chunks": 13
+    },
+    {
+      "participant_id": "xrlF5j0Yy1SXZc3oxsm6farrzQE3-91c3cd1a",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "91c3cd1a",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "xrlF5j0Yy1SXZc3oxsm6farrzQE3-91c3cd1a",
+        "client_started_at": "2026-10-25T23:05:02.137Z",
+        "screen": {
+          "width": 1920,
+          "height": 1080
+        },
+        "language": "de-DE",
+        "completed": false,
+        "uid": "xrlF5j0Yy1SXZc3oxsm6farrzQE3",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "started_at": "2026-10-25T23:05:06.302Z",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "normal"
+      },
+      "trials": [],
+      "n_chunks": 0
+    },
+    {
+      "participant_id": "ymUqZcmMY8TDlFAq6vaOFI6KWbj2-5921fc53",
+      "participant": {
+        "page_url": "https://psych251.github.io/osborne2026/",
+        "run_id": "5921fc53",
+        "template_version": "0.1.0",
+        "experiment_id": "osborne2026-pilot-b",
+        "participant_id": "ymUqZcmMY8TDlFAq6vaOFI6KWbj2-5921fc53",
+        "client_started_at": "2026-10-25T22:33:20.321Z",
+        "screen": {
+          "width": 1366,
+          "height": 768
+        },
+        "language": "en-GB",
+        "uid": "ymUqZcmMY8TDlFAq6vaOFI6KWbj2",
+        "viewport": {
+          "width": 1325,
+          "height": 633
+        },
+        "started_at": "2026-10-25T22:33:21.199Z",
+        "user_agent": "Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+        "device_supported": true,
+        "requires_keyboard": false,
+        "condition": "distress",
+        "n_trials": 13,
+        "n_chunks": 13,
+        "client_ended_at": "2026-10-25T22:36:57.445Z",
+        "completed": true,
+        "ended_at": "2026-10-25T22:36:57.252Z"
+      },
+      "trials": [
+        {
+          "task": "consent",
+          "rt": 1771,
+          "stimulus": "\n      <div class=\"consent\">\n        <h2>Consent</h2>\n        <p>By answering the following questions, you are participating in a study being performed by\n        cognitive scientists in the Stanford Department of Psychology. If you have questions about\n        this research, please contact us at <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>.\n        You must be at least 18 years old to participate. Your participation in this research is\n        voluntary. You may decline to answer any or all of the following questions. You may decline\n        further participation, at any time, without adverse consequences. Your anonymity is assured;\n        the researchers who have requested your participation will not receive any personal\n        information about you.</p>\n      </div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 0,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 1792,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress",
+          "consented": true
+        },
+        {
+          "task": "instructions",
+          "view_history": [
+            {
+              "page_index": 0,
+              "viewing_time": 3754
+            },
+            {
+              "page_index": 1,
+              "viewing_time": 38031
+            }
+          ],
+          "rt": 41785,
+          "trial_type": "instructions",
+          "trial_index": 1,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 43583,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "demographics",
+          "rt": 29108,
+          "response": {
+            "menopause_stage": "peri",
+            "age": 46,
+            "education_years": 16,
+            "knowledge": "Slightly knowledgeable",
+            "hrt": "No, I have never nor am I currently taking HRT",
+            "feeling_peri": "Accepting of it",
+            "social_media_use": "Several times per day",
+            "feeling_post": null
+          },
+          "trial_type": "survey",
+          "trial_index": 2,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 72919,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "posts",
+          "post_images": "images/distress_1.jpg,images/distress_2.jpg,images/distress_3.jpg,images/distress_4.jpg",
+          "rt": 74756,
+          "stimulus": "<div class=\"post\"><p>Please read the following social media posts that were posted on World Menopause Day last year.</p><p><img src=\"images/distress_1.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/distress_2.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/distress_3.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p><p><img src=\"images/distress_4.jpg\" alt=\"A social media post about menopause\" style=\"max-width:100%;height:auto;border:1px solid #ddd;\"></p></div>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 3,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 147679,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "messaging",
+          "rt": 4799,
+          "response": {
+            "message_type": "Positive"
+          },
+          "trial_type": "survey",
+          "trial_index": 4,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 152514,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_agree",
+          "rt": 11674,
+          "response": {
+            "liked": 4,
+            "credible": 4,
+            "trust": 3,
+            "empowered": 3,
+            "knowledgeable": 3
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 5,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 164197,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_feel",
+          "rt": 13324,
+          "response": {
+            "worried": 1,
+            "reassured": 3,
+            "confused": 1,
+            "in_control": 3,
+            "optimistic": 3,
+            "anxious": 2
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 6,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 177536,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_action",
+          "rt": 9045,
+          "response": {
+            "like": 3,
+            "share": 3,
+            "save": 1,
+            "comment": 3,
+            "search_similar": 3
+          },
+          "question_order": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 7,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 186594,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "ratings_discuss",
+          "rt": 4883,
+          "response": {
+            "discuss_friends_family": 3,
+            "discuss_health_professional": 0
+          },
+          "question_order": [
+            0,
+            1
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 8,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 191486,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "messaging_views",
+          "rt": 17409,
+          "response": {
+            "fit_own_views": "Somewhat agree",
+            "rep_social_media": "Neither agree nor disagree",
+            "rep_media": "Somewhat disagree",
+            "rep_health_professionals": "Somewhat agree"
+          },
+          "trial_type": "survey",
+          "trial_index": 9,
+          "plugin_version": "4.0.0",
+          "time_elapsed": 208997,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "feedback_likert",
+          "rt": 2890,
+          "response": {
+            "instructions_clear": 4
+          },
+          "question_order": [
+            0
+          ],
+          "trial_type": "survey-likert",
+          "trial_index": 10,
+          "plugin_version": "2.2.0",
+          "time_elapsed": 211894,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "feedback_text",
+          "rt": 1342,
+          "response": {
+            "comments": ""
+          },
+          "trial_type": "survey-text",
+          "trial_index": 11,
+          "plugin_version": "2.1.1",
+          "time_elapsed": 213254,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        },
+        {
+          "task": "debrief",
+          "rt": 2488,
+          "stimulus": "\n      <h2>Debrief</h2>\n      <p>Thank you very much for participating in this study!</p>\n      <p>Many people learn about menopause from social media. We are replicating a published study to understand how the way menopause is portrayed affects how people feel, what they would do, and how they engage with the posts.</p>\n      <p>There were three versions of the posts: everyday experiences, distressing experiences, and experiences of positive change. Every participant is randomly shown only one version. We did not explain this earlier because knowing this could affect your answers.</p>\n      <p>Your responses are anonymous.</p>\n      <p>Please don't share the contents of this study with others.</p>\n      <p>If you have questions, please contact <a href=\"mailto:andreaml@stanford.edu\">andreaml@stanford.edu</a>. Some posts could be upsetting or confusing. If you feel worried or if you have any questions about the menopause transition, you can talk to a doctor or another health professional.</p>\n      <p>Press the button to save your responses and finish.</p>",
+          "response": 0,
+          "trial_type": "html-button-response",
+          "trial_index": 12,
+          "plugin_version": "2.1.0",
+          "time_elapsed": 215755,
+          "experiment_id": "osborne2026-pilot-b",
+          "condition": "distress"
+        }
+      ],
+      "n_chunks": 13
+    }
+  ],
+  "errors": []
+}
