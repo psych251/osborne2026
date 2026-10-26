@@ -519,7 +519,7 @@ tibble(
             paste(round(min(complete$minutes), 1), "/", round(max(complete$minutes), 1)),
             round(clarity_mean, 2), nrow(errors))
 ) |>
-  knitr::kable(caption = "Pilot checks (my own test sessions are removed). Each page load counts as one start, so someone who reloads the page appears more than once.")
+  knitr::kable(caption = "Pilot checks.")
 ```
 
 Four of the 13 eligible participants who started did not answer any trials, giving a dropout rate of 30.8%. According to the code, page reloads count as new participants, so this rate may overestimate the actual dropout rate. The 9 participants who finished took a median of 5.5 minutes, with a range of 3.6 to 22.1 minutes. One participant took 22.1 minutes, while the next longest time was 8.2 minutes. The average rating for instruction clarity was 4.89 out of 5. Based on these results, the estimated time in the welcome text will be changed from 10 minutes to about 6 minutes.
@@ -623,7 +623,7 @@ if (nrow(keep) > 0) {
 
 In Pilot A, there was no check for eligibility.
 
-In Pilot B, Prolific two filters were used 1) women aged 40-100 and 2) UK as current country of residence. Two people did not pass the eligibility question. All 9 people who finished were included in the analysis. The tables and figure show Pilot B results.
+In Pilot B, three Prolific filters were used: women, ages 40–100, and UK residents. Two people did not pass the eligibility question. All 9 people who finished were included in the analysis. The tables and figure show Pilot B results.
 
 ## Results
 
