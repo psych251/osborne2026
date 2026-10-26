@@ -623,7 +623,7 @@ if (nrow(keep) > 0) {
 
 In Pilot A, there was no check for eligibility.
 
-In Pilot B, three Prolific filters were used: women, ages 40–100, and UK residents. Two people did not pass the eligibility question. All 9 people who finished were included in the analysis. The tables and figure show Pilot B results.
+In Pilot B, three Prolific filters were used: women, ages 40-100, and UK residents. Two people did not pass the eligibility question. All 9 people who finished were included in the analysis. The tables and figure show Pilot B results.
 
 ## Results
 
