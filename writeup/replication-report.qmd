@@ -66,7 +66,7 @@ pilot_mode <- TRUE
 min_n      <- if (pilot_mode) 8 else 20
 # In pilot mode the model has no control variables (see fit_outcome), so the caption says so.
 model_note <- if (pilot_mode) "no control variables in the pilot model" else
-  "controlling for age, education, social media use and menopause stage"
+  "controlling for age, education and social media use"
 ```
 
 ```{r}
@@ -521,6 +521,8 @@ tibble(
 ) |>
   knitr::kable(caption = "Pilot checks (my own test sessions are removed). Each page load counts as one start, so someone who reloads the page appears more than once.")
 ```
+
+Four of the 13 eligible participants who started did not answer any trials, giving a dropout rate of 30.8%. According to the code, page reloads count as new participants, so this rate may overestimate the actual dropout rate. The 9 participants who finished took a median of 5.5 minutes, with a range of 3.6 to 22.1 minutes. One participant took 22.1 minutes, while the next longest time was 8.2 minutes. The average rating for instruction clarity was 4.89 out of 5. Based on these results, the estimated time in the welcome text will be changed from 10 minutes to about 6 minutes.
 
 ```{r}
 #| label: sample-text

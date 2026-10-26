@@ -213,7 +213,7 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
        <p>Dear participant,</p>
        <p>Thank you very much for participating in this study!</p>
        <p>The aim of this study is to understand how people respond to social media content about health. We appreciate your time and help with this study.</p>
-       <p>The study will take about 10 minutes.</p>
+       <p>The study will take about 6 minutes.</p>
        <p>Click Next to read the instructions.</p>`,
       `<h2>Instructions</h2>
        <p>First, you will answer a few questions about yourself.</p>
