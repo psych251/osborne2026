@@ -1,7 +1,7 @@
 ---
 title: "Replication of Osborne et al. (2026, *JMIR Formative Research*)"
 author: "Andrea Morales Leal andreaml@stanford.edu"
-date: October 23, 2026
+date: October 27, 2026
 date-format: long
 format:
   html:
@@ -324,7 +324,7 @@ bind_rows(
 
 ## Introduction
 
-The original study found that showing social media posts to peri- and postmenopausal women framing the menopause transition as either normal, distressful, or transformative had immediate effects on affective responses (Osborne et al., 2026). Participants who viewed distress-framed posts reported greater levels of worry and confusion, and lower levels of reassurance, optimism, and empowerment. Interestingly, the distress-framed posts increased perceived knowledge of menopause, despite participants feeling more negatively toward them. I replicated the study with only two conditions (normal vs distress) to examine the original study’s main finding, the same affective reactions, expected behavioral responses, and perceptions scales were utilized. This study was important for me because it demonstrates how narrative framing shapes affective responses and the importance of choosing the right words to share medical information, especially for a stage of life that half of the population will live through for almost 40% of their lives. Negative framing could also affect how women experience their symptoms physically. I would like to further investigate the mind-body effects of menopausal mindsets in the future.
+The original study found that showing social media posts to peri- and postmenopausal women framing the menopause transition as either normal, distressful, or transformative had immediate effects on affective responses (Osborne et al., 2026). Participants who viewed distress-framed posts reported greater levels of worry and confusion, and lower levels of reassurance, optimism, and empowerment. Interestingly, the distress-framed posts increased perceived knowledge of menopause, despite participants feeling more negatively toward them. I replicated the study with only two conditions (normal vs. distress) to examine the main finding of the original study. I used the same scales to measure affective reactions, expected behavioral responses, and perceptions. This study was important for me because it demonstrates how narrative framing shapes affective responses and the importance of choosing the right words to share medical information, especially for a stage of life that half of the population will live through for almost 40% of their lives. Negative framing could also affect how women experience their symptoms physically. I would like to further investigate the mind-body effects of menopausal mindsets in the future.
 
 One challenge that I anticipated was getting the original materials from the authors, but they shared their original posts with me. They also shared their data and analysis code on OSF. This helped me understand their analysis and prepare my replication. For the statistical analysis, I used ordinal logistic regression.
 
@@ -379,17 +379,17 @@ power_check <- tibble(
 
 knitr::kable(power_check,
              col.names = c("True effect", "Cohen's d", "Power"),
-             caption = sprintf("Power of %d participants per condition (alpha = .01) if the true effect is as large as, or smaller than, the original.",
+             caption = sprintf("Power of %d participants per condition (alpha = .01) if the true effect was as large as, or smaller than, the original.",
                                proposed_per_group))
 ```
 
 The original effect for the worry question comparing the distress and normal conditions was β = .910. Cohen’s d was calculated using the means and standard deviations of the two groups in the original data. This gave a d of about 0.44.
 
-With an alpha of .01, about 157 participants per group would be needed to have 90% power to detect this effect. I chose 130 participants per group because of resource constraints. With this sample, the power is about 82% to detect an effect of d = 0.44. However, the true effect could be smaller than the one found in the original study.
+With an alpha of .01, about 157 participants per group would be needed to have 90% power to detect this effect. I chose 130 participants per group because of resource constraints. With this sample, the power was about 82% to detect an effect of d = 0.44. However, the true effect could have been smaller than the one found in the original study.
 
 ### Planned sample
 
-I plan to recruit women aged 40 or older from the UK through Prolific who are perimenopausal or postmenopausal. The planned sample is 260 participants, with 130 in each condition. Participants who do not pass the eligibility check will not count toward the 260.
+I planned to recruit women aged 40 or older from the UK through Prolific who were perimenopausal or postmenopausal. The planned sample was 260 participants, with 130 in each condition. Participants who did not pass the eligibility check did not count toward the 260.
 
 Recruitment stopped when data from 260 people who passed the inclusion/exclusion criteria had been collected.
 
@@ -423,11 +423,11 @@ Participants were also excluded if they were not perimenopausal or postmenopausa
 
 | Feature | Original study | Replication study | Could this influence the results? |
 |---|---|---|---|
-| Number of groups | 3 (normal, distress, transformative) | 2 (normal, distress) | I do not expect this to affect the main comparison because my study focuses on distress versus normal posts. |
-| Platform | Qualtrics | jsPsych website | Probably not. The questions and posts are the same. As far as I could tell from the available materials, their order is also the same. |
-| Sample size | 737 participants were analyzed, about 245 per group. | 260 participants, 130 per group. | The smaller sample gives less precise estimates. My sample has about 82% power to detect an effect of d = 0.44 with an alpha of .01. |
+| Number of groups | 3 (normal, distress, transformative) | 2 (normal, distress) | I did not expect this to affect the main comparison because my study focused on distress versus normal posts. |
+| Platform | Qualtrics | jsPsych website | Probably not. The questions and posts were the same. As far as I could tell from the available materials, their order was also the same. |
+| Sample size | 737 participants were analyzed, about 245 per group. | 260 participants, 130 per group. | The smaller sample gave less precise estimates. My sample had about 82% power to detect an effect of d = 0.44 with an alpha of .01. |
 | Sample and pay | Prolific, UK women 40+, perimenopausal or postmenopausal, paid £1.50. | Prolific, UK women meeting the same age and menopause criteria. Paid about $8 per hour. | Possibly. Payment differences could affect who participates. |
-| 60-second wait | The data show that participants in the normal and transformative groups stayed on the posts page for at least 60 seconds. However, about half of the distress group spent less than 60 seconds. I do not know why. | The Continue button is locked for 60 seconds. I added a bold instruction because some pilot participants missed it and thought the website was not working. | Possibly. Participants in my distress condition may spend more time looking at the posts than participants in the original study. |
+| 60-second wait | The data showed that participants in the normal and transformative groups stayed on the posts page for at least 60 seconds. However, about half of the distress group spent less than 60 seconds. I did not know why. | The Continue button was locked for 60 seconds. I added a bold instruction because some pilot participants missed it and thought the website was not working. | Possibly. Participants in my distress condition may have spent more time looking at the posts than participants in the original study. |
 
 ### Methods addendum (post data collection)
 
@@ -522,7 +522,7 @@ tibble(
   knitr::kable(caption = "Pilot checks.")
 ```
 
-Four of the 13 eligible participants who started did not answer any trials, giving a dropout rate of 30.8%. According to the code, page reloads count as new participants, so this rate may overestimate the actual dropout rate. The 9 participants who finished took a median of 5.5 minutes, with a range of 3.6 to 22.1 minutes. One participant took 22.1 minutes, while the next longest time was 8.2 minutes. The average rating for instruction clarity was 4.89 out of 5. Based on these results, the estimated time in the welcome text will be changed from 10 minutes to about 6 minutes.
+Four of the 13 eligible participants who started did not answer any trials, giving a dropout rate of 30.8%. According to the code, page reloads count as new participants, so this rate may overestimate the actual dropout rate. The 9 participants who finished took a median of 5.5 minutes, with a range of 3.6 to 22.1 minutes. One participant took 22.1 minutes, while the next longest time was 8.2 minutes. The average rating for instruction clarity was 4.89 out of 5. Based on these results, the estimated time in the welcome text was changed from 10 minutes to about 6 minutes.
 
 ```{r}
 #| label: sample-text
