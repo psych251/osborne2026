@@ -125,9 +125,17 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
         await saver.updateParticipant({ completed: false, screened_out: true });
         const msg = document.getElementById("finish-message");
         if (EXPERIMENT.prolific_screenout_code && !USE_EMULATOR) {
-          msg.innerHTML = "<p class='thanks'>Thank you. Returning you to Prolific…</p>";
-          window.location.href =
-            "https://app.prolific.com/submissions/complete?cc=" + EXPERIMENT.prolific_screenout_code;
+          // Show the thank-you message first, then send the person back to Prolific after a few
+          // seconds so they have time to read it.
+          msg.innerHTML =
+            "<h2 class='thanks'>Thank you for your interest in this study!</h2>" +
+            "<p class='thanks'>Based on your responses, you are not eligible to take part in this study. " +
+            "You will now be redirected to Prolific.</p>" +
+            "<p class='thanks'>Thank you for your time. Have a good day!</p>";
+          setTimeout(() => {
+            window.location.href =
+              "https://app.prolific.com/submissions/complete?cc=" + EXPERIMENT.prolific_screenout_code;
+          }, 6000);
         } else {
           msg.innerHTML = "<h2 class='thanks'>Thank you</h2><p class='thanks'>Based on your answers, you are " +
             "not eligible for this study. Thank you for your time. You may close this window.</p>";
