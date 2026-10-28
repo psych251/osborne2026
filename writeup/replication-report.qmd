@@ -52,7 +52,9 @@ library(apaTables)   # APA-style correlation table (also used by the original au
 # Must match EXPERIMENT.id in experiment.js, and the --experiment you passed to the export.
 # Phase 2 runs under its own id, so its data never mix with Phase 1's.
 experiment_id        <- "osborne2026-pilot-b"
-experiment_id_phase2 <- "osborne2026-phase2"
+# The full replication sample is collected under "osborne2026-phase2" (the id in experiment.js
+# when the study was preregistered). The Phase 2 extension will get its own id, set here later.
+experiment_id_phase2 <- "osborne2026-extension"
 # Sessions I ran myself while testing the study (my own laptop, incl. the Prolific preview).
 # They are dropped when the data are loaded, so they never count as participants.
 test_ids <- c("8MgYVkFG23gcMSVBQhpgk7opBjI3-1b8eaae1", "8MgYVkFG23gcMSVBQhpgk7opBjI3-b297f50d",
@@ -114,7 +116,7 @@ original_key <- original |> filter(outcome == "worried")
 ## Project links
 
 - **Original paper:** Osborne, A. K., Brown, R. D., & Sillence, E. (2026). Effects of Social Media Narratives on Affective and Behavioral Responses to Menopause Content: Randomized Online Experimental Study. *JMIR Formative Research, 10*, e85788. <https://doi.org/10.2196/85788>
-- **Preregistration:** [OSF registration](https://osf.io/XXXXX) *(registered YYYY-MM-DD, before final data collection)*
+- **Preregistration:** [OSF registration](https://osf.io/f85c9) *(registered 2026-10-27, before final data collection)*
 - **Live experiment:** <https://psych251.github.io/osborne2026/> (take the study exactly as participants did)
 - **Repository:** <https://github.com/psych251/osborne2026> (experiment code, data, and this report)
 :::
@@ -175,6 +177,9 @@ read_phase <- function(id) {
     filter(completed) |>
     mutate(minutes = as.numeric(difftime(lubridate::ymd_hms(ended_at),
                                          lubridate::ymd_hms(started_at), units = "mins")))
+  # If nobody has finished yet (for example only my own test sessions exist), treat the phase
+  # as "no data yet" so the rest of the report skips itself instead of failing.
+  if (nrow(complete) == 0) return(NULL)
 
   # One row per completed participant: condition, demographics, and every rating.
   # jsPsych saves the 5-point answers as 0-4, so 1 is added to put them back on 1-5.
