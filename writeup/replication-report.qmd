@@ -56,7 +56,10 @@ experiment_id_phase2 <- "osborne2026-phase2"
 # Sessions I ran myself while testing the study (my own laptop, incl. the Prolific preview).
 # They are dropped when the data are loaded, so they never count as participants.
 test_ids <- c("8MgYVkFG23gcMSVBQhpgk7opBjI3-1b8eaae1", "8MgYVkFG23gcMSVBQhpgk7opBjI3-b297f50d",
-              "8MgYVkFG23gcMSVBQhpgk7opBjI3-baa54dcb", "8MgYVkFG23gcMSVBQhpgk7opBjI3-eae8b701")
+              "8MgYVkFG23gcMSVBQhpgk7opBjI3-baa54dcb", "8MgYVkFG23gcMSVBQhpgk7opBjI3-eae8b701",
+              # My own test sessions in the full study (osborne2026-phase2)
+              "Ms0HelyzP5gm2aaXbAcwqYe2iHE2-436e9cc7", "Ms0HelyzP5gm2aaXbAcwqYe2iHE2-5abf4618",
+              "rgcrNVUw8pQRbfW11vjTKAZUS3K3-a40878d3", "uTDQ7wjm6Zd6GQiHDgMxxkFb4P83-428742fa")
 
 # PILOT SWITCH. TRUE = Pilot A: the testers did not have to be women over 40, so we only
 # require "completed" and "assigned to normal or distress", and the model is allowed to run
