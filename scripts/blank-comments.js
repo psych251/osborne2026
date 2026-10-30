@@ -22,6 +22,10 @@ if (!EXPERIMENT) { console.error("Usage: node scripts/blank-comments.js <experim
 const IDS = [
   "1pR79w9UCRhYxqySWNEpkYQPaI72-b8aec5e9",
   "wMpAJumcoghEC2YS3w9o7HHTpEm1-fb98fb72",
+  // Full-sample (osborne2026-phase2): comments with specific medical history or personal timeline.
+  "SdJ0WdRIVRSHN056sMtVUAVcpI73-578e147c",
+  "CsvQf6npFGMzG4dJJtfTyaceMcf1-2a7af729",
+  "CI7nL1AfLhbGqP6jYgQo2WQRVDO2-59c93d37",
 ];
 const REPLACEMENT = "[removed: personal details]";
 const dir = path.join(__dirname, "..", "data", "raw", EXPERIMENT);
