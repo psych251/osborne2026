@@ -416,9 +416,9 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
   };
 
   // -------------------------------------------------------------------------
-  // 5b. Phase 2 additions. The STAI-6 (primary measure) comes right after the page with the
-  //     worry item. The exploratory measures come after ALL the original questions, in this
-  //     order: word associations, symptom expectation, and mindsets last.
+  // 5b. Phase 2 additions. They all come after ALL the original (Phase 1) questions, in this
+  //     order: STAI-6 (primary measure), word associations, symptom expectation, and
+  //     mindsets last.
   // -------------------------------------------------------------------------
 
   // (a) Word associations: the first three words that come to mind. Three required text boxes.
@@ -549,10 +549,10 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
     messageType,
     ratingsAgree,
     ratingsFeel,
-    stai6,          // Phase 2: right after the worry page (ratingsFeel)
     ratingsAction,
     ratingsDiscuss,
-    messaging,
+    messaging,      // last Phase 1 question page
+    stai6,          // Phase 2 additions start here: STAI-6 first
     wordAssociations,
     symptomExpectation,
     mindsets,

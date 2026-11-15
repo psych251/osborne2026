@@ -36,25 +36,26 @@ async function runUpToDebrief(page) {
   await expect(page.getByText("Please read the following social media posts")).toBeVisible();
   await expect(page.locator(".post img")).toHaveCount(4);
   await page.getByRole("button", { name: "Continue" }).click();
-  // 4b. the message-type question comes right after the posts, before the ratings
-  await page.locator('[data-name="message_type"]').getByText("Positive", { exact: true }).click();
-  await page.locator('input[value="Continue"]').click();
-  // 5. four rating pages (answer "4th option" on every item), then the views page
+  // helper: answer every item of a Likert page with the 4th option (value 3)
   const likertPage = async (text, n) => {
     await expect(page.getByText(text)).toBeVisible();
     for (let q = 0; q < n; q++) await page.locator(`input[name="Q${q}"][value="3"]`).check();
     await page.locator("#jspsych-survey-likert-next").click();
   };
+  // 4b. the message-type question comes right after the posts, before the ratings
+  await page.locator('[data-name="message_type"]').getByText("Positive", { exact: true }).click();
+  await page.locator('input[value="Continue"]').click();
+  // 5. four rating pages (answer "4th option" on every item), then the views page
   await likertPage("to what extent do you agree", 5);
   await likertPage("to what extent do you feel the following", 6);
-  await likertPage("how you feel right now", 6);   // Phase 2: STAI-6 comes right after the worry page
   await likertPage("how likely would you be to take the following action", 5);
   await likertPage("how likely would you be to discuss", 2);
   for (const q of ["fit_own_views", "rep_social_media", "rep_media", "rep_health_professionals"]) {
     await page.locator(`[data-name="${q}"]`).getByText("Neither agree nor disagree", { exact: true }).click();
   }
   await page.locator('input[value="Continue"]').click();
-  // 5b. Phase 2 additions at the end: word associations, symptom expectation, mindsets
+  // 5b. Phase 2 additions at the end: STAI-6, word associations, symptom expectation, mindsets
+  await likertPage("how you feel right now", 6);
   await expect(page.getByText("first three words that come to mind")).toBeVisible();
   await page.locator('[data-name="word_1"] input').fill("change");
   await page.locator('[data-name="word_2"] input').fill("age");

@@ -1247,7 +1247,7 @@ indicate higher state anxiety.
 The Menopause Mindset Scale is a six item scale (agree/disagree) I have
 created from my clinical experience. The items 2 and 5 are reversed. The score of the scale would be obtained from the average. The alpha would be evaluated.
 
-After the original measures, participants will complete the new measures in this order: word associations, STAI-6, the expected symptom severity item, and menopause mindsets. For the word association task,  capitalization and obvious spelling errors will not be considered. The most common words will be reported for each condition, along with the percentage of participants who mentioned each word. The comparison will be exploratory.
+After the original measures, participants will complete the new measures in this order: STAI-6, word associations, the expected symptom severity item, and menopause mindsets. For the word association task,  capitalization and obvious spelling errors will not be considered. The most common words will be reported for each condition, along with the percentage of participants who mentioned each word. The comparison will be exploratory.
 
 Linear regression will be used to test whether STAI-6 scores differ by
 condition, controlling for age, education, and social media use.
