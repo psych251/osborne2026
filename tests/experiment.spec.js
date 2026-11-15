@@ -47,19 +47,19 @@ async function runUpToDebrief(page) {
   };
   await likertPage("to what extent do you agree", 5);
   await likertPage("to what extent do you feel the following", 6);
+  await likertPage("how you feel right now", 6);   // Phase 2: STAI-6 comes right after the worry page
   await likertPage("how likely would you be to take the following action", 5);
   await likertPage("how likely would you be to discuss", 2);
   for (const q of ["fit_own_views", "rep_social_media", "rep_media", "rep_health_professionals"]) {
     await page.locator(`[data-name="${q}"]`).getByText("Neither agree nor disagree", { exact: true }).click();
   }
   await page.locator('input[value="Continue"]').click();
-  // 5b. Phase 2 additions: word associations, STAI-6, symptom expectation, mindsets
+  // 5b. Phase 2 additions at the end: word associations, symptom expectation, mindsets
   await expect(page.getByText("first three words that come to mind")).toBeVisible();
   await page.locator('[data-name="word_1"] input').fill("change");
   await page.locator('[data-name="word_2"] input').fill("age");
   await page.locator('[data-name="word_3"] input').fill("freedom");
   await page.locator('input[value="Continue"]').click();
-  await likertPage("how you feel right now", 6);
   await page.locator('[data-name="symptom_severity"]').getByText("Moderate", { exact: true }).click();
   await page.locator('input[value="Continue"]').click();
   await likertPage("how much you agree or disagree", 6);
