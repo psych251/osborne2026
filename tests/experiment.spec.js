@@ -14,7 +14,7 @@ const { test, expect, devices } = require("@playwright/test");
 
 const EMULATOR = process.env.EMULATOR === "1" || !!process.env.FIRESTORE_EMULATOR_HOST;
 const PROJECT = "demo-psych251";
-const EXPERIMENT_ID = "osborne2026-phase2";
+const EXPERIMENT_ID = "osborne2026-extension";
 const FS = `http://localhost:8080/v1/projects/${PROJECT}/databases/(default)/documents`;
 
 async function runUpToDebrief(page) {
@@ -53,6 +53,16 @@ async function runUpToDebrief(page) {
     await page.locator(`[data-name="${q}"]`).getByText("Neither agree nor disagree", { exact: true }).click();
   }
   await page.locator('input[value="Continue"]').click();
+  // 5b. Phase 2 additions: word associations, STAI-6, symptom expectation, mindsets
+  await expect(page.getByText("first three words that come to mind")).toBeVisible();
+  await page.locator('[data-name="word_1"] input').fill("change");
+  await page.locator('[data-name="word_2"] input').fill("age");
+  await page.locator('[data-name="word_3"] input').fill("freedom");
+  await page.locator('input[value="Continue"]').click();
+  await likertPage("how you feel right now", 6);
+  await page.locator('[data-name="symptom_severity"]').getByText("Moderate", { exact: true }).click();
+  await page.locator('input[value="Continue"]').click();
+  await likertPage("how much you agree or disagree", 6);
   // 6. feedback
   await expect(page.getByText("How clear were the instructions?")).toBeVisible();
   await page.locator('input[name="Q0"][value="4"]').check();
@@ -149,6 +159,12 @@ test.describe("experiment", () => {
     expect(trials.find((t) => t.task === "ratings_action").response.like).toBe(3);
     expect(trials.find((t) => t.task === "ratings_discuss").response.discuss_friends_family).toBe(3);
     expect(trials.find((t) => t.task === "messaging").response.message_type).toBe("Positive");
+    // Phase 2 additions
+    const words = trials.find((t) => t.task === "word_associations").response;
+    expect([words.word_1, words.word_2, words.word_3]).toEqual(["change", "age", "freedom"]);
+    expect(trials.find((t) => t.task === "stai6").response.stai_calm).toBe(3);
+    expect(trials.find((t) => t.task === "symptom_expectation").response.symptom_severity).toBe(2);
+    expect(trials.find((t) => t.task === "mindsets").response.mindset_opportunity).toBe(3);
     const demo = trials.find((t) => t.task === "demographics");
     expect(demo.response.age).toBe(45);
 

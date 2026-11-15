@@ -25,7 +25,7 @@ window.TEMPLATE_VERSION = "0.1.0";
 const EXPERIMENT = {
   // Firestore path: experiments/<id>/participants/... Change it when you start a new study
   // so pilot data and real data never mix (e.g. "smith2016-pilot-a", "smith2016-final").
-  id: "osborne2026-phase2",
+  id: "osborne2026-extension",
 
   // Trials per Firestore write. 1 = save every trial the moment it finishes (dropouts leave
   // partial data). The free tier allows 20,000 writes/day: with 200 participants x 100 trials
@@ -221,7 +221,7 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
        <p>Dear participant,</p>
        <p>Thank you very much for participating in this study!</p>
        <p>The aim of this study is to understand how people respond to social media content about health. We appreciate your time and help with this study.</p>
-       <p>The study will take about 6 minutes.</p>
+       <p>The study will take about 10 minutes.</p>
        <p>Click Next to read the instructions.</p>`,
       `<h2>Instructions</h2>
        <p>First, you will answer a few questions about yourself.</p>
@@ -416,6 +416,95 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
   };
 
   // -------------------------------------------------------------------------
+  // 5b. Phase 2 additions (they come after ALL the original questions, so the replication
+  //     part of the study is unchanged). Order: word associations first (before any scale
+  //     can influence the words), then STAI-6, symptom expectation, and mindsets last.
+  // -------------------------------------------------------------------------
+
+  // (a) Word associations: the first three words that come to mind. Three required text boxes.
+  const wordAssociations = {
+    type: jsPsychSurvey,
+    survey_json: {
+      showQuestionNumbers: "off",
+      completeText: "Continue",
+      pages: [
+        {
+          title: "What are the first three words that come to mind when you think about menopause? Please write one word in each box.",
+          elements: [
+            { type: "text", isRequired: true, name: "word_1", title: "Word 1" },
+            { type: "text", isRequired: true, name: "word_2", title: "Word 2" },
+            { type: "text", isRequired: true, name: "word_3", title: "Word 3" },
+          ],
+        },
+      ],
+    },
+    data: { task: "word_associations" },
+  };
+
+  // (b) STAI-6 (short form of the State-Trait Anxiety Inventory): six statements rated 1 to 4.
+  // The plugin stores 0 to 3, so add 1 in the analysis. In the analysis, reverse-score
+  // calm, relaxed and content, then sum all six, multiply by 20 and divide by 6 (range 20 to 80; higher = more anxious).
+  const stai4 = ["Not at all", "Somewhat", "Moderately", "Very much"];
+  const stai6 = {
+    type: jsPsychSurveyLikert,
+    preamble: "<p>Please indicate how you feel right now, at this moment:</p>",
+    questions: likertQuestions([
+      ["stai_calm", "I feel calm"],
+      ["stai_tense", "I am tense"],
+      ["stai_upset", "I feel upset"],
+      ["stai_relaxed", "I am relaxed"],
+      ["stai_content", "I feel content"],
+      ["stai_worried", "I am worried"],
+    ], stai4),
+    data: { task: "stai6" },
+  };
+
+  // (c) Expected symptom severity: one question, answers saved as 0 (No symptoms) to 4 (Very severe).
+  const symptomExpectation = {
+    type: jsPsychSurvey,
+    survey_json: {
+      showQuestionNumbers: "off",
+      completeText: "Continue",
+      pages: [
+        {
+          elements: [
+            {
+              type: "radiogroup", isRequired: true, name: "symptom_severity",
+              title: "How severe do you expect your menopause symptoms to be over the next four weeks?",
+              choices: [
+                { value: 0, text: "No symptoms" },
+                { value: 1, text: "Mild" },
+                { value: 2, text: "Moderate" },
+                { value: 3, text: "Severe" },
+                { value: 4, text: "Very severe" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    data: { task: "symptom_expectation" },
+  };
+
+  // (d) Menopause mindsets: six statements, 6-point agree/disagree scale (saved as 0 to 5; add 1
+  // in the analysis to get 1 to 6). Statements 2 (decline) and 5 (little to look forward to) are
+  // negatively worded, so they are reversed in the analysis (7 minus the answer).
+  const agree6 = ["Strongly disagree", "Disagree", "Somewhat disagree", "Somewhat agree", "Agree", "Strongly agree"];
+  const mindsets = {
+    type: jsPsychSurveyLikert,
+    preamble: "<p>Please indicate how much you agree or disagree with each statement about menopause.</p>",
+    questions: likertQuestions([
+      ["mindset_opportunity", "Menopause is an opportunity to grow and to continue building my life."],
+      ["mindset_decline", "Menopause marks an overall decline in the life of a woman."],
+      ["mindset_important", "Menopause is the most important stage of life for a woman."],
+      ["mindset_enjoyable", "Even though there are obstacles, menopause is an enjoyable stage of life."],
+      ["mindset_nothing_to_look_forward", "When a woman reaches menopause, she has little left to look forward to in life."],
+      ["mindset_manageable", "Menopause symptoms are manageable, and I can treat them to live well."],
+    ], agree6),
+    data: { task: "mindsets" },
+  };
+
+  // -------------------------------------------------------------------------
   // 6. Feedback
   // -------------------------------------------------------------------------
   const feedback = {
@@ -463,6 +552,10 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
     ratingsAction,
     ratingsDiscuss,
     messaging,
+    wordAssociations,
+    stai6,
+    symptomExpectation,
+    mindsets,
     feedback,
     comments,
     debrief,

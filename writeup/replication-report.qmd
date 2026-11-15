@@ -1,7 +1,7 @@
 ---
 title: "Replication of Osborne et al. (2026, *JMIR Formative Research*)"
 author: "Andrea Morales Leal andreaml@stanford.edu"
-date: October 27, 2026
+date: November 8, 2026
 date-format: long
 format:
   html:
@@ -15,8 +15,12 @@ format:
 execute:
   warning: false
   message: true
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
+```{=html}
 <!--
 PSYCH 251 replication report template.
 
@@ -40,6 +44,7 @@ The code is wired to the template's demo experiment (the framing problem). Repla
 specifics with your study's as you go: the experiment ids, the original study's numbers, the
 exclusion rule, and the key comparison.
 -->
+```
 
 ```{r}
 #| label: setup
@@ -48,10 +53,11 @@ library(tidyverse)   # includes ggplot2
 library(jsonlite)
 library(psych)       # descriptive statistics (also used by the original authors)
 library(apaTables)   # APA-style correlation table (also used by the original authors)
+library(tibble)
 
 # Must match EXPERIMENT.id in experiment.js, and the --experiment you passed to the export.
 # Phase 2 runs under its own id, so its data never mix with Phase 1's.
-experiment_id        <- "osborne2026-pilot-b"
+experiment_id        <- "osborne2026-phase2"   # the full replication sample (registered id)
 # The full replication sample is collected under "osborne2026-phase2" (the id in experiment.js
 # when the study was preregistered). The Phase 2 extension will get its own id, set here later.
 experiment_id_phase2 <- "osborne2026-extension"
@@ -67,8 +73,12 @@ test_ids <- c("8MgYVkFG23gcMSVBQhpgk7opBjI3-1b8eaae1", "8MgYVkFG23gcMSVBQhpgk7op
 # require "completed" and "assigned to normal or distress", and the model is allowed to run
 # with as few as 8 people. FALSE = the real study: the full exclusion rule is applied and
 # at least 20 people are needed. Set this to FALSE before the real data collection.
-pilot_mode <- TRUE
+pilot_mode <- FALSE
 min_n      <- if (pilot_mode) 8 else 20
+# Stopping rule from the preregistration: recruitment stopped at 260 people who pass the
+# exclusion rule. The last batch of Prolific places overshot, so more than 260 passed. I analyse
+# the FIRST 260 who passed, ordered by start time (see read_phase). In pilot mode there is no limit.
+analysis_n <- if (pilot_mode) Inf else 260
 # In pilot mode the model has no control variables (see fit_outcome), so the caption says so.
 model_note <- if (pilot_mode) "no control variables in the pilot model" else
   "controlling for age, education and social media use"
@@ -88,11 +98,7 @@ orig_n <- c(normal = 248, distress = 241, transformative = 248)
 # Worry ratings (1-5) in the two conditions of the key test, calculated from the original
 # authors' shared data on OSF (https://osf.io/gnb2e) after their exclusions. Used below to
 # get Cohen's d directly from means and SDs.
-orig_worry <- tribble(
-  ~condition, ~n,  ~mean,    ~sd,
-  "normal",   248, 2.532258, 1.033335,
-  "distress", 241, 2.991701, 1.064549
-)
+orig_worry <- tribble(~condition, ~n,  ~mean,    ~sd,"normal",   248, 2.532258, 1.033335, "distress", 241, 2.991701, 1.064549)
 
 # Ordinal logistic regression results for "distress vs normal" (the comparison group is
 # normal). beta = log-odds coefficient (the effect size), se = its standard error,
@@ -112,30 +118,51 @@ original <- tribble(
 original_key <- original |> filter(outcome == "worried")
 ```
 
-::: {.callout-note appearance="simple" icon=false}
+::: {.callout-note appearance="simple" icon="false"}
 ## Project links
 
-- **Original paper:** Osborne, A. K., Brown, R. D., & Sillence, E. (2026). Effects of Social Media Narratives on Affective and Behavioral Responses to Menopause Content: Randomized Online Experimental Study. *JMIR Formative Research, 10*, e85788. <https://doi.org/10.2196/85788>
-- **Preregistration:** [OSF registration](https://osf.io/f85c9) *(registered 2026-10-27, before final data collection)*
-- **Live experiment:** <https://psych251.github.io/osborne2026/> (take the study exactly as participants did)
-- **Repository:** <https://github.com/psych251/osborne2026> (experiment code, data, and this report)
+-   **Original paper:** Osborne, A. K., Brown, R. D., & Sillence, E.
+    (2026). Effects of Social Media Narratives on Affective and
+    Behavioral Responses to Menopause Content: Randomized Online
+    Experimental Study. *JMIR Formative Research, 10*, e85788.
+    <https://doi.org/10.2196/85788>
+-   **Preregistration:** [OSF registration](https://osf.io/f85c9)
+    *(registered 2026-10-27, before final data collection)*
+-   **Live experiment:** <https://psych251.github.io/osborne2026/> (take
+    the study exactly as participants did)
+-   **Repository:** <https://github.com/psych251/osborne2026>
+    (experiment code, data, and this report)
 :::
 
 # AI use statement
 
-I used ChatGPT and Claude (Sonnet 5.5) to help me with the experiment, code, tests and the calculations for the power analysis. They explained some statistical procedures to me and how to use RStudio, git, Quarto and Firebase. They gave me feedback and corrections for my writing, grammar, spelling, and tense, and gave me examples of sentences. They also helped me to add my text to the report and delete the guidance boxes. I checked what the AI told me by searching on the internet, the course Experimentology online book, checking on my own what the code chunks meant, and double-checking everything.
+I used ChatGPT and Claude (Sonnet 5.5) to help me with the experiment,
+code, tests and the calculations for the power analysis. They explained
+some statistical procedures to me and how to use RStudio, git, Quarto
+and Firebase. They gave me feedback and corrections for my writing,
+grammar, spelling, and tense, and gave me examples of sentences. They
+also helped me to add my text to the report and delete the guidance
+boxes. I checked what the AI told me by searching on the internet, the
+course Experimentology online book, checking on my own what the code
+chunks meant, and double-checking everything.
 
-I used Claude to help me read and understand the authors’ analysis code and make my model formula the same as theirs. I used their data to calculate the descriptive statistics and check the main result. Claude also helped me add a filter in the experiment code using the age and menopause questions that were already there. With this filter, participants who did not meet the criteria could not continue the study.
+I used Claude to help me read and understand the authors’ analysis code
+and make my model formula the same as theirs. I used their data to
+calculate the descriptive statistics and check the main result. Claude
+also helped me add a filter in the experiment code using the age and
+menopause questions that were already there. With this filter,
+participants who did not meet the criteria could not continue the study.
 
 # Key statistics
 
-One row per study for the key comparison: the original, your Phase 1 replication, and your
-Phase 2 extension. The table fills itself in from the data as each phase is exported, using the
-analysis code below (open "Show the analysis code"), which is shared by both phases so they are
-analysed identically. Edit that code once, here, to match your design and preregistered
-exclusion rule. On the scientific-extension track, the Phase 2 row reports the new comparison:
-adapt its code and say so in the caption.
-
+One row per study for the key comparison: the original, your Phase 1
+replication, and your Phase 2 extension. The table fills itself in from
+the data as each phase is exported, using the analysis code below (open
+"Show the analysis code"), which is shared by both phases so they are
+analysed identically. Edit that code once, here, to match your design
+and preregistered exclusion rule. On the scientific-extension track, the
+Phase 2 row reports the new comparison: adapt its code and say so in the
+caption.
 
 ```{r}
 #| label: analysis-functions
@@ -158,9 +185,14 @@ parse_task <- function(trials, task_name) {
 # per day = 5). Used to turn the answer into a number for the model.
 social_levels <- c("Never", "Less than weekly", "Weekly", "Daily", "Several times per day")
 
+# Column names of the Phase 2 scales (they match the names in experiment.js).
+stai_items    <- c("stai_calm", "stai_tense", "stai_upset", "stai_relaxed", "stai_content", "stai_worried")
+mindset_items <- c("mindset_opportunity", "mindset_decline", "mindset_important",
+                   "mindset_enjoyable", "mindset_nothing_to_look_forward", "mindset_manageable")
+
 # Load one phase's exported data and apply the exclusion rule. Returns NULL if that phase
 # has not been exported yet, which is how every section below knows to skip itself.
-read_phase <- function(id) {
+read_phase <- function(id, max_n = Inf) {
   dir <- file.path("..", "data", "raw", id)
   if (!all(file.exists(file.path(dir, c("participants.csv", "trials.csv"))))) return(NULL)
   participants <- read_csv(file.path(dir, "participants.csv"), show_col_types = FALSE)
@@ -168,13 +200,21 @@ read_phase <- function(id) {
   # Drop my own test sessions (see test_ids at the top).
   participants <- participants |> filter(!participant_id %in% test_ids)
   trials       <- trials       |> filter(!participant_id %in% test_ids)
+  # People who declined the consent form. The export marks them as "completed" (the study
+  # ends right after the refusal), but they saw no posts and gave no ratings, so they are not
+  # counted as completers. consented is TRUE/FALSE on the consent trial, empty elsewhere.
+  refused <- if ("consented" %in% names(trials)) {
+    trials |>
+      filter(task == "consent", tolower(as.character(consented)) == "false") |>
+      pull(participant_id) |> unique()
+  } else character(0)
   errors_path  <- file.path(dir, "errors.csv")
   errors <- if (file.exists(errors_path)) read_csv(errors_path, show_col_types = FALSE) else tibble()
 
   # Keep only people who finished the study, and compute how many minutes they took
   # (end time minus start time; the times are saved as text like 2026-10-15T22:29:55Z).
   complete <- participants |>
-    filter(completed) |>
+    filter(completed, !participant_id %in% refused) |>
     mutate(minutes = as.numeric(difftime(lubridate::ymd_hms(ended_at),
                                          lubridate::ymd_hms(started_at), units = "mins")))
   # If nobody has finished yet (for example only my own test sessions exist), treat the phase
@@ -187,17 +227,39 @@ read_phase <- function(id) {
   rating_cols <- c("liked", "credible", "trust", "empowered", "knowledgeable",
                    "worried", "reassured", "confused", "in_control", "optimistic", "anxious")
   dat <- complete |>
-    select(participant_id, condition, minutes) |>
+    select(participant_id, condition, minutes, started_at) |>
     left_join(parse_task(tr, "demographics"), by = "participant_id") |>
     left_join(parse_task(tr, "ratings_agree"), by = "participant_id") |>
     left_join(parse_task(tr, "ratings_feel"), by = "participant_id") |>
+    # Phase 2 pages (these tasks do not exist in Phase 1 data, so nothing is added there)
+    left_join(parse_task(tr, "stai6"), by = "participant_id") |>
+    left_join(parse_task(tr, "symptom_expectation"), by = "participant_id") |>
+    left_join(parse_task(tr, "mindsets"), by = "participant_id") |>
     mutate(
-      across(any_of(rating_cols), ~ as.numeric(.x) + 1),
+      across(any_of(c(rating_cols, stai_items, mindset_items)), ~ as.numeric(.x) + 1),
       age                 = as.numeric(age),
       education_years     = as.numeric(education_years),
       social_media_use    = match(social_media_use, social_levels),
       condition           = factor(condition, levels = c("normal", "distress"))
     )
+
+  # STAI-6 score (Phase 2 only). The items are now 1-4. Reverse-score calm, relaxed and content
+  # (5 minus the answer), add all six, multiply by 20 and divide by 6: range 20 to 80.
+  if (all(stai_items %in% names(dat))) {
+    dat <- dat |>
+      mutate(stai_score = ((5 - stai_calm) + stai_tense + stai_upset +
+                           (5 - stai_relaxed) + (5 - stai_content) + stai_worried) * 20 / 6)
+  }
+
+  # Menopause mindset score (Phase 2 only). The items are now 1-6. Statements 2 (decline) and
+  # 5 (little to look forward to) are negatively worded, so they are reversed (7 minus the answer).
+  # The score is the mean of the six items: 1 to 6, higher = more positive view of menopause.
+  if (all(mindset_items %in% names(dat))) {
+    dat <- dat |>
+      mutate(mindset_score = (mindset_opportunity + (7 - mindset_decline) + mindset_important +
+                              mindset_enjoyable + (7 - mindset_nothing_to_look_forward) +
+                              mindset_manageable) / 6)
+  }
 
   # Exclusion rule (the same one written in the Analysis plan). We KEEP a person only if:
   #  - they were assigned to normal or distress (the pilot also had a third group, which is
@@ -220,8 +282,17 @@ read_phase <- function(id) {
              education_years <= 20)
   }
 
+  # Stopping rule: keep only the first max_n people who passed, in the order they started.
+  # slice_head() takes the first rows, so the people are sorted by start time first.
+  # n_passed remembers how many passed in total, before the cut, so the Methods can report it.
+  n_passed <- nrow(keep)
+  passed <- keep    # everyone who passed the exclusion rule, before the first-max_n cut
+  keep <- keep |> arrange(lubridate::ymd_hms(started_at))
+  if (is.finite(max_n)) keep <- keep |> slice_head(n = max_n)
+
   list(participants = participants, trials = trials, errors = errors,
-       complete = complete, dat = dat, keep = keep,
+       complete = complete, dat = dat, keep = keep, n_passed = n_passed, passed = passed,
+       n_refused = sum(participants$participant_id %in% refused),
        n_not_menopausal = sum(dat$menopause_stage %in% "not"))
 }
 
@@ -296,7 +367,7 @@ comparison_plot <- function(...) {
     theme(legend.position = "top")
 }
 
-phase1 <- read_phase(experiment_id)
+phase1 <- read_phase(experiment_id, analysis_n)
 phase2 <- read_phase(experiment_id_phase2)
 have_data   <- !is.null(phase1)
 have_phase2 <- !is.null(phase2)
@@ -332,11 +403,34 @@ bind_rows(
 
 ## Introduction
 
-The original study found that showing social media posts to peri- and postmenopausal women framing the menopause transition as either normal, distressful, or transformative had immediate effects on affective responses (Osborne et al., 2026). Participants who viewed distress-framed posts reported greater levels of worry and confusion, and lower levels of reassurance, optimism, and empowerment. Interestingly, the distress-framed posts increased perceived knowledge of menopause, despite participants feeling more negatively toward them. I replicated the study with only two conditions (normal vs. distress) to examine the main finding of the original study. I used the same scales to measure affective reactions, expected behavioral responses, and perceptions. This study was important for me because it demonstrates how narrative framing shapes affective responses and the importance of choosing the right words to share medical information, especially for a stage of life that half of the population will live through for almost 40% of their lives. Negative framing could also affect how women experience their symptoms physically. I would like to further investigate the mind-body effects of menopausal mindsets in the future.
+The original study found that showing social media posts to peri- and
+postmenopausal women framing the menopause transition as either normal,
+distressful, or transformative had immediate effects on affective
+responses (Osborne et al., 2026). Participants who viewed
+distress-framed posts reported greater levels of worry and confusion,
+and lower levels of reassurance, optimism, and empowerment.
+Interestingly, the distress-framed posts increased perceived knowledge
+of menopause, despite participants feeling more negatively toward them.
+I replicated the study with only two conditions (normal vs. distress) to
+examine the main finding of the original study. I used the same scales
+to measure affective reactions, expected behavioral responses, and
+perceptions. This study was important for me because it demonstrates how
+narrative framing shapes affective responses and the importance of
+choosing the right words to share medical information, especially for a
+stage of life that half of the population will live through for almost
+40% of their lives. Negative framing could also affect how women
+experience their symptoms physically. I would like to further
+investigate the mind-body effects of menopausal mindsets in the future.
 
-One challenge that I anticipated was getting the original materials from the authors, but they shared their original posts with me. They also shared their data and analysis code on OSF. This helped me understand their analysis and prepare my replication. For the statistical analysis, I used ordinal logistic regression.
+One challenge that I anticipated was getting the original materials from
+the authors, but they shared their original posts with me. They also
+shared their data and analysis code on OSF. This helped me understand
+their analysis and prepare my replication. For the statistical analysis,
+I used ordinal logistic regression.
 
-For the extension, I planned to include a brief message to reframe how menopause is presented in the posts.
+In Phase 2, I will compare how anxious participants feel right after
+reading posts that describe menopause as a normal transition or as a
+distressing experience.
 
 ## Methods
 
@@ -391,60 +485,122 @@ knitr::kable(power_check,
                                proposed_per_group))
 ```
 
-The original effect for the worry question comparing the distress and normal conditions was β = .910. Cohen’s d was calculated using the means and standard deviations of the two groups in the original data. This gave a d of about 0.44.
+The original effect for the worry question comparing the distress and
+normal conditions was β = .910. Cohen’s d was calculated using the means
+and standard deviations of the two groups in the original data. This
+gave a d of about 0.44.
 
-With an alpha of .01, about 157 participants per group would be needed to have 90% power to detect this effect. I chose 130 participants per group because of resource constraints. With this sample, the power was about 82% to detect an effect of d = 0.44. However, the true effect could have been smaller than the one found in the original study.
+With an alpha of .01, about 157 participants per group would be needed
+to have 90% power to detect this effect. I chose 130 participants per
+group because of resource constraints. With this sample, the power was
+about 82% to detect an effect of d = 0.44. However, the true effect
+could have been smaller than the one found in the original study.
 
 ### Planned sample
 
-I planned to recruit women aged 40 or older from the UK through Prolific who were perimenopausal or postmenopausal. The planned sample was 260 participants, with 130 in each condition. Participants who did not pass the eligibility check did not count toward the 260.
+I planned to recruit women aged 40 or older from the UK through Prolific
+who were perimenopausal or postmenopausal. The planned sample was 260
+participants, with 130 in each condition. Participants who did not pass
+the eligibility check did not count toward the 260.
 
-Recruitment stopped when data from 260 people who passed the inclusion/exclusion criteria had been collected.
+Recruitment stopped when data from 260 people who passed the
+inclusion/exclusion criteria had been collected.
 
 ### Materials
 
-The original study used 12 social media posts, with four posts for each narrative: normal, distress, and transformative. This replication study used only the original posts from the normal and distress conditions. Each participant saw four posts from their assigned condition. The study included basic sociodemographic questions and questions about menopause stage, HRT experience, perceived menopause knowledge, and social media use. After viewing the posts, participants answered the original questions about their affective responses, expected behavioral responses, and perceptions of the posts.
+The original study used 12 social media posts, with four posts for each
+narrative: normal, distress, and transformative. This replication study
+used only the original posts from the normal and distress conditions.
+Each participant saw four posts from their assigned condition. The study
+included basic sociodemographic questions and questions about menopause
+stage, HRT experience, perceived menopause knowledge, and social media
+use. After viewing the posts, participants answered the original
+questions about their affective responses, expected behavioral
+responses, and perceptions of the posts.
 
-Materials available at the following link: https://psych251.github.io/osborne2026/
+Materials available at the following link:
+https://psych251.github.io/osborne2026/
 
 ### Procedure
 
-Participants recruited through Prolific first saw a consent page and then answered basic sociodemographic and clinical questions about their menopause. After the demographics page, their age and answer to the original menopause question were used to check if they could participate. Participants under 40 or who were not perimenopausal or postmenopausal could not continue and were sent back to Prolific. The condition was randomly assigned when they started the study, before the demographic questions. Eligible participants then saw four posts presenting menopause as either a distressing or a “normal” experience, depending on their condition. The authors shared their original posts to use in this replication. The posts were anonymized, standardized, and copied from public X, Instagram, and Facebook posts. Participants answered questions about the message of the posts, how the posts made them feel (worried, reassured, confused, optimistic), their behavioral intentions (like, share, save, comment, search, discuss), and their perceptions of the posts (likability, credibility, trustworthiness, representativeness). As far as I could tell from the original data, the questions followed the same order. I included only two groups, normal and distress, instead of three because of resource constraints. The transformative posts were not included. I used a jsPsych website instead of Qualtrics to run the experiment.
+Participants recruited through Prolific first saw a consent page and
+then answered basic sociodemographic and clinical questions about their
+menopause. After the demographics page, their age and answer to the
+original menopause question were used to check if they could
+participate. Participants under 40 or who were not perimenopausal or
+postmenopausal could not continue and were sent back to Prolific. The
+condition was randomly assigned when they started the study, before the
+demographic questions. Eligible participants then saw four posts
+presenting menopause as either a distressing or a “normal” experience,
+depending on their condition. The authors shared their original posts to
+use in this replication. The posts were anonymized, standardized, and
+copied from public X, Instagram, and Facebook posts. Participants
+answered questions about the message of the posts, how the posts made
+them feel (worried, reassured, confused, optimistic), their behavioral
+intentions (like, share, save, comment, search, discuss), and their
+perceptions of the posts (likability, credibility, trustworthiness,
+representativeness). As far as I could tell from the original data, the
+questions followed the same order. I included only two groups, normal
+and distress, instead of three because of resource constraints. The
+transformative posts were not included. I used a jsPsych website instead
+of Qualtrics to run the experiment.
 
 ### Analysis plan
 
-As in the original study, statistical analyses were done using R. The packages apaTables, ggplot2, psych, and tidyverse were used for data processing, analysis, and visualization.
+As in the original study, statistical analyses were done using R. The
+packages apaTables, ggplot2, psych, and tidyverse were used for data
+processing, analysis, and visualization.
 
-Participant characteristics, HRT experience, perceived menopause knowledge, and social media engagement were described using descriptive statistics. Categorical variables were presented as counts and percentages. Continuous variables were presented as means, SDs, and ranges. Ordinal logistic regression was used because the outcomes were measured on ordered 5-point Likert-type scales. The models examined the impact of experimental condition on affective, behavioral, and perceptual responses to the posts, using the normal narrative condition as the reference category. Models controlled for age, years of education after age 16, and frequency of social media use. Following the original authors, I used P < .01 as the significance threshold.
+Participant characteristics, HRT experience, perceived menopause
+knowledge, and social media engagement were described using descriptive
+statistics. Categorical variables were presented as counts and
+percentages. Continuous variables were presented as means, SDs, and
+ranges. Ordinal logistic regression was used because the outcomes were
+measured on ordered 5-point Likert-type scales. The models examined the
+impact of experimental condition on affective, behavioral, and
+perceptual responses to the posts, using the normal narrative condition
+as the reference category. Models controlled for age, years of education
+after age 16, and frequency of social media use. Following the original
+authors, I used P \< .01 as the significance threshold.
 
-**Key analysis of interest.** My key analysis of interest was to compare worry ratings between the distress and normal conditions using ordinal logistic regression. In the original study, compared to participants who viewed posts portraying menopause as normal, those who viewed distress posts reported to be more worried about menopause (β = .910; SE = .170; Wald z = 5.350; P < .001; Osborne et al., 2026).
+**Key analysis of interest.** My key analysis of interest was to compare
+worry ratings between the distress and normal conditions using ordinal
+logistic regression. In the original study, compared to participants who
+viewed posts portraying menopause as normal, those who viewed distress
+posts reported to be more worried about menopause (β = .910; SE = .170;
+Wald z = 5.350; P \< .001; Osborne et al., 2026).
 
-The key test was an ordinal logistic regression of the worry question on condition, with the same three controls. The normal condition was the reference group. The effect size was β (log-odds) for distress vs normal, with a 95% confidence interval.
+The key test was an ordinal logistic regression of the worry question on
+condition, with the same three controls. The normal condition was the
+reference group. The effect size was β (log-odds) for distress vs
+normal, with a 95% confidence interval.
 
-**Secondary outcomes.** Feeling reassured, confused, optimistic, anxious, empowered, and knowledgeable, and how much participants liked the posts, were also examined using the same ordinal logistic regression model and covariates.
+**Secondary outcomes.** Feeling reassured, confused, optimistic,
+anxious, empowered, and knowledgeable, and how much participants liked
+the posts, were also examined using the same ordinal logistic regression
+model and covariates.
 
-**Exclusions.** Participants were excluded if they did not complete the study, completed the survey in less than 2.5 minutes, or reported more than 20 years of education after age 16. The original research team considered less than 2.5 minutes insufficient time to read and process the survey content.
+**Exclusions.** Participants were excluded if they did not complete the
+study, completed the survey in less than 2.5 minutes, or reported more
+than 20 years of education after age 16. The original research team
+considered less than 2.5 minutes insufficient time to read and process
+the survey content.
 
-Participants were also excluded if they were not perimenopausal or postmenopausal women. Participants younger than 40 years old were also excluded.
+Participants were also excluded if they were not perimenopausal or
+postmenopausal women. Participants younger than 40 years old were also
+excluded.
 
 ### Differences from the original study
 
 | Feature | Original study | Replication study | Could this influence the results? |
-|---|---|---|---|
+|------------------|------------------|------------------|------------------|
 | Number of groups | 3 (normal, distress, transformative) | 2 (normal, distress) | I did not expect this to affect the main comparison because my study focused on distress versus normal posts. |
 | Platform | Qualtrics | jsPsych website | Probably not. The questions and posts were the same. As far as I could tell from the available materials, their order was also the same. |
 | Sample size | 737 participants were analyzed, about 245 per group. | 260 participants, 130 per group. | The smaller sample gave less precise estimates. My sample had about 82% power to detect an effect of d = 0.44 with an alpha of .01. |
-| Sample and pay | Prolific, UK women 40+, perimenopausal or postmenopausal, paid £1.50. | Prolific, UK women meeting the same age and menopause criteria. Paid about $8 per hour. | Possibly. Payment differences could affect who participates. |
+| Sample and pay | Prolific, UK women 40+, perimenopausal or postmenopausal, paid £1.50. | Prolific, UK women meeting the same age and menopause criteria. Paid about \$8 per hour. | Possibly. Payment differences could affect who participates. |
 | 60-second wait | The data showed that participants in the normal and transformative groups stayed on the posts page for at least 60 seconds. However, about half of the distress group spent less than 60 seconds. I did not know why. | The Continue button was locked for 60 seconds. I added a bold instruction because some pilot participants missed it and thought the website was not working. | Possibly. Participants in my distress condition may have spent more time looking at the posts than participants in the original study. |
 
 ### Methods addendum (post data collection)
-
-::: {.callout-tip icon=false}
-## Guidance
-
-Leave this section out of the version you preregister. After data collection, report the
-actual sample and any deviation from the plan above.
-:::
 
 #### Actual sample
 
@@ -482,11 +638,12 @@ n_not_menopausal <- phase1$n_not_menopausal
 ```{r}
 #| label: funnel
 #| eval: !expr have_data
-funnel_levels <- c("Started", "Completed", "Passed exclusion criteria")
+funnel_levels <- c("Started", "Completed", "Passed exclusion criteria", "Analysed (first 260)")
 bind_rows(
   participants |> mutate(step = "Started"),
   complete     |> mutate(step = "Completed"),
-  keep         |> mutate(step = "Passed exclusion criteria")
+  phase1$passed |> mutate(step = "Passed exclusion criteria"),
+  keep         |> mutate(step = "Analysed (first 260)")
 ) |>
   mutate(step = factor(step, levels = funnel_levels)) |>
   count(step, condition, .drop = FALSE) |>
@@ -504,11 +661,12 @@ bind_rows(
 # opened the study). "completed" is TRUE only for people who reached the end.
 n_started <- nrow(participants)
 n_done    <- nrow(complete)
+n_refused <- phase1$n_refused   # declined the consent form (not counted as completers)
 # The "screened_out" column is saved for people the in-study screening sent away. If the
 # export has no such column, we count them as 0 and say so in the table note.
 n_screened <- if ("screened_out" %in% names(participants)) sum(participants$screened_out %in% TRUE) else 0
 # Dropouts = started, but neither finished nor screened out.
-n_dropped <- n_started - n_done - n_screened
+n_dropped <- n_started - n_done - n_screened - n_refused
 
 # Instruction clarity (1-5), answered by people who finished. jsPsych saves 0-4, so add 1.
 clarity <- parse_task(trials |> filter(participant_id %in% complete$participant_id),
@@ -517,11 +675,11 @@ clarity_mean <- if ("instructions_clear" %in% names(clarity))
   mean(as.numeric(clarity$instructions_clear) + 1, na.rm = TRUE) else NA
 
 tibble(
-  Measure = c("Started", "Screened out (not eligible)", "Dropped out", "Completed",
+  Measure = c("Started", "Screened out (not eligible)", "Declined consent", "Dropped out", "Completed",
               "Dropout among eligible starters (%)",
               "Median minutes (completers)", "Fastest / slowest (minutes)",
               "Mean instruction clarity (1-5)", "Browser error reports"),
-  Value = c(n_started, n_screened, n_dropped, n_done,
+  Value = c(n_started, n_screened, n_refused, n_dropped, n_done,
             round(100 * n_dropped / max(n_started - n_screened, 1), 1),
             round(median(complete$minutes), 1),
             paste(round(min(complete$minutes), 1), "/", round(max(complete$minutes), 1)),
@@ -530,22 +688,15 @@ tibble(
   knitr::kable(caption = "Pilot checks.")
 ```
 
-Four of the 13 eligible participants who started did not answer any trials, giving a dropout rate of 30.8%. According to the code, page reloads count as new participants, so this rate may overestimate the actual dropout rate. The 9 participants who finished took a median of 5.5 minutes, with a range of 3.6 to 22.1 minutes. One participant took 22.1 minutes, while the next longest time was 8.2 minutes. The average rating for instruction clarity was 4.89 out of 5. Based on these results, the estimated time in the welcome text was changed from 10 minutes to about 6 minutes.
+A total of 331 people started Phase 1. Of these, 50 were not eligible.
+Of the 281 eligible participants, 5 declined consent, 10 dropped out
+(3.6% of eligible participants), and 266 completed the study. The median
+completion time was 4.9 minutes, and the average rating for instruction
+clarity was 4.46 out of 5.
 
-```{r}
-#| label: sample-text
-#| eval: !expr have_data
-#| echo: false
-#| results: asis
-cat(sprintf("Of %d participants who started, %d completed the study and %d met the exclusion criteria.",
-            nrow(participants), nrow(complete), nrow(keep)))
-if (n_not_menopausal > 0 && !pilot_mode) {   # in pilot mode this rule is skipped
-  cat(sprintf(" %d completed session(s) reported not going through menopause and were excluded on that basis.",
-              n_not_menopausal))
-}
-if (nrow(keep) == 0) cat(" No participants remain for analysis yet, so the results below are empty.")
-cat("\n")
-```
+Of the 266 participants who completed the study, 265 met the analysis
+criteria. I analyzed the first 260 of these participants (130 per
+group).
 
 ```{r}
 #| label: demographics
@@ -629,23 +780,74 @@ if (nrow(keep) > 0) {
 
 #### Deviations from the preregistered plan
 
-In Pilot A, there was no check for eligibility.
-
-In Pilot B, three Prolific filters were used: women, ages 40-100, and UK residents. Two people did not pass the eligibility question. All 9 people who finished were included in the analysis. The tables and figure show Pilot B results.
+In Phase 1, I used jsPsych instead of Qualtrics to run the experiment.
+The data export initially marked five people who declined consent as
+having completed the study. I removed them from the completion count.
+After applying my analysis criteria, I had 265 eligible people that
+completed the study and the first 260 (130 per group) were analyzed, as
+I preregistered it.
 
 ## Results
 
 ### Data preparation
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## Guidance
 
-Data preparation follows the analysis plan. Loading and exclusions are done by the shared
-analysis code under Key statistics (open "Show the analysis code"). Describe anything you did to
-the data beyond that.
+Data preparation follows the analysis plan. Loading and exclusions are
+done by the shared analysis code under Key statistics (open "Show the
+analysis code"). Describe anything you did to the data beyond that.
 :::
 
+A total of 266 participants completed the experiment, and 265 met the
+criteria for analysis. I analyzed the first 260 eligible completers (130
+per group), following my preregistered stopping rule.
+
 ### Confirmatory analysis
+
+For my main analysis, I used ordinal logistic regression to examine
+whether distressing menopause posts increased worry compared to normal
+posts. I controlled for age, education, and social media use, as the
+authors of the original study did.
+
+The effect of distressing posts on worry was β = 0.97 (SE = 0.23), with
+Cohen’s d = 0.54 without controlling for other variables. After
+controlling for age, education, and social media use, the effect was
+larger, β = 1.245 (SE = 0.243, p \< .001), with a d of 0.63. Most of the
+change came from the covariate age because participants in the distress
+condition were slightly older.
+
+Cohen’s d was calculated by dividing the difference between the two
+group means by the pooled standard deviation.
+
+```{r}
+#| label: cohens-d
+#| eval: !expr have_data
+g <- keep |>                         # keep = the 260 analysed participants
+  group_by(condition) |>             # split into normal and distress
+  summarise(m = mean(worried),       # average worry in each group
+            s = sd(worried),         # spread (SD) in each group
+            n = n())                 # people in each group
+sp <- sqrt(((g$n[1] - 1) * g$s[1]^2 + (g$n[2] - 1) * g$s[2]^2) /
+           (g$n[1] + g$n[2] - 2))    # pooled SD: the groups' SDs combined, weighted by size
+d <- (g$m[g$condition == "distress"] - g$m[g$condition == "normal"]) / sp
+round(d, 2)                          # difference in means divided by pooled SD
+```
+
+```{r}
+#| label: effect-without-and-with-controls
+#| eval: !expr have_data
+# Beta WITHOUT controls: same ordinal model, but condition is the only predictor.
+m0 <- MASS::polr(factor(worried, ordered = TRUE) ~ condition, data = keep, Hess = TRUE)
+round(coef(summary(m0))["conditiondistress", c("Value", "Std. Error")], 2)   # beta and its SE
+
+# Cohen's d WITH controls: a linear model with condition + the three controls.
+# The condition coefficient is the adjusted difference between groups (in rating points);
+# sigma() is the spread left after the controls, so dividing gives d in standard-deviation units.
+ols <- lm(worried ~ condition + scale(age) + scale(education_years) + scale(social_media_use),
+          data = keep)
+round(coef(ols)["conditiondistress"] / sigma(ols), 2)
+```
 
 ```{r}
 #| label: confirmatory
@@ -677,15 +879,30 @@ if (!is.null(res_all)) {
 
 ### Replication assessment
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## Guidance
 
-Judge the replication on effect sizes, not only on whether the key test is significant. Compare
-the replication estimate and its interval with the original: does the interval exclude zero, and
-does it include the original estimate? A significant result much smaller than the original, or
-a non-significant result whose interval still includes the original effect, are both
-informative and should be reported as such (Experimentology §3.2).
+Judge the replication on effect sizes, not only on whether the key test
+is significant. Compare the replication estimate and its interval with
+the original: does the interval exclude zero, and does it include the
+original estimate? A significant result much smaller than the original,
+or a non-significant result whose interval still includes the original
+effect, are both informative and should be reported as such
+(Experimentology §3.2).
 :::
+
+The authors of the original study reported β = 0.910, SE = 0.170, and d
+≈ 0.44, while my effect was slightly larger, β = 1.245 and d ≈ 0.54.
+
+My 95% confidence interval was \[0.77, 1.72\], and it included the
+original estimate of 0.910. My results are consistent with the original
+findings.
+
+At the .01 threshold that the authors used, I replicated the effects on
+feeling confused, optimistic, anxious, and knowledgeable. The effects on
+feeling reassured (p = .029), liking the posts (p = .084), and feeling
+empowered (p = .58) were in the same direction as in the original study,
+but they were smaller and did not meet the threshold.
 
 ```{r}
 #| label: comparison
@@ -722,36 +939,43 @@ if (!is.null(rep)) {
 }
 ```
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## Guidance: show the original next to your replication
 
-**Every report should have a figure that puts the original finding and your replication side by
-side.** It is the single most informative thing in a replication report: a reader can see at a
-glance whether the effect came back, and how its size compares. Make it however you can, in
+**Every report should have a figure that puts the original finding and
+your replication side by side.** It is the single most informative thing
+in a replication report: a reader can see at a glance whether the effect
+came back, and how its size compares. Make it however you can, in
 roughly this order of preference:
 
-1. **Replot both from numbers.** Enter the original's summary statistics (means or proportions,
-   with SDs, SEs or CIs, and Ns) in the original-study chunk at the top of this file, and plot
-   them on the same axes as yours. That is what the demo figure below does.
-2. **Replot the original from its data**, if the authors shared it or it is in an open
-   repository, using exactly the same plotting code as for your own data.
-3. **Show the original figure as an image** next to yours if neither is possible. Save a
-   screenshot of it, for example as `writeup/images/original-figure.png`, and lay the two out
-   in columns:
+1.  **Replot both from numbers.** Enter the original's summary
+    statistics (means or proportions, with SDs, SEs or CIs, and Ns) in
+    the original-study chunk at the top of this file, and plot them on
+    the same axes as yours. That is what the demo figure below does.
 
-   ````markdown
-   ::: {layout-ncol=2}
-   ![Original: Tversky & Kahneman (1981), Figure 1](images/original-figure.png)
+2.  **Replot the original from its data**, if the authors shared it or
+    it is in an open repository, using exactly the same plotting code as
+    for your own data.
 
-   ```{{r}}
-   # your replication plot here
-   ```
-   :::
-   ````
+3.  **Show the original figure as an image** next to yours if neither is
+    possible. Save a screenshot of it, for example as
+    `writeup/images/original-figure.png`, and lay the two out in
+    columns:
 
-Whichever you choose, use the same measure, scale, condition order and error-bar meaning for
-both panels, label which is which, and cite the source of the original values or figure in the
-caption. If the original reported no variability, say so rather than leaving it out silently.
+    ```` markdown
+    ::: {layout-ncol=2}
+    ![Original: Tversky & Kahneman (1981), Figure 1](images/original-figure.png)
+
+    ```{{r}}
+    # your replication plot here
+    ```
+    :::
+    ````
+
+Whichever you choose, use the same measure, scale, condition order and
+error-bar meaning for both panels, label which is which, and cite the
+source of the original values or figure in the caption. If the original
+reported no variability, say so rather than leaving it out silently.
 :::
 
 ```{r}
@@ -765,16 +989,19 @@ comparison_plot(Original = original, `Phase 1: replication` = all_results(phase1
 
 ### Exploratory analyses
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## Guidance
 
-Any follow-up analyses (optional). Label them clearly as exploratory: they were not planned, so
-they generate hypotheses rather than test them.
+Any follow-up analyses (optional). Label them clearly as exploratory:
+they were not planned, so they generate hypotheses rather than test
+them.
 :::
+
+There were no additional exploratory analyses at this point.
 
 ```{r}
 #| label: exploratory-rt
-#| eval: !expr have_data
+#| eval: false
 # Exploratory: what message did people say the posts conveyed (positive, neutral, negative)?
 msg <- parse_task(trials, "messaging")
 if ("message_type" %in% names(msg)) {
@@ -790,7 +1017,7 @@ if ("message_type" %in% names(msg)) {
 
 ```{r}
 #| label: data-quality
-#| eval: !expr have_data
+#| eval: false
 if (nrow(errors) > 0) {
   errors |> select(any_of(c("at", "trial_index", "message"))) |> head(20) |>
     knitr::kable(caption = "JavaScript errors reported from participants' browsers.")
@@ -803,99 +1030,148 @@ if (nrow(errors) > 0) {
 
 ### Summary of replication attempt
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## Guidance
 
-Open with one paragraph summarizing the result of the key analysis and your assessment of
-whether the original finding replicated, partially replicated, or failed to replicate. Base
-that judgment on the replication assessment above: the size of the effect relative to the
+Open with one paragraph summarizing the result of the key analysis and
+your assessment of whether the original finding replicated, partially
+replicated, or failed to replicate. Base that judgment on the
+replication assessment above: the size of the effect relative to the
 original, not just the p value.
 :::
 
+I consider this a successful replication. I found a significant effect
+in the same direction as the original study, with a slightly larger
+effect size (d = 0.54 vs. d = 0.44), even though my sample was about
+half the size of the two compared groups in the original study. My
+confidence interval also included the original effect estimate.
+
 ### Commentary
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## Guidance
 
-Open-ended commentary, none of it long: (a) what the exploratory analyses suggest; (b) what the
-replication means, for example whether the differences between your study and the original are
-definitely, plausibly, or unlikely to be moderators of the result; and (c) any objections or
-challenges raised by you or the original authors.
+Open-ended commentary, none of it long: (a) what the exploratory
+analyses suggest; (b) what the replication means, for example whether
+the differences between your study and the original are definitely,
+plausibly, or unlikely to be moderators of the result; and (c) any
+objections or challenges raised by you or the original authors.
 :::
+
+Two differences may help explain why the worry effect was larger in my
+study. In the original study, 55.8% of participants in the distress
+condition left the page with the posts before 60 seconds, compared with
+0% in my study. Also, 43% of participants in my normal condition
+selected the lowest worry rating (1), compared with 14.5% in the
+original study.
 
 # Phase 2: Extension
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## Guidance: choosing your extension
 
 Follow the Extension guidelines page on Canvas. In brief:
 
-- **By default the extension is a best-practices modification of your Phase 1 experiment.** If
-  your replication did not succeed, it is a **rescue**: address the plausible reasons for the
-  failure. If it did succeed, it is an **upgrade**: make the estimate more precise. Typical
-  changes are better or more reliable measurement, more trials, a within-participant design
-  where that is legitimate, comprehension and manipulation checks, clearer instructions, or a
-  larger or better-targeted sample.
-- **If your scientific extension pitch was approved at Milestone 3 and your replication
-  succeeded, propose that instead:** the original conditions rerun unchanged, plus the one
-  added condition or manipulation, with a power analysis for the new comparison.
-- On either track you may add exploratory measures **at the end** of the study.
-- Every change is listed and tagged by category below; everything else stays identical.
+-   **By default the extension is a best-practices modification of your
+    Phase 1 experiment.** If your replication did not succeed, it is a
+    **rescue**: address the plausible reasons for the failure. If it did
+    succeed, it is an **upgrade**: make the estimate more precise.
+    Typical changes are better or more reliable measurement, more
+    trials, a within-participant design where that is legitimate,
+    comprehension and manipulation checks, clearer instructions, or a
+    larger or better-targeted sample.
+-   **If your scientific extension pitch was approved at Milestone 3 and
+    your replication succeeded, propose that instead:** the original
+    conditions rerun unchanged, plus the one added condition or
+    manipulation, with a power analysis for the new comparison.
+-   On either track you may add exploratory measures **at the end** of
+    the study.
+-   Every change is listed and tagged by category below; everything else
+    stays identical.
 
 State your track on the line below, and delete the others.
 :::
 
-**Track:** Best-practices upgrade / Best-practices rescue / Scientific extension (approved at Milestone 3)
+**Track:** Best-practices upgrade (metascience)
 
 ## Rationale
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## Guidance
 
-One or two paragraphs. For a rescue: what are the plausible reasons Phase 1 did not reproduce the
-original result, and how does each change address one of them? For an upgrade: where is the
-Phase 1 estimate least precise or least trustworthy, and how will the changes improve it? For a
-scientific extension: what question does the added condition answer, and why does it follow from
-the original finding?
+One or two paragraphs. For a rescue: what are the plausible reasons
+Phase 1 did not reproduce the original result, and how does each change
+address one of them? For an upgrade: where is the Phase 1 estimate least
+precise or least trustworthy, and how will the changes improve it? For a
+scientific extension: what question does the added condition answer, and
+why does it follow from the original finding?
 :::
+
+Although my replication was successful, I think I can improve the
+precision of my results. In Phase 1, the worry variable was assessed by
+asking one Likert-style question.
+
+For Phase 2, I want to increase the sample and add some measures to make
+the worry measurement more robust.
 
 ## Changes from Phase 1
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## Guidance
 
-Every change from the Phase 1 experiment, one per row, each tagged with a category: Measurement,
-Trials, Design, Checks, Instructions, Sample, Added condition (scientific track only), or
-Exploratory measure (end of study only). If it is not in this table, it does not change: same
-materials, wording, procedure, exclusion rule and analysis. The rows below are examples for the
-demo; replace them with yours.
+Every change from the Phase 1 experiment, one per row, each tagged with
+a category: Measurement, Trials, Design, Checks, Instructions, Sample,
+Added condition (scientific track only), or Exploratory measure (end of
+study only). If it is not in this table, it does not change: same
+materials, wording, procedure, exclusion rule and analysis. The rows
+below are examples for the demo; replace them with yours.
 :::
 
-| # | Category | Phase 1 | Phase 2 | Why |
-|---|---|---|---|---|
-| 1 | Sample | 27 analysed participants | 300 analysed participants (150 per frame) | Phase 1's interval was too wide to distinguish the original effect from a much smaller one. |
-| 2 | Checks | No comprehension check | After the choice, participants say how many people are at risk (600) | Confirms participants read the scenario; failures are reported, and excluded only if preregistered. |
-| 3 | Exploratory measure | None | At the end: "How confident are you in your choice?" (1–7) | Exploratory only; collected after every confirmatory measure. |
+I want to add the STAI-6, expected symptom severity (“How severe do you
+expect your menopause symptoms to be over the next four weeks?”), a
+menopause word cloud (the first 3 words that come to mind), and a six-item measure of menopause mindsets.
+
+I will keep the original procedure from phase 1 the same. The new measures will be added at the end of the survey.
+
+| Category | Phase 1 | Phase 2 | Why |
+|------------------|------------------|------------------|------------------|
+| Sample | 260 participants (130 per group) | About 386 participants (193 per group) | I want a larger sample to get a more precise estimate and reduce my standard error. |
+| Instructions | The survey takes about 6 minutes. | The survey takes about 10 minutes. | The new questions and the word association task add time to the survey. |
+| Primary measure | None | STAI-6, as a primary measure along with worry | There is no well-validated scale for menopause-related worry, so I'll use the STAI-6 to make the measurement more robust. |
+| Exploratory measure | None | Expected symptom severity | I want to see if the posts change how severe women expect their menopause symptoms to be. |
+| Exploratory measure | None | Word associations (first three words about menopause) | I want to see if the words that come to women's minds differ between conditions. |
+| Exploratory measure | None | Menopause mindsets (6 items rated from 1 = strongly disagree to 6 = strongly agree) | I want to see if women’s beliefs about menopause differ between the two groups after reading the posts. |
 
 Everything not listed above is identical to Phase 1.
 
 ## Power and sample
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## Guidance
 
-Justify the Phase 2 sample, and **state how you expect the estimate and its precision to compare
-with Phase 1**. For an upgrade, plan the sample around the confidence interval you want; for a
-rescue, around the power to detect the original effect, or the smallest effect you would still
-consider a successful replication; for a scientific extension, around the power to detect the new
-comparison. Set `phase2_n_per_group` in the code below; the table uses Phase 1's estimate if you
-have it and the original's otherwise.
+Justify the Phase 2 sample, and **state how you expect the estimate and
+its precision to compare with Phase 1**. For an upgrade, plan the sample
+around the confidence interval you want; for a rescue, around the power
+to detect the original effect, or the smallest effect you would still
+consider a successful replication; for a scientific extension, around
+the power to detect the new comparison. Set `phase2_n_per_group` in the
+code below; the table uses Phase 1's estimate if you have it and the
+original's otherwise.
 :::
+
+For Phase 2, I plan to recruit around 193 participants per group, for a
+total of approximately 386 participants.
+
+With this sample, I expect a standard error of around 0.20, compared to
+0.243 in Phase 1. This should give me a narrower confidence interval and
+a more precise estimate.
+
+My estimated budget is around \$910.
 
 ```{r}
 #| label: phase2-power
 #| eval: false
-phase2_n_per_group <- 150   # planned analysed participants per condition in Phase 2
+phase2_n_per_group <- 193   # planned analysed participants per condition in Phase 2
 
 p1_counts <- if (have_data) risky_counts(phase1)
 p1_stats  <- if (have_data) diff_ci(p1_counts)
@@ -936,18 +1212,59 @@ tibble(
 
 ## Analysis plan
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## Guidance
 
-The confirmatory analysis for Phase 2, written before Phase 2 data collection. On the
-best-practices tracks this is normally the same key test as Phase 1, run on the Phase 2 data
-alone; say whether you will also report a pooled estimate across phases, and label it
-exploratory if so. On the scientific track, specify the test for the new comparison. Name the
-exclusion rule (unchanged unless it is in the Changes table) and list any exploratory measures.
+The confirmatory analysis for Phase 2, written before Phase 2 data
+collection. On the best-practices tracks this is normally the same key
+test as Phase 1, run on the Phase 2 data alone; say whether you will
+also report a pooled estimate across phases, and label it exploratory if
+so. On the scientific track, specify the test for the new comparison.
+Name the exclusion rule (unchanged unless it is in the Changes table)
+and list any exploratory measures.
 
-Run Phase 2 under a new `EXPERIMENT.id` in `experiment.js` (for example `smith2016-phase2`) and
-set `experiment_id_phase2` at the top of this file to match, so the two phases' data never mix.
+Run Phase 2 under a new `EXPERIMENT.id` in `experiment.js` (for example
+`smith2016-phase2`) and set `experiment_id_phase2` at the top of this
+file to match, so the two phases' data never mix.
 :::
+
+I will use the same main analysis as in Phase 1: ordinal logistic
+regression predicting worry from the experimental condition, controlling
+for age, education, and social media use.
+
+I will use the same exclusion criteria as in Phase 1.
+
+I will also analyze STAI-6 as an additional primary measure, an expected
+symptom severity question, a menopasue mindset scale and word
+associations (word cloud) as exploratory measures.
+
+The STAI-6 consists of six items rated from 1 to 4. The items “calm,”
+“relaxed,” and “content” will be reverse-scored. The six item scores
+will then be summed, multiplied by 20, and then divided by 6 to obtain a
+score range from 20 to 80 as the complete STAI scale. Higher scores
+indicate higher state anxiety.
+
+The Menopause Mindset Scale is a six item scale (agree/disagree) I have
+created from my clinical experience. The items 2 and 5 are reversed. The score of the scale would be obtained from the average. The alpha would be evaluated.
+
+After the original measures, participants will complete the new measures in this order: word associations, STAI-6, the expected symptom severity item, and menopause mindsets. For the word association task,  capitalization and obvious spelling errors will not be considered. The most common words will be reported for each condition, along with the percentage of participants who mentioned each word. The comparison will be exploratory.
+
+Linear regression will be used to test whether STAI-6 scores differ by
+condition, controlling for age, education, and social media use.
+
+The expected effect size is about d = 0.35, based on the effect observed
+for the “anxious” item in Phase 1. With 193 participants per group. The
+estimated power to detect this effect is about 80%.
+
+Fixed-sequence testing will be used. The effect of condition on worry
+will be tested first at α = .01. The effect on STAI-6 scores will be
+tested at α = .01 only if the worry test is significant. If not, the
+STAI-6 analysis will be reported as exploratory.
+
+If I combine the results from Phase 1 and Phase 2, I will report this as
+an exploratory analysis.
+
+My new experiment ID will be `osborne2026-extension`.
 
 ## Results
 
@@ -967,48 +1284,124 @@ if (!have_phase2) {
 ```
 
 ```{r}
-#| label: phase2-results
-#| eval: false
-p2_counts <- risky_counts(phase2)
-p2_stats  <- diff_ci(p2_counts)
+#| label: phase2-counts
+#| eval: !expr have_phase2
+# How many people started, completed and were analysed in Phase 2.
 cat(sprintf("Phase 2: %d started, %d completed, %d analysed.\n",
             nrow(phase2$participants), nrow(phase2$complete), nrow(phase2$keep)))
-if (!is.null(p2_stats)) {
-  p_text <- if (p2_stats$p < 0.001) "p < .001" else sprintf("p = %.3f", p2_stats$p)
-  cat(sprintf("Key comparison: %.0f points [%.0f, %.0f], chi-square(1) = %.2f, %s.\n",
-              100 * p2_stats$estimate, 100 * p2_stats$ci_low, 100 * p2_stats$ci_high,
-              p2_stats$statistic, p_text))
+```
+
+```{r}
+#| label: phase2-worry
+#| eval: !expr have_phase2
+# TEST 1 of the fixed sequence: worry, distress vs normal, alpha = .01 (same model as Phase 1).
+res_worry2 <- key_result(phase2)
+if (!is.null(res_worry2)) {
+  res_worry2 |>
+    transmute(N, Beta = round(beta, 3), SE = round(se, 3), z = round(z, 2),
+              `95% CI` = sprintf("[%.2f, %.2f]", ci_low, ci_high),
+              p = format.pval(p, digits = 2, eps = 0.001)) |>
+    knitr::kable(caption = "Phase 2, test 1: effect of distress vs normal posts on worry (ordinal logistic regression).")
+}
+# Is test 1 significant at alpha = .01? This decides whether test 2 (STAI-6) is confirmatory.
+worry_significant <- !is.null(res_worry2) && res_worry2$p < 0.01
+```
+
+```{r}
+#| label: phase2-stai
+#| eval: !expr have_phase2
+# TEST 2 of the fixed sequence: STAI-6 score (20 to 80), distress vs normal, alpha = .01.
+# Linear regression: the score predicted by condition plus the same three controls.
+k2 <- phase2$keep
+ols_stai <- lm(stai_score ~ condition + scale(age) + scale(education_years) + scale(social_media_use),
+               data = k2)
+b    <- coef(summary(ols_stai))["conditiondistress", ]      # estimate, SE, t, p
+ci   <- confint(ols_stai, "conditiondistress", level = 0.99)  # 99% CI to match alpha = .01
+d_st <- b["Estimate"] / sigma(ols_stai)                      # adjusted Cohen's d (same idea as Phase 1)
+tibble(N = nrow(k2),
+       `Difference (points)` = round(unname(b["Estimate"]), 2),
+       SE = round(unname(b["Std. Error"]), 2),
+       `99% CI` = sprintf("[%.2f, %.2f]", ci[1], ci[2]),
+       p = format.pval(unname(b["Pr(>|t|)"]), digits = 2, eps = 0.001),
+       `Cohen's d` = round(unname(d_st), 2)) |>
+  knitr::kable(caption = "Phase 2, test 2: effect of distress vs normal posts on the STAI-6 score.")
+# The fixed-sequence rule: test 2 counts as confirmatory only if test 1 was significant.
+if (worry_significant) {
+  cat("Worry was significant at alpha = .01, so the STAI-6 test is confirmatory (alpha = .01).\n")
+} else {
+  cat("Worry was not significant at alpha = .01, so the STAI-6 analysis is exploratory.\n")
 }
 ```
 
 ```{r}
-#| label: fig-phase2
-#| eval: false
-#| fig-cap: "Percentage choosing the risky program in each frame: original study, Phase 1 replication, and Phase 2 extension. Error bars are 95% confidence intervals."
-#| fig-width: 8
-#| fig-height: 4
-comparison_plot(Original = original,
-                `Phase 1: replication` = if (have_data) risky_counts(phase1),
-                `Phase 2: extension` = risky_counts(phase2))
+#| label: phase2-exploratory
+#| eval: !expr have_phase2
+# EXPLORATORY measures (descriptive only): symptom severity (0-4) and the six mindset items (1-6),
+# mean and SD in each condition.
+k2 |>
+  group_by(condition) |>
+  summarise(n = n(), across(any_of(c("symptom_severity", mindset_items)),
+                            list(m = ~ mean(.x, na.rm = TRUE), s = ~ sd(.x, na.rm = TRUE)))) |>
+  pivot_longer(-c(condition, n), names_to = c("measure", ".value"), names_pattern = "(.*)_(m|s)$") |>
+  mutate(across(c(m, s), ~ round(.x, 2))) |>
+  knitr::kable(col.names = c("Condition", "N", "Measure", "Mean", "SD"),
+               caption = "Phase 2, exploratory: symptom severity and menopause mindsets by condition (descriptive).")
+
+# Mindset score (mean of the six items after reversing statements 2 and 5, 1 to 6): mean and SD by condition.
+k2 |>
+  group_by(condition) |>
+  summarise(N = n(), Mean = round(mean(mindset_score, na.rm = TRUE), 2),
+            SD = round(sd(mindset_score, na.rm = TRUE), 2)) |>
+  knitr::kable(caption = "Phase 2, exploratory: menopause mindset score (1 to 6, higher = more positive) by condition.")
+
+# Reliability of the new scale: Cronbach's alpha (do the six items move together?).
+mindset_items_scored <- k2 |>
+  transmute(opportunity = mindset_opportunity, decline = 7 - mindset_decline,
+            important = mindset_important, enjoyable = mindset_enjoyable,
+            no_future = 7 - mindset_nothing_to_look_forward, manageable = mindset_manageable)
+cat(sprintf("Cronbach's alpha of the mindset score: %.2f\n",
+            psych::alpha(mindset_items_scored, check.keys = FALSE)$total$raw_alpha))
+
+# Word associations: the 10 most common words in each condition, with the percentage of
+# participants who mentioned each one.
+words_by_cond <- parse_task(phase2$trials |> filter(participant_id %in% k2$participant_id),
+                            "word_associations") |>
+  left_join(k2 |> select(participant_id, condition), by = "participant_id") |>
+  pivot_longer(starts_with("word_"), values_to = "word") |>   # one row per word typed
+  mutate(word = str_to_lower(str_trim(word))) |>              # capitalization and extra spaces ignored
+  # (obvious spelling errors must be fixed by hand before this step, e.g. with recode())
+  distinct(participant_id, condition, word) |>                # count each person once per word
+  count(condition, word, sort = TRUE, name = "n_people") |>   # how many people wrote each word
+  left_join(k2 |> count(condition, name = "N"), by = "condition") |>  # people in each condition
+  mutate(Percent = round(100 * n_people / N, 1)) |>           # percentage of participants
+  group_by(condition) |> slice_head(n = 10) |>                # top 10 per condition
+  select(condition, word, n_people, Percent)
+knitr::kable(words_by_cond,
+             caption = "Phase 2, exploratory: most common words by condition, and percentage of participants who mentioned each.")
 ```
 
 ## Discussion
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## Guidance
 
-Compare Phase 2 with Phase 1 and with the original, using the Key statistics table and the figure
-above. Did the precision improve as you expected? For a rescue, did addressing the plausible
-reasons recover the effect? For a scientific extension, what does the new condition show? End
-with what the two phases together say about the original finding.
+Compare Phase 2 with Phase 1 and with the original, using the Key
+statistics table and the figure above. Did the precision improve as you
+expected? For a rescue, did addressing the plausible reasons recover the
+effect? For a scientific extension, what does the new condition show?
+End with what the two phases together say about the original finding.
 :::
 
 # Data and code availability
 
-The experiment code, the anonymized data, and the code that produces every number in this
-report are available at <https://github.com/psych251/osborne2026>. The experiment itself can be
-taken at <https://psych251.github.io/osborne2026/>. The data contain no names, email addresses,
-IP addresses, or Prolific IDs; the file linking participants to their Prolific IDs is kept
-privately for payment and is not shared.
+The experiment code, the anonymized data, and the code that produces
+every number in this report are available at
+<https://github.com/psych251/osborne2026>. The experiment itself can be
+taken at <https://psych251.github.io/osborne2026/>. The data contain no
+names, email addresses, IP addresses, or Prolific IDs; the file linking
+participants to their Prolific IDs is kept privately for payment and is
+not shared.
 
-Before uploading the Pilot B data, I removed two comments with personal health information from trials.csv and export.json, following the course guidelines. I put a short note instead "[removed: personal details]".
+Before uploading the Pilot B data, I removed two comments with personal
+health information from trials.csv and export.json, following the course
+guidelines. I put a short note instead "\[removed: personal details\]".
