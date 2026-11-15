@@ -67,7 +67,18 @@ test_ids <- c("8MgYVkFG23gcMSVBQhpgk7opBjI3-1b8eaae1", "8MgYVkFG23gcMSVBQhpgk7op
               "8MgYVkFG23gcMSVBQhpgk7opBjI3-baa54dcb", "8MgYVkFG23gcMSVBQhpgk7opBjI3-eae8b701",
               # My own test sessions in the full study (osborne2026-phase2)
               "Ms0HelyzP5gm2aaXbAcwqYe2iHE2-436e9cc7", "Ms0HelyzP5gm2aaXbAcwqYe2iHE2-5abf4618",
-              "rgcrNVUw8pQRbfW11vjTKAZUS3K3-a40878d3", "uTDQ7wjm6Zd6GQiHDgMxxkFb4P83-428742fa")
+              "rgcrNVUw8pQRbfW11vjTKAZUS3K3-a40878d3", "uTDQ7wjm6Zd6GQiHDgMxxkFb4P83-428742fa",
+              # Pilot sessions of the Phase 2 extension (osborne2026-extension), 15 November 2026
+              "1RzZo47aRFN3Bo9XkhUfUs1BRzk2-2229847c", "1RzZo47aRFN3Bo9XkhUfUs1BRzk2-df16f372",
+              "8MgYVkFG23gcMSVBQhpgk7opBjI3-236fc70b", "8MgYVkFG23gcMSVBQhpgk7opBjI3-23f2b135",
+              "8MgYVkFG23gcMSVBQhpgk7opBjI3-23f5ca53", "8MgYVkFG23gcMSVBQhpgk7opBjI3-2b8000c4",
+              "8MgYVkFG23gcMSVBQhpgk7opBjI3-3102bd17", "8MgYVkFG23gcMSVBQhpgk7opBjI3-801c4d08",
+              "8MgYVkFG23gcMSVBQhpgk7opBjI3-8d3e83d5", "8MgYVkFG23gcMSVBQhpgk7opBjI3-b519a76d",
+              "Kke9Bm3GneMeWDlXcO0Du404knP2-ef5f88ac", "Ms0HelyzP5gm2aaXbAcwqYe2iHE2-29cdd14d",
+              "Ms0HelyzP5gm2aaXbAcwqYe2iHE2-2afdf778", "Ms0HelyzP5gm2aaXbAcwqYe2iHE2-c0898883",
+              "Ms0HelyzP5gm2aaXbAcwqYe2iHE2-c4c77cf1", "Ms0HelyzP5gm2aaXbAcwqYe2iHE2-e4ad6401",
+              "ZnlXr4aWYRUNXgG3hHpswBgbMD92-d0d6badd", "g3TW2Z6MUdPaAQpPDPT4mlzCdg73-a3003e0d",
+              "g3TW2Z6MUdPaAQpPDPT4mlzCdg73-dfe810e2", "g3TW2Z6MUdPaAQpPDPT4mlzCdg73-f492e7ad")
 
 # PILOT SWITCH. TRUE = Pilot A: the testers did not have to be women over 40, so we only
 # require "completed" and "assigned to normal or distress", and the model is allowed to run
@@ -371,6 +382,8 @@ phase1 <- read_phase(experiment_id, analysis_n)
 phase2 <- read_phase(experiment_id_phase2)
 have_data   <- !is.null(phase1)
 have_phase2 <- !is.null(phase2)
+# TRUE only when Phase 2 has at least min_n analysed participants (the models need enough data).
+have_phase2_ok <- have_phase2 && nrow(phase2$keep) >= min_n
 ```
 
 ```{r}
@@ -791,14 +804,6 @@ I preregistered it.
 
 ### Data preparation
 
-::: {.callout-tip icon="false"}
-## Guidance
-
-Data preparation follows the analysis plan. Loading and exclusions are
-done by the shared analysis code under Key statistics (open "Show the
-analysis code"). Describe anything you did to the data beyond that.
-:::
-
 A total of 266 participants completed the experiment, and 265 met the
 criteria for analysis. I analyzed the first 260 eligible completers (130
 per group), following my preregistered stopping rule.
@@ -879,18 +884,6 @@ if (!is.null(res_all)) {
 
 ### Replication assessment
 
-::: {.callout-tip icon="false"}
-## Guidance
-
-Judge the replication on effect sizes, not only on whether the key test
-is significant. Compare the replication estimate and its interval with
-the original: does the interval exclude zero, and does it include the
-original estimate? A significant result much smaller than the original,
-or a non-significant result whose interval still includes the original
-effect, are both informative and should be reported as such
-(Experimentology §3.2).
-:::
-
 The authors of the original study reported β = 0.910, SE = 0.170, and d
 ≈ 0.44, while my effect was slightly larger, β = 1.245 and d ≈ 0.54.
 
@@ -939,45 +932,6 @@ if (!is.null(rep)) {
 }
 ```
 
-::: {.callout-tip icon="false"}
-## Guidance: show the original next to your replication
-
-**Every report should have a figure that puts the original finding and
-your replication side by side.** It is the single most informative thing
-in a replication report: a reader can see at a glance whether the effect
-came back, and how its size compares. Make it however you can, in
-roughly this order of preference:
-
-1.  **Replot both from numbers.** Enter the original's summary
-    statistics (means or proportions, with SDs, SEs or CIs, and Ns) in
-    the original-study chunk at the top of this file, and plot them on
-    the same axes as yours. That is what the demo figure below does.
-
-2.  **Replot the original from its data**, if the authors shared it or
-    it is in an open repository, using exactly the same plotting code as
-    for your own data.
-
-3.  **Show the original figure as an image** next to yours if neither is
-    possible. Save a screenshot of it, for example as
-    `writeup/images/original-figure.png`, and lay the two out in
-    columns:
-
-    ```` markdown
-    ::: {layout-ncol=2}
-    ![Original: Tversky & Kahneman (1981), Figure 1](images/original-figure.png)
-
-    ```{{r}}
-    # your replication plot here
-    ```
-    :::
-    ````
-
-Whichever you choose, use the same measure, scale, condition order and
-error-bar meaning for both panels, label which is which, and cite the
-source of the original values or figure in the caption. If the original
-reported no variability, say so rather than leaving it out silently.
-:::
-
 ```{r}
 #| label: fig-comparison
 #| eval: !expr have_data
@@ -988,14 +942,6 @@ comparison_plot(Original = original, `Phase 1: replication` = all_results(phase1
 ```
 
 ### Exploratory analyses
-
-::: {.callout-tip icon="false"}
-## Guidance
-
-Any follow-up analyses (optional). Label them clearly as exploratory:
-they were not planned, so they generate hypotheses rather than test
-them.
-:::
 
 There were no additional exploratory analyses at this point.
 
@@ -1030,16 +976,6 @@ if (nrow(errors) > 0) {
 
 ### Summary of replication attempt
 
-::: {.callout-tip icon="false"}
-## Guidance
-
-Open with one paragraph summarizing the result of the key analysis and
-your assessment of whether the original finding replicated, partially
-replicated, or failed to replicate. Base that judgment on the
-replication assessment above: the size of the effect relative to the
-original, not just the p value.
-:::
-
 I consider this a successful replication. I found a significant effect
 in the same direction as the original study, with a slightly larger
 effect size (d = 0.54 vs. d = 0.44), even though my sample was about
@@ -1047,16 +983,6 @@ half the size of the two compared groups in the original study. My
 confidence interval also included the original effect estimate.
 
 ### Commentary
-
-::: {.callout-tip icon="false"}
-## Guidance
-
-Open-ended commentary, none of it long: (a) what the exploratory
-analyses suggest; (b) what the replication means, for example whether
-the differences between your study and the original are definitely,
-plausibly, or unlikely to be moderators of the result; and (c) any
-objections or challenges raised by you or the original authors.
-:::
 
 Two differences may help explain why the worry effect was larger in my
 study. In the original study, 55.8% of participants in the distress
@@ -1067,45 +993,9 @@ original study.
 
 # Phase 2: Extension
 
-::: {.callout-tip icon="false"}
-## Guidance: choosing your extension
-
-Follow the Extension guidelines page on Canvas. In brief:
-
--   **By default the extension is a best-practices modification of your
-    Phase 1 experiment.** If your replication did not succeed, it is a
-    **rescue**: address the plausible reasons for the failure. If it did
-    succeed, it is an **upgrade**: make the estimate more precise.
-    Typical changes are better or more reliable measurement, more
-    trials, a within-participant design where that is legitimate,
-    comprehension and manipulation checks, clearer instructions, or a
-    larger or better-targeted sample.
--   **If your scientific extension pitch was approved at Milestone 3 and
-    your replication succeeded, propose that instead:** the original
-    conditions rerun unchanged, plus the one added condition or
-    manipulation, with a power analysis for the new comparison.
--   On either track you may add exploratory measures **at the end** of
-    the study.
--   Every change is listed and tagged by category below; everything else
-    stays identical.
-
-State your track on the line below, and delete the others.
-:::
-
 **Track:** Best-practices upgrade (metascience)
 
 ## Rationale
-
-::: {.callout-tip icon="false"}
-## Guidance
-
-One or two paragraphs. For a rescue: what are the plausible reasons
-Phase 1 did not reproduce the original result, and how does each change
-address one of them? For an upgrade: where is the Phase 1 estimate least
-precise or least trustworthy, and how will the changes improve it? For a
-scientific extension: what question does the added condition answer, and
-why does it follow from the original finding?
-:::
 
 Although my replication was successful, I think I can improve the
 precision of my results. In Phase 1, the worry variable was assessed by
@@ -1115,17 +1005,6 @@ For Phase 2, I want to increase the sample and add some measures to make
 the worry measurement more robust.
 
 ## Changes from Phase 1
-
-::: {.callout-tip icon="false"}
-## Guidance
-
-Every change from the Phase 1 experiment, one per row, each tagged with
-a category: Measurement, Trials, Design, Checks, Instructions, Sample,
-Added condition (scientific track only), or Exploratory measure (end of
-study only). If it is not in this table, it does not change: same
-materials, wording, procedure, exclusion rule and analysis. The rows
-below are examples for the demo; replace them with yours.
-:::
 
 I want to add the STAI-6, expected symptom severity (“How severe do you
 expect your menopause symptoms to be over the next four weeks?”), a
@@ -1137,7 +1016,7 @@ I will keep the original procedure from phase 1 the same. The new measures will 
 |------------------|------------------|------------------|------------------|
 | Sample | 260 participants (130 per group) | About 386 participants (193 per group) | I want a larger sample to get a more precise estimate and reduce my standard error. |
 | Instructions | The survey takes about 6 minutes. | The survey takes about 10 minutes. | The new questions and the word association task add time to the survey. |
-| Primary measure | None | STAI-6, as a primary measure along with worry | There is no well-validated scale for menopause-related worry, so I'll use the STAI-6 to make the measurement more robust. |
+| Measurement | None | STAI-6, as a primary measure along with worry | There is no well-validated scale for menopause-related worry, so I'll use the STAI-6 to make the measurement more robust. |
 | Exploratory measure | None | Expected symptom severity | I want to see if the posts change how severe women expect their menopause symptoms to be. |
 | Exploratory measure | None | Word associations (first three words about menopause) | I want to see if the words that come to women's minds differ between conditions. |
 | Exploratory measure | None | Menopause mindsets (6 items rated from 1 = strongly disagree to 6 = strongly agree) | I want to see if women’s beliefs about menopause differ between the two groups after reading the posts. |
@@ -1145,19 +1024,6 @@ I will keep the original procedure from phase 1 the same. The new measures will 
 Everything not listed above is identical to Phase 1.
 
 ## Power and sample
-
-::: {.callout-tip icon="false"}
-## Guidance
-
-Justify the Phase 2 sample, and **state how you expect the estimate and
-its precision to compare with Phase 1**. For an upgrade, plan the sample
-around the confidence interval you want; for a rescue, around the power
-to detect the original effect, or the smallest effect you would still
-consider a successful replication; for a scientific extension, around
-the power to detect the new comparison. Set `phase2_n_per_group` in the
-code below; the table uses Phase 1's estimate if you have it and the
-original's otherwise.
-:::
 
 For Phase 2, I plan to recruit around 193 participants per group, for a
 total of approximately 386 participants.
@@ -1212,31 +1078,13 @@ tibble(
 
 ## Analysis plan
 
-::: {.callout-tip icon="false"}
-## Guidance
-
-The confirmatory analysis for Phase 2, written before Phase 2 data
-collection. On the best-practices tracks this is normally the same key
-test as Phase 1, run on the Phase 2 data alone; say whether you will
-also report a pooled estimate across phases, and label it exploratory if
-so. On the scientific track, specify the test for the new comparison.
-Name the exclusion rule (unchanged unless it is in the Changes table)
-and list any exploratory measures.
-
-Run Phase 2 under a new `EXPERIMENT.id` in `experiment.js` (for example
-`smith2016-phase2`) and set `experiment_id_phase2` at the top of this
-file to match, so the two phases' data never mix.
-:::
-
 I will use the same main analysis as in Phase 1: ordinal logistic
 regression predicting worry from the experimental condition, controlling
 for age, education, and social media use.
 
 I will use the same exclusion criteria as in Phase 1.
 
-I will also analyze STAI-6 as an additional primary measure, an expected
-symptom severity question, a menopasue mindset scale and word
-associations (word cloud) as exploratory measures.
+I will also analyze STAI-6 as an additional primary measure.  An expected symptom severity question, a menopause mindset scale and word associations (word cloud) will be included as exploratory measures.
 
 The STAI-6 consists of six items rated from 1 to 4. The items “calm,”
 “relaxed,” and “content” will be reverse-scored. The six item scores
@@ -1253,8 +1101,7 @@ Linear regression will be used to test whether STAI-6 scores differ by
 condition, controlling for age, education, and social media use.
 
 The expected effect size is about d = 0.35, based on the effect observed
-for the “anxious” item in Phase 1. With 193 participants per group. The
-estimated power to detect this effect is about 80%.
+for the “anxious” item in Phase 1. With 193 participants per group, the estimated power to detect this effect is about 80% considering α = .01.
 
 Fixed-sequence testing will be used. The effect of condition on worry
 will be tested first at α = .01. The effect on STAI-6 scores will be
@@ -1309,7 +1156,7 @@ worry_significant <- !is.null(res_worry2) && res_worry2$p < 0.01
 
 ```{r}
 #| label: phase2-stai
-#| eval: !expr have_phase2
+#| eval: !expr have_phase2_ok
 # TEST 2 of the fixed sequence: STAI-6 score (20 to 80), distress vs normal, alpha = .01.
 # Linear regression: the score predicted by condition plus the same three controls.
 k2 <- phase2$keep
@@ -1335,7 +1182,7 @@ if (worry_significant) {
 
 ```{r}
 #| label: phase2-exploratory
-#| eval: !expr have_phase2
+#| eval: !expr have_phase2_ok
 # EXPLORATORY measures (descriptive only): symptom severity (0-4) and the six mindset items (1-6),
 # mean and SD in each condition.
 k2 |>
@@ -1381,16 +1228,6 @@ knitr::kable(words_by_cond,
 ```
 
 ## Discussion
-
-::: {.callout-tip icon="false"}
-## Guidance
-
-Compare Phase 2 with Phase 1 and with the original, using the Key
-statistics table and the figure above. Did the precision improve as you
-expected? For a rescue, did addressing the plausible reasons recover the
-effect? For a scientific extension, what does the new condition show?
-End with what the two phases together say about the original finding.
-:::
 
 # Data and code availability
 
