@@ -164,6 +164,8 @@ also helped me add a filter in the experiment code using the age and
 menopause questions that were already there. With this filter,
 participants who did not meet the criteria could not continue the study.
 
+In Phase 2, I used Claude to add the new pages for the STAI-6, the word association task, the questions about expected symptoms, and the menopause mindset items. I also used it to write an automated test and to help with the Phase 2 analysis code.
+
 # Key statistics
 
 One row per study for the key comparison: the original, your Phase 1
