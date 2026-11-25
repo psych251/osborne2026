@@ -300,6 +300,7 @@ read_phase <- function(id, max_n = Inf) {
 
   list(participants = participants, trials = trials, errors = errors,
        complete = complete, dat = dat, keep = keep, n_passed = n_passed, passed = passed,
+       refused_ids = refused,
        n_refused = sum(participants$participant_id %in% refused),
        n_not_menopausal = sum(dat$menopause_stage %in% "not"))
 }
@@ -1176,6 +1177,39 @@ if (!have_phase2) {
 # How many people started, completed and were analysed in Phase 2.
 cat(sprintf("Phase 2: %d started, %d completed, %d analysed.\n",
             nrow(phase2$participants), nrow(phase2$complete), nrow(phase2$keep)))
+
+# The same numbers by group, as written in the Analysis plan: how many people were assigned to
+# each group, were not eligible, did not finish after passing the eligibility questions, finished,
+# and were included in the analysis. Each person is counted once, in the first step that applies:
+# screened out in the study, then declined consent, then finished, and the rest did not finish.
+has_screen <- "screened_out" %in% names(phase2$participants)
+p2_part <- phase2$participants |>
+  mutate(condition = factor(condition, levels = c("normal", "distress")),
+         screened  = if (has_screen) screened_out %in% TRUE else FALSE,
+         declined  = !screened & participant_id %in% phase2$refused_ids,
+         finished  = participant_id %in% phase2$complete$participant_id) |>
+  filter(!is.na(condition))
+
+p2_by_group <- p2_part |>
+  group_by(condition, .drop = FALSE) |>
+  summarise(`Assigned` = n(),
+            `Declined consent` = sum(declined),
+            `Not eligible (screened out)` = sum(screened),
+            `Did not finish after passing the eligibility questions` =
+              sum(!screened & !declined & !finished),
+            `Finished` = sum(finished),
+            .groups = "drop")
+
+# People included in the analysis, by group (phase2$keep is the final analysed sample).
+p2_included <- phase2$keep |> count(condition, .drop = FALSE, name = "Included in the analysis")
+
+p2_by_group |>
+  left_join(p2_included, by = "condition") |>
+  pivot_longer(-condition, names_to = "Step", values_to = "n") |>
+  mutate(Step = factor(Step, levels = unique(Step))) |>
+  pivot_wider(names_from = condition, values_from = n, values_fill = 0) |>
+  mutate(Total = normal + distress) |>
+  knitr::kable(caption = "Phase 2: participants at each step, by group.")
 ```
 
 ```{r}
