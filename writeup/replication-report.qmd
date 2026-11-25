@@ -660,7 +660,7 @@ bind_rows(
   pivot_wider(names_from = condition, values_from = n, values_fill = 0) |>
   mutate(Total = rowSums(across(-step))) |>
   rename(Step = step) |>
-  knitr::kable(caption = "Participants at each step, by frame. Differences between frames in attrition or exclusion are a threat to validity and should be discussed.")
+  knitr::kable(caption = "Participants at each step, by condition.")
 ```
 
 ```{r}
@@ -925,7 +925,7 @@ if (!is.null(rep)) {
     if (excludes_zero) "excludes" else "includes",
     if (includes_orig) "includes" else "does not include",
     orig$beta))
-  cat("These two facts are the starting point for the summary in the Discussion, not the conclusion.\n")
+  cat("\n")
 }
 ```
 
