@@ -139,7 +139,7 @@ original_key <- original |> filter(outcome == "worried")
     Behavioral Responses to Menopause Content: Randomized Online
     Experimental Study. *JMIR Formative Research, 10*, e85788.
     <https://doi.org/10.2196/85788>
--   **Preregistration:** [OSF registration](https://osf.io/f85c9)
+-   **Preregistration:** Phase 1: [OSF registration](https://osf.io/f85c9). Phase 2: [OSF registration](https://osf.io/wkhnc)
     *(registered 2026-10-27, before final data collection)*
 -   **Live experiment:** <https://psych251.github.io/osborne2026/> (take
     the study exactly as participants did)
