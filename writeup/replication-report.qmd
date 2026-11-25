@@ -139,8 +139,10 @@ original_key <- original |> filter(outcome == "worried")
     Behavioral Responses to Menopause Content: Randomized Online
     Experimental Study. *JMIR Formative Research, 10*, e85788.
     <https://doi.org/10.2196/85788>
--   **Preregistration:** Phase 1: [OSF registration](https://osf.io/f85c9). Phase 2: [OSF registration](https://osf.io/wkhnc)
-    *(registered 2026-10-27, before final data collection)*
+-   **Preregistration:** Phase 1: [OSF registration](https://osf.io/f85c9)
+    *(registered 2026-10-27, before final data collection)*. Phase 2:
+    [OSF registration](https://osf.io/wkhnc) *(registered 2026-11-24,
+    before data collection)*.
 -   **Live experiment:** <https://psych251.github.io/osborne2026/> (take
     the study exactly as participants did)
 -   **Repository:** <https://github.com/psych251/osborne2026>
@@ -168,7 +170,7 @@ participants who did not meet the criteria could not continue the study.
 
 In Phase 2, I used Claude to add the new pages for the STAI-6, the word association task, the questions about expected symptoms, and the menopause mindset items. I also used it to write an automated test and to help with the Phase 2 analysis code.
 
-Claude helped draft the prompt for the spelling check. Claude Sonnet 5.5 will be used once to suggest spelling corrections from a list of unique responses. The list will have no participant IDs or group labels. Andrea Morales Leal will check the suggestions before they are used. AFINN will be used to score the responses.
+Claude helped draft the prompt for the spelling check. Claude Sonnet 5.5 will be used once to suggest spelling corrections from a list of unique responses. The list will have no participant IDs or group labels. I will check the suggestions before they are used. AFINN will be used to score the responses.
 
 # Key statistics
 
