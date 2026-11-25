@@ -1,7 +1,7 @@
 ---
 title: "Replication of Osborne et al. (2026, *JMIR Formative Research*)"
 author: "Andrea Morales Leal andreaml@stanford.edu"
-date: November 8, 2026
+date: November 24, 2026
 date-format: long
 format:
   html:
@@ -90,6 +90,8 @@ min_n      <- if (pilot_mode) 8 else 20
 # exclusion rule. The last batch of Prolific places overshot, so more than 260 passed. I analyse
 # the FIRST 260 who passed, ordered by start time (see read_phase). In pilot mode there is no limit.
 analysis_n <- if (pilot_mode) Inf else 260
+# Phase 2 stopping rule: the first 386 people who pass the exclusion rule, ordered by start time.
+analysis_n2 <- if (pilot_mode) Inf else 386
 # In pilot mode the model has no control variables (see fit_outcome), so the caption says so.
 model_note <- if (pilot_mode) "no control variables in the pilot model" else
   "controlling for age, education and social media use"
@@ -166,22 +168,13 @@ participants who did not meet the criteria could not continue the study.
 
 In Phase 2, I used Claude to add the new pages for the STAI-6, the word association task, the questions about expected symptoms, and the menopause mindset items. I also used it to write an automated test and to help with the Phase 2 analysis code.
 
-# Key statistics
+Claude helped draft the prompt for the spelling check. Claude Sonnet 5.5 will be used once to suggest spelling corrections from a list of unique responses. The list will have no participant IDs or group labels. Andrea Morales Leal will check the suggestions before they are used. AFINN will be used to score the responses.
 
-One row per study for the key comparison: the original, your Phase 1
-replication, and your Phase 2 extension. The table fills itself in from
-the data as each phase is exported, using the analysis code below (open
-"Show the analysis code"), which is shared by both phases so they are
-analysed identically. Edit that code once, here, to match your design
-and preregistered exclusion rule. On the scientific-extension track, the
-Phase 2 row reports the new comparison: adapt its code and say so in the
-caption.
+# Key statistics
 
 ```{r}
 #| label: analysis-functions
 #| code-summary: "Show the analysis code (shared by Phase 1 and Phase 2)"
-
-# ---- shared analysis code (goes in the analysis-functions chunk) ----
 
 # Turn one survey page's answers into columns. jsPsych saves each page's answers as one JSON
 # string, for example {"worried":2,"reassured":1,...}. This unpacks that string for one task.
@@ -381,7 +374,7 @@ comparison_plot <- function(...) {
 }
 
 phase1 <- read_phase(experiment_id, analysis_n)
-phase2 <- read_phase(experiment_id_phase2)
+phase2 <- read_phase(experiment_id_phase2, analysis_n2)
 have_data   <- !is.null(phase1)
 have_phase2 <- !is.null(phase2)
 # TRUE only when Phase 2 has at least min_n analysed participants (the models need enough data).
@@ -1010,7 +1003,7 @@ the worry measurement more robust.
 
 I want to add the STAI-6, expected symptom severity (“How severe do you
 expect your menopause symptoms to be over the next four weeks?”), a
-menopause word cloud (the first 3 words that come to mind), and a six-item measure of menopause mindsets.
+menopause word association task (the first 3 words that come to mind), and a six-item measure of menopause mindsets.
 
 I will keep the original procedure from phase 1 the same. The new measures will be added at the end of the survey.
 
@@ -1086,7 +1079,11 @@ for age, education, and social media use.
 
 I will use the same exclusion criteria as in Phase 1.
 
-I will also analyze STAI-6 as an additional primary measure.  An expected symptom severity question, a menopause mindset scale and word associations (word cloud) will be included as exploratory measures.
+Participants will be included if they finish the study and pass the same criteria as in Phase 1. Recruitment will stop at 386 participants who meet these criteria. About 193 are expected in each group. If more than 386 qualify, the first 386 by start time will be analyzed.
+
+Participants are assigned to a group before they answer the eligibility questions. For each group, a table will show how many were assigned, were not eligible, did not finish after passing the eligibility questions, finished, and were included in the analysis.
+
+I will also analyze STAI-6 as an additional primary measure.  An expected symptom severity question, a menopause mindset scale and word associations will be included as exploratory measures.
 
 The STAI-6 consists of six items rated from 1 to 4. The items “calm,”
 “relaxed,” and “content” will be reverse-scored. The six item scores
@@ -1094,16 +1091,55 @@ will then be summed, multiplied by 20, and then divided by 6 to obtain a
 score range from 20 to 80 as the complete STAI scale. Higher scores
 indicate higher state anxiety.
 
+The STAI-6 comes after all of the study’s original questions. Because it comes later, the effect may be smaller than d = 0.35. With 193 participants per group, the study has about 80% power to detect an effect of d = 0.35 with a two-sided test at α = .01. If the result is not significant, a smaller effect is still possible.
+
 The Menopause Mindset Scale is a six item scale (agree/disagree) I have
 created from my clinical experience. The items 2 and 5 are reversed. The score of the scale would be obtained from the average. The alpha would be evaluated.
 
-After the original measures, participants will complete the new measures in this order: STAI-6, word associations, the expected symptom severity item, and menopause mindsets. For the word association task,  capitalization and obvious spelling errors will not be considered. The most common words will be reported for each condition, along with the percentage of participants who mentioned each word. The comparison will be exploratory.
+The instruction in the survey is “Please indicate how much you agree or disagree with each statement about menopause.”
+
+1. Menopause is an opportunity to grow and to continue building my life.
+2. Menopause marks an overall decline in the life of a woman.
+3. Achieving menopause is a peak experience in a woman’s life.
+4. Even though there are obstacles, menopause is an enjoyable stage of life.
+5. When a woman reaches menopause, she has little left to look forward to in life.
+6. Menopause symptoms are manageable, and I can treat them to live well.
+
+The same answers are used for all six items. Strongly disagree (1), Disagree (2), Somewhat disagree (3), Somewhat agree (4), Agree (5), and Strongly agree (6).
+
+The survey saves the answers as numbers from 0 to 5. One point will be added to each number. Then items 2 and 5 will be scored as 7 minus the new number. The final score will be the average of the six items. It goes from 1 to 6. A higher score means a more positive view of menopause.
+
+Cronbach’s alpha will be reported for the six items. The results for each item will also be shown separately. This will help show how participants answered each item if alpha is low.
+
+After the original measures, participants will complete the new measures in this order: STAI-6, word associations, the expected symptom severity item, and menopause mindsets. The most common words will be reported for each condition, along with the percentage of participants who mentioned each word. The comparison will be exploratory.
+
+**Word association task**
+
+Responses will be changed to lowercase automatically. Claude Sonnet 5.5 will be used once to suggest spelling corrections, before the two groups are compared. The model will get a list of all the word association responses in alphabetical order. Each response will appear only once. The model will only return responses that seem to have spelling mistakes, with a suggested correction for each one. The list will have no participant IDs or group labels.
+
+I will check the suggested changes without seeing the group labels. Only clear spelling corrections will be changed. The same correction will be used every time the same response appears. The exact prompt, model name, date of the run, and final table of original and corrected responses will be saved in the repository and on OSF.
+
+After the spelling check, each response will be searched in AFINN. If a single word is not found, its base form will be searched. For example, if “flashes” is not found, “flash” will be searched. A response like “hot flashes” will be searched as one phrase. If the phrase is not found, it will get no score. The versions of AFINN, R, and the R packages used for scoring will be recorded. The number of participants with a score will be reported for each group.
+
+Exact prompt:
+
+> Check these responses for clear spelling mistakes in English. Each line is one response. If there is a clear spelling mistake, fix only the spelling. If the intended word is unclear, keep the response as it is. Keep phrases together. Do not add or remove words, replace a word with a synonym, or change a word to its base form. Both British and American spellings are accepted. Do not change a correct British spelling to American spelling, or the other way around. Return a table with two columns, `original_response` and `corrected_response`. Include only the responses that were changed. Copy the original response exactly in the first column.
+
+**Exploratory outcomes**
+
+* Expected symptom severity. I expect participants who see the distress-focused posts to expect more severe menopause symptoms over the next four weeks. I will use ordinal logistic regression for this item, with group as the predictor.
+* Menopause mindsets. I expect participants who see the distress-focused posts to have less positive mindsets about menopause. I will reverse-score items 2 and 5 and average all six items for each participant. Higher scores mean a more positive mindset. I will compare the group means with a Welch t-test.
+* Word associations. I expect participants who see the distress-focused posts to use more negative words to describe menopause. I will put the words in lowercase and remove extra spaces. I will look up each of the three words in AFINN (via the tidytext package in R) as the participant wrote it after the spelling check. If a word is not in AFINN, I will look up its base form instead (for example, "flash" for "flashes"). I will average the scores of the words that match. If none match, the participant's score will be missing for this analysis. I will report how many words matched in each group and compare the group means with a Welch t-test.
+
+All three analyses are exploratory. I will report the odds ratio for expected symptom severity and the mean differences for mindsets and word valence, all with 95% confidence intervals. I will report unadjusted p-values and interpret the results as exploratory. If I also test individual words, I will use the Holm correction across those tests, among words given by at least 5% of participants.
 
 Linear regression will be used to test whether STAI-6 scores differ by
 condition, controlling for age, education, and social media use.
 
 The expected effect size is about d = 0.35, based on the effect observed
 for the “anxious” item in Phase 1. With 193 participants per group, the estimated power to detect this effect is about 80% considering α = .01.
+
+The effect on worry is expected to go in the same direction and be about the same size as in Phase 1. The standard error is expected to be smaller, about 0.20, because Phase 2 has more participants.
 
 Fixed-sequence testing will be used. The effect of condition on worry
 will be tested first at α = .01. The effect on STAI-6 scores will be
@@ -1153,7 +1189,8 @@ if (!is.null(res_worry2)) {
     knitr::kable(caption = "Phase 2, test 1: effect of distress vs normal posts on worry (ordinal logistic regression).")
 }
 # Is test 1 significant at alpha = .01? This decides whether test 2 (STAI-6) is confirmatory.
-worry_significant <- !is.null(res_worry2) && res_worry2$p < 0.01
+# The gate needs both: p < .01 AND the effect in the expected direction (beta > 0 = distress worried more).
+worry_significant <- !is.null(res_worry2) && res_worry2$p < 0.01 && res_worry2$beta > 0
 ```
 
 ```{r}
@@ -1211,15 +1248,50 @@ mindset_items_scored <- k2 |>
 cat(sprintf("Cronbach's alpha of the mindset score: %.2f\n",
             psych::alpha(mindset_items_scored, check.keys = FALSE)$total$raw_alpha))
 
-# Word associations: the 10 most common words in each condition, with the percentage of
-# participants who mentioned each one.
-words_by_cond <- parse_task(phase2$trials |> filter(participant_id %in% k2$participant_id),
-                            "word_associations") |>
+# ---- Exploratory test 1: expected symptom severity (ordinal logistic regression, group only) ----
+# polr() fits the proportional-odds model; exp(beta) is the odds ratio for distress vs normal.
+sev <- k2 |> select(symptom_severity, condition) |> drop_na() |>
+  mutate(symptom_severity = factor(symptom_severity, ordered = TRUE), condition = droplevels(condition))
+if (nrow(sev) >= 2 && nlevels(sev$condition) == 2 && nlevels(sev$symptom_severity) >= 2) {
+  m_sev <- MASS::polr(symptom_severity ~ condition, data = sev, Hess = TRUE)
+  b_sev <- coef(summary(m_sev))["conditiondistress", ]
+  tibble(N = nrow(sev),
+         `Odds ratio` = round(exp(b_sev["Value"]), 2),
+         `95% CI` = sprintf("[%.2f, %.2f]", exp(b_sev["Value"] - 1.96 * b_sev["Std. Error"]),
+                                             exp(b_sev["Value"] + 1.96 * b_sev["Std. Error"])),
+         p = format.pval(2 * pnorm(-abs(b_sev["t value"])), digits = 2, eps = 0.001)) |>
+    knitr::kable(caption = "Phase 2, exploratory: expected symptom severity, distress vs normal (ordinal logistic regression, unadjusted).")
+}
+
+# ---- Exploratory test 2: mindset score, Welch t-test ----
+# t.test() uses the Welch version by default (var.equal = FALSE).
+# The difference is computed as distress minus normal, with its 95% CI.
+welch_row <- function(x_distress, x_normal, label) {
+  tt <- t.test(x_distress, x_normal)                  # Welch: first group minus second group
+  tibble(Outcome = label,
+         `Mean distress` = round(mean(x_distress, na.rm = TRUE), 2),
+         `Mean normal`   = round(mean(x_normal, na.rm = TRUE), 2),
+         `N distress` = sum(!is.na(x_distress)), `N normal` = sum(!is.na(x_normal)),   # people with a score
+         Difference = round(unname(tt$estimate[1] - tt$estimate[2]), 2),
+         `95% CI` = sprintf("[%.2f, %.2f]", tt$conf.int[1], tt$conf.int[2]),
+         p = format.pval(tt$p.value, digits = 2, eps = 0.001))
+}
+mind_tab <- welch_row(k2$mindset_score[k2$condition == "distress"],
+                      k2$mindset_score[k2$condition == "normal"], "Mindset score (1 to 6)")
+
+# ---- Word associations: clean the words, then top 10 per condition ----
+# Cleaning: lowercase, trim spaces, base form (lemma). Obvious spelling errors must be fixed
+# by hand before this step (for example with recode()).
+words_clean <- parse_task(phase2$trials |> filter(participant_id %in% k2$participant_id),
+                          "word_associations") |>
   left_join(k2 |> select(participant_id, condition), by = "participant_id") |>
   pivot_longer(starts_with("word_"), values_to = "word") |>   # one row per word typed
-  mutate(word = str_to_lower(str_trim(word))) |>              # capitalization and extra spaces ignored
-  # (obvious spelling errors must be fixed by hand before this step, e.g. with recode())
-  distinct(participant_id, condition, word) |>                # count each person once per word
+  mutate(typed = str_to_lower(str_trim(word)),                # word as typed: lowercase, no extra spaces
+         word  = textstem::lemmatize_words(typed)) |>         # base form: "flashes" becomes "flash"
+  filter(!is.na(word), word != "") |>
+  distinct(participant_id, condition, word, .keep_all = TRUE) # count each person once per word
+
+words_by_cond <- words_clean |>
   count(condition, word, sort = TRUE, name = "n_people") |>   # how many people wrote each word
   left_join(k2 |> count(condition, name = "N"), by = "condition") |>  # people in each condition
   mutate(Percent = round(100 * n_people / N, 1)) |>           # percentage of participants
@@ -1227,6 +1299,54 @@ words_by_cond <- parse_task(phase2$trials |> filter(participant_id %in% k2$parti
   select(condition, word, n_people, Percent)
 knitr::kable(words_by_cond,
              caption = "Phase 2, exploratory: most common words by condition, and percentage of participants who mentioned each.")
+
+# ---- Exploratory test 3: word valence with the AFINN dictionary (via tidytext) ----
+# AFINN gives each English word a score from -5 (negative) to +5 (positive).
+# The first time, R may ask to download it (package textdata): answer 1 / yes.
+afinn <- tidytext::get_sentiments("afinn")
+# Look up the word as typed first ("tired" is in AFINN, its base form "tire" is not);
+# if that word is not in AFINN, look up its base form. coalesce() takes the first non-missing value.
+word_scores <- words_clean |>
+  left_join(afinn |> rename(value_typed = value), by = c("typed" = "word")) |>
+  left_join(afinn |> rename(value_base  = value), by = "word") |>
+  mutate(value = coalesce(value_typed, value_base))           # value = NA when neither is in AFINN
+# Report how many words matched in each group.
+word_scores |>
+  group_by(condition) |>
+  summarise(`Words` = n(), `Matched in AFINN` = sum(!is.na(value)),
+            `% matched` = round(100 * mean(!is.na(value)), 1)) |>
+  knitr::kable(caption = "Phase 2, exploratory: words matched in AFINN, by condition.")
+# One score per participant: the mean of the matched words (missing if none matched).
+valence <- word_scores |>
+  filter(!is.na(value)) |>
+  group_by(participant_id, condition) |>
+  summarise(valence = mean(value), .groups = "drop")
+# How many people received a valence score (at least one matched word), per condition.
+k2 |> count(condition, name = "People") |>
+  left_join(valence |> count(condition, name = "Scored"), by = "condition") |>
+  mutate(Scored = coalesce(Scored, 0L), `% scored` = round(100 * Scored / People, 1)) |>
+  knitr::kable(caption = "Phase 2, exploratory: participants who received a word-valence score, by condition.")
+val_tab <- welch_row(valence$valence[valence$condition == "distress"],
+                     valence$valence[valence$condition == "normal"], "Word valence (AFINN, -5 to +5)")
+
+bind_rows(mind_tab, val_tab) |>
+  knitr::kable(caption = "Phase 2, exploratory: group means, differences (distress minus normal), 95% CIs and unadjusted p-values (Welch t-tests).")
+
+# ---- Optional: individual words said by at least 5% of participants, Holm-corrected ----
+# Only run if you decide to test single words. Fisher's exact test per word, then Holm across them.
+n_by_cond <- k2 |> count(condition, name = "N")
+freq_words <- words_clean |> count(word) |> filter(n >= 0.05 * nrow(k2)) |> pull(word)
+if (length(freq_words) > 0) {                 # only run if at least one word reaches 5% of participants
+  word_tests <- map_dfr(freq_words, function(w) {
+    said <- words_clean |> filter(word == w) |> count(condition, name = "yes")
+    tab <- n_by_cond |> left_join(said, by = "condition") |> mutate(yes = coalesce(yes, 0L), no = N - yes)
+    tibble(word = w, p = fisher.test(as.matrix(tab[, c("yes", "no")]))$p.value)
+  }) |> mutate(p_holm = p.adjust(p, method = "holm"))
+  knitr::kable(word_tests |> mutate(across(c(p, p_holm), ~ format.pval(.x, digits = 2, eps = 0.001))),
+               caption = "Phase 2, exploratory: individual words (at least 5% of participants), Fisher's exact test with Holm correction.")
+} else {
+  cat("No word was given by at least 5% of participants, so no single-word tests were run.\n")
+}
 ```
 
 ## Discussion

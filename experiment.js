@@ -496,7 +496,7 @@ if (USE_EMULATOR && URL_PARAMS.get("cc")) EXPERIMENT.prolific_completion_code = 
     questions: likertQuestions([
       ["mindset_opportunity", "Menopause is an opportunity to grow and to continue building my life."],
       ["mindset_decline", "Menopause marks an overall decline in the life of a woman."],
-      ["mindset_important", "Menopause is the most important stage of life for a woman."],
+      ["mindset_important", "Achieving menopause is a peak experience in a woman’s life."],
       ["mindset_enjoyable", "Even though there are obstacles, menopause is an enjoyable stage of life."],
       ["mindset_nothing_to_look_forward", "When a woman reaches menopause, she has little left to look forward to in life."],
       ["mindset_manageable", "Menopause symptoms are manageable, and I can treat them to live well."],
